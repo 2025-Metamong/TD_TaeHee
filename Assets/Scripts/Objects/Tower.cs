@@ -7,19 +7,19 @@ namespace MyGame.Objects
 {
     public class Tower : MonoBehaviour
     {
-        // Represents a tower that also serves as a bullet generation invoker.
+        // Represents a tower that also serves as a bullet generator.
         [Header("Tower Stats")]   // 타워 정보 inspector에 표기하기 위한 용도.
-        [SerializeField] private int cost;      // 타워 설치 비용
-        [SerializeField] private Transform position;      // 타워 위치.
-        [SerializeField] private float range;    // 타워 사정 거리리
-        [SerializeField] private float attackPeriod; // 공격 주기. 주기보다 빈도용으로 사용중 attackRate로 바꾸는 건 어떨지?
-        [SerializeField] private int upgradeLevel; // 타워 레벨
-        [SerializeField] private int upgradeCost;  // 업그레이드 비용
-        //[SerializeField] private singleBullet bullet;  // 탄환 컨트롤 및 생성용 스크립트
-        [SerializeField] private GameObject bullet;  // 탄환 컨트롤 및 생성용 스크립트
+        [SerializeField, Tooltip("설치 비용")] private int cost;
+        [SerializeField, Tooltip("설치 위치")] private Transform position;
+        [SerializeField, Tooltip("사거리")] private float range;
+        [SerializeField, Tooltip("공격 빈도")] private float attackPeriod; 
+        [SerializeField, Tooltip("레벨")] private int upgradeLevel;
+        [SerializeField, Tooltip("업그레이드 비용")] private int upgradeCost;
+        //[SerializeField] private singleBullet bullet;  
+        [SerializeField, Tooltip("탄환 Prefab")] private GameObject bullet;
+
         private float attack = 0f;  // 공격 결정용 flag. 주기가 되면 1, 아니면 0
         private Transform target;   // 타워가 공격해야 할 몬스터의 transform 컴포넌트. 
-                                    // 왜 몬스터가 아니라 이걸 저장하는지는 아래 FindTarget()에서 설명
 
         void Start()
         {
@@ -41,8 +41,8 @@ namespace MyGame.Objects
             Case 2. 타겟을 못 찾은 경우 : 아무것도 안하고 종료
                 0. 탄환을 발사해야할 경우(공격 주기)에만 타겟을 찾을 것이다. ( 연산 수 줄이기 )
                 1. 타워에서 가장 가까운 사거리 내 몬스터를 찾는다.
-                2. bullet.setDirection(this);   를 호출한다.
-                3. 다음 공격 주기까지 대기기
+                2. 탄환 Prefab 인스턴스화 시킨 후 bullet.SetDirection(this); 를 호출한다.
+                3. 다음 공격 주기까지 대기
             */
 
             this.attack += this.attackPeriod * Time.deltaTime;   // attack 플래그에 주기 누적시키기.
@@ -56,7 +56,7 @@ namespace MyGame.Objects
                     // Case 1. 타겟을 찾은 경우
                     GameObject bullt_object = Instantiate(bullet, transform.position, Quaternion.identity);
                     bullt_object.GetComponent<singleBullet>().SetDirection(this.transform, target); // bullet 이 알아서 발사 될 것.
-                                                // 몬스터를 보도록 타워를 회전 시킬지 고민중.
+                    // 몬스터를 보도록 타워를 회전 시킬지 고민중.
                 }
                 else
                 {
@@ -116,11 +116,10 @@ namespace MyGame.Objects
             // 몬스터 배열 크기 만큼 검사. ( 거리 단위로 정렬이 안 되어 있을테니. )
             for (int i = 0; i < monsterList.Count; i++)
             {
-                // 거리 구하기. Vector3 내장 함수 Distance 사용. 몬스터의 위치는 GetPosition으로 불러올 수 없음. 
-                // MonsterManager에서 리턴하는 리스트의 타입이 Monster가 아니라 GameObject 타입인데, GameObject는 GetPosition 함수가 없다.
+                // 거리 구하기. Vector3 내장 함수 Distance 사용. 
                 // monsterList[i].GetComponent<Monster>().GetPosition() 을 사용하면 될 것 같은데 귀찮아서..
-                // float distance = UnityEngine.Vector3.Distance(this.transform.position, monsterList[i].GetPosition());
-                float distance = UnityEngine.Vector3.Distance(this.transform.position, monsterList[i].transform.position);
+                // float distance = Vector3.Distance(this.transform.position, monsterList[i].GetPosition());
+                float distance = Vector3.Distance(this.transform.position, monsterList[i].transform.position);
                 // 사정거리 안에 몬스터가 있는 경우에만 가장 가까운 거리보다 더 가까운지 계산. 더 가까우면 update
                 if (distance <= this.range && distance < minDistance)
                 {
@@ -136,9 +135,6 @@ namespace MyGame.Objects
             }
             //Debug.Log("사정거리 내 몬스터가 있습니다.");
             return monsterList[minIndex].transform; // Case 3. 가장 가까운 몬스터의 Transform 컴포넌트 리턴.
-                                                    // 왜 transform을 리턴했는가? 
-                                                    //      몬스터의 현재 위치 좌표를 리턴하면 bullet에서 타겟 지정해서 발사하기까지 시간동안 실제 몬스터가 이동할 가능성 존재.
-                                                    //      그러므로 Tower는 목표물의 transform 컴포넌트를 가지고 있고, 탄환이 발사 직전 해당 컴포넌트의 position을 보고 발사하는 게 좋을듯
         }
 
         public int GetCost()
