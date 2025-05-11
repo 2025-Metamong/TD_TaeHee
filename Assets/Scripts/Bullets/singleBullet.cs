@@ -7,8 +7,11 @@ namespace MyGame.Objects
     {
         private Vector3 spawnPosition;
         private Vector3 direction;
+        [SerializeField, Tooltip("총알이 몬스터에 주는 데미지")]
         private float damage = 10f;
+        [SerializeField, Tooltip("총알 발사 속도")]
         private float speed = 50f;
+        [SerializeField, Tooltip("총알 사거리")]
         private float range = 20f;
 
         // public event Action<GameObject> OnCollider; // 충돌 시 이벤트 발생 (예: 이펙트용)
