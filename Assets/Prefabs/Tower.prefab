@@ -127,5 +127,5 @@ MonoBehaviour:
   attackPeriod: 1
   upgradeLevel: 0
   upgradeCost: 5
-  bullet: {fileID: 0}
+  bullet: {fileID: 3084736807602813044, guid: 596108dc9e090fc4a8be2911651baaa8, type: 3}
   debuffAssets: []

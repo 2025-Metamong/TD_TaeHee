@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using MyGame.Managers; // Assuming you have a MonsterManager script to handle monster logic
+using MyGame.Managers;
+using System; // Assuming you have a MonsterManager script to handle monster logic
 
 namespace MyGame.Objects
 {
@@ -19,7 +20,7 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("탄환 Prefab")] private GameObject bullet;
         [SerializeField, Tooltip("타워 디버프 종류")] private List<debuffBase> debuffAssets = new List<debuffBase>();
 
-        private List<debuffBase> debuffLists;   // 실제 디버프 전달용 리스트
+        private List<debuffBase> debuffList;   // 실제 디버프 전달용 리스트
         private float attack = 0f;  // 공격 결정용 flag. 주기가 되면 1, 아니면 0
         private Transform target;   // 타워가 공격해야 할 몬스터의 transform 컴포넌트. 
 
@@ -28,7 +29,7 @@ namespace MyGame.Objects
             // position 변수 초기화
             this.position = gameObject.transform;
             // 디버프 종류 ScriptableObject들 인스턴스화
-            this.debuffLists = new List<debuffBase>(debuffAssets);
+            this.debuffList = new List<debuffBase>(debuffAssets);
 
         }
 
@@ -53,8 +54,17 @@ namespace MyGame.Objects
                 if (this.target != null)
                 {
                     // Case 1. 타겟을 찾은 경우
-                    GameObject bullt_object = Instantiate(bullet, transform.position, Quaternion.identity);
-                    bullt_object.GetComponent<singleBullet>().SetDirection(this.transform, target); // bullet 이 알아서 발사 될 것.
+                    // GameObject bullt_object = Instantiate(bullet, transform.position, Quaternion.identity);
+                    GameObject bullet_object = Instantiate(bullet, transform.position, Quaternion.identity);
+                    // 여러가지 타입의 bullet에 적용 가능하도록 수정할 것.
+                    // bullt_object.GetComponent<singleBullet>().SetDirection(this.transform, target); // bullet 이 알아서 발사 될 것.
+                    var bullet_script = bullet_object?.GetComponent<MonoBehaviour>();   // prefab의 스크립트 찾기
+                    // SetDirection 적용
+                    var directionMethod = bullet_script?.GetType().GetMethod("SetDirection", new Type[] { typeof(Transform), typeof(Transform)});
+                    directionMethod?.Invoke(bullet_script, new object[] {this.transform, this.target});
+                    // // SetDebuff 로 bullet에 디버프 리스트 전달.
+                    var debuffMethod = bullet_script?.GetType().GetMethod("SetDebuff", new Type[] { typeof(List<debuffBase>)});
+                    debuffMethod?.Invoke(bullet_script, new object[] {this.debuffList});
                     // 몬스터를 보도록 타워를 회전 시킬지 고민중.
                 }
                 else
