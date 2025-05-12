@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using MyGame.Objects;
 
-[CreateAssetMenu(fileName = "SlowDebuff", menuName = "Scriptable Objects/Debuff/Weak")]
+[CreateAssetMenu(fileName = "WeakDebuff", menuName = "Scriptable Objects/Debuff/Weak")]
 public class WeakDebuff : debuffBase
 {
     public float damageAmount = 0.2f;
