@@ -9,28 +9,27 @@ namespace MyGame.Objects
     {
         // Represents a tower that also serves as a bullet generator.
         [Header("Tower Stats")]   // 타워 정보 inspector에 표기하기 위한 용도.
-        [SerializeField, Tooltip("설치 비용")] private int cost;
+        [SerializeField, Tooltip("설치 비용")] private int cost = 10;
         [SerializeField, Tooltip("설치 위치")] private Transform position;
-        [SerializeField, Tooltip("사거리")] private float range;
-        [SerializeField, Tooltip("공격 빈도")] private float attackPeriod; 
-        [SerializeField, Tooltip("레벨")] private int upgradeLevel;
-        [SerializeField, Tooltip("업그레이드 비용")] private int upgradeCost;
+        [SerializeField, Tooltip("사거리")] private float range = 10f;
+        [SerializeField, Tooltip("공격 빈도")] private float attackPeriod = 1f; 
+        [SerializeField, Tooltip("레벨")] private int upgradeLevel = 0;
+        [SerializeField, Tooltip("업그레이드 비용")] private int upgradeCost = 5;
         //[SerializeField] private singleBullet bullet;  
         [SerializeField, Tooltip("탄환 Prefab")] private GameObject bullet;
+        [SerializeField, Tooltip("타워 디버프 종류")] private List<debuffBase> debuffAssets = new List<debuffBase>();
 
+        private List<debuffBase> debuffLists;   // 실제 디버프 전달용 리스트
         private float attack = 0f;  // 공격 결정용 flag. 주기가 되면 1, 아니면 0
         private Transform target;   // 타워가 공격해야 할 몬스터의 transform 컴포넌트. 
 
         void Start()
         {
-            // 변수들 초기화.
-            this.upgradeLevel = 0;
-            this.cost = 10;
-            this.range = 10f;
-            this.upgradeCost = 5;
-            this.attackPeriod = 1f; // 초당 10번 공격. 
-            //this.bullet = gameObject.AddComponent<singleBullet>();
+            // position 변수 초기화
             this.position = gameObject.transform;
+            // 디버프 종류 ScriptableObject들 인스턴스화
+            this.debuffLists = new List<debuffBase>(debuffAssets);
+
         }
 
         // Update is called once per frame

@@ -121,10 +121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662bdbf52e5689644981c10a956cbc8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 10
   position: {fileID: 0}
-  range: 0
-  attackPeriod: 0
+  range: 10
+  attackPeriod: 1
   upgradeLevel: 0
-  upgradeCost: 0
-  bullet: {fileID: 3084736807602813044, guid: 596108dc9e090fc4a8be2911651baaa8, type: 3}
+  upgradeCost: 5
+  bullet: {fileID: 0}
+  debuffAssets: []
