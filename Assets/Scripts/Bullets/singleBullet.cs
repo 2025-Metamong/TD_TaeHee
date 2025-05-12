@@ -54,7 +54,6 @@ namespace MyGame.Objects
 
             // Monster mon = other.GetComponent<MonoBehaviour>();
             // mon.TakeDamage(this.damage)
-            Debug.Log("Hit Monster");
 
             var target = other.GetComponent<Monster>();
             var damageMethod = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });

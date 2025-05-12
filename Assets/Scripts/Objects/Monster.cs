@@ -8,14 +8,13 @@ namespace MyGame.Objects
     public class Monster : MonoBehaviour
     {
         [Header("Monster Stats")]
-        [SerializeField] private int health = 100;
+        [SerializeField] private float health = 100;
         [SerializeField] private int reward = 10;
         [SerializeField] private int damage = 1;
         [SerializeField] private float speed = 1f;
+        private Transform pathHolder;
 
         // 디버프 관련 변수 추가
-        // private float originSpeed = speed;
-        // private bool isSpeedModified = false;
         public bool isDead = false;
         private class ActiveDebuffInfo
         {
@@ -30,9 +29,15 @@ namespace MyGame.Objects
         }
         private Dictionary<string, ActiveDebuffInfo> activeDebuffs = new Dictionary<string, ActiveDebuffInfo>();
 
+        // Slow Debuff
+        public float GetSpeed() => speed;
+        public void SetSpeed(float newSpeed) => speed = newSpeed;
 
-        private Transform pathHolder;
-        private float damageAmplify = 1.0f;
+        // Weak Debuff 
+        [SerializeField] private float damageAmplify = 1.0f;
+        public float GetDamageAmplify() => damageAmplify;
+        public void SetDamageAmplify(float value) => damageAmplify = value;
+
 
         public void SetPath(Transform ways)
         {
@@ -91,22 +96,6 @@ namespace MyGame.Objects
         //     reward += value;
         // }
 
-        // // GetDamageAmplify 이거는 필요함?
-        // public float GetDamageAmplify()
-        // {
-        //     return damageAmplify;
-        // }
-
-        // public void SetDamageAmplify(float value)
-        // {
-        //     damageAmplify = value;
-        // }
-
-
-        public float GetSpeed() => speed;
-
-        public void SetSpeed(float newSpeed) => speed = newSpeed;
-
         // 디버프 부여 함수
         public void ApplyDebuff(string debuffKey, IEnumerator debuffCoroutine, System.Action onEndAction)
         {
@@ -144,11 +133,12 @@ namespace MyGame.Objects
         }
 
 
-        public void TakeDamage(int amount)
+        public void TakeDamage(float amount)
         {
             //health -= amount;
             int amplifiedDamage = Mathf.RoundToInt(amount * damageAmplify);
             health -= amplifiedDamage;
+            Debug.Log($"Hit Monster Damage : {amplifiedDamage} / Health : {health}");
 
             if (health <= 0f)
             {
