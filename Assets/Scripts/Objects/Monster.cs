@@ -38,6 +38,10 @@ namespace MyGame.Objects
         public float GetDamageAmplify() => damageAmplify;
         public void SetDamageAmplify(float value) => damageAmplify = value;
 
+        // Stun Debuff
+        [SerializeField] private bool isStunned = false;
+        public void SetStun(bool tf) => isStunned = tf;
+
 
         public void SetPath(Transform ways)
         {
@@ -67,6 +71,11 @@ namespace MyGame.Objects
 
             while (currentWaypointIndex < waypoints.Length - 1)
             {
+                if (this.isStunned)
+                {
+                    yield return null;
+                    continue;
+                }
                 Vector3 targetWaypoint = waypoints[currentWaypointIndex + 1];
                 transform.LookAt(targetWaypoint);
                 transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
@@ -138,7 +147,7 @@ namespace MyGame.Objects
             //health -= amount;
             int amplifiedDamage = Mathf.RoundToInt(amount * damageAmplify);
             health -= amplifiedDamage;
-            Debug.Log($"Hit Monster Damage : {amplifiedDamage} / Health : {health}");
+            Debug.Log($"Hit Monster Damage : {amplifiedDamage}");
 
             if (health <= 0f)
             {

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d8c26797e496b4e9000bda13a3c950, type: 3}
   m_Name: WeakDebuff
   m_EditorClassIdentifier: 
-  debuffName: 
-  duration: 0
+  debuffName: Weakness
+  duration: 3
   damageAmount: 0.2
