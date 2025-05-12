@@ -33,6 +33,11 @@ namespace MyGame.Objects
 
         }
 
+        // public void AddDebuff(debuffBase adder)
+        // {
+        //     debuffList.Add(adder);
+        // }
+
         // Update is called once per frame
         void Update()
         {
