@@ -1,17 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     private List<string> stageList = new List<string>();
-    // °ÔÀÓ ³»¿¡ ÀÖ´Â stage list (stageÀÚÃ¼´Â sceneÀ¸·Î ±¸ºÐ)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ stage list (stageï¿½ï¿½Ã¼ï¿½ï¿½ sceneï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
     private int clearStageNum = 0;
-    // ÇöÀç±îÁö clearÇÑ ¸¶Áö¸· stage num
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ clearï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ stage num
 
     private void Awake()
     {
@@ -28,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public void stageSelect(int stage) 
     {
-        // Stage loading -> sceneº¯°æ, stage managerÈ£Ãâ
+        // Stage loading -> sceneï¿½ï¿½ï¿½ï¿½, stage managerÈ£ï¿½ï¿½
         if (stage >= 0 && stage < stageList.Count)
         {
             string sceneName = stageList[stage];
@@ -37,14 +36,14 @@ public class GameManager : MonoBehaviour
 
         else
         {
-            Debug.LogWarning("Àß¸øµÈ ½ºÅ×ÀÌÁö ÀÎµ¦½ºÀÔ´Ï´Ù.");
+            Debug.LogWarning("ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
         }
     }
 
     public void stageFinish(int N, int stage)
     {
-        // ¸ÞÀÎÈ­¸éÀ¸·Î(scene º¯°æ)
-        // -> ÇöÀç Å¬¸®¾îÇÑ stage°¡ clearStageNumÀÌ¶û °°À¸¸é
+        // ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(scene ï¿½ï¿½ï¿½ï¿½)
+        // -> ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ stageï¿½ï¿½ clearStageNumï¿½Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         // clearStageNum += N
         if(stage == clearStageNum)
         {

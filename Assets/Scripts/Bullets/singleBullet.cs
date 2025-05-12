@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace MyGame.Objects
 {
@@ -14,6 +16,12 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("총알 사거리")]
         private float range = 20f;
 
+        [SerializeField, Tooltip("충돌 시 디버프 리스트")]
+        private List<debuffBase> debuffList = new List<debuffBase>();
+
+        // 몬스터별 디버프 유지 / 추적용 딕셔너리
+        private static Dictionary<GameObject, Dictionary<string, Coroutine>> monsterDebuffMap = new Dictionary<GameObject, Dictionary<string, Coroutine>>();
+
         // public event Action<GameObject> OnCollider; // 충돌 시 이벤트 발생 (예: 이펙트용)
         public GameObject hitEffect = null;
 
@@ -21,6 +29,10 @@ namespace MyGame.Objects
         {
             Vector3 dir = (target.position - tower.position).normalized;
             this.direction = dir;
+        }
+
+        public void SetDebuff(List<debuffBase> towerDebuffList){
+            this.debuffList = towerDebuffList;
         }
 
         void Start()
@@ -44,9 +56,11 @@ namespace MyGame.Objects
             // mon.TakeDamage(this.damage)
             Debug.Log("Hit Monster");
 
-            object target = other.GetComponent<MonoBehaviour>();
-            var method = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
-            method?.Invoke(target, new object[] { this.damage });
+            var target = other.GetComponent<Monster>();
+            var damageMethod = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
+            damageMethod?.Invoke(target, new object[] { this.damage });
+            foreach(var debuff in debuffList)
+                debuff.Apply(target.gameObject); 
 
             if (hitEffect != null) Instantiate(hitEffect, transform.position, Quaternion.identity);
 

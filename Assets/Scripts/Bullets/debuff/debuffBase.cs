@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [CreateAssetMenu(fileName = "debuff", menuName = "Scriptable Objects/debuff")]
 public abstract class debuffBase : ScriptableObject

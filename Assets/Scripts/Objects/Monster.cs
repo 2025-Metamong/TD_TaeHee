@@ -13,18 +13,37 @@ namespace MyGame.Objects
         [SerializeField] private int damage = 1;
         [SerializeField] private float speed = 1f;
 
+        // 디버프 관련 변수 추가
+        // private float originSpeed = speed;
+        // private bool isSpeedModified = false;
+        public bool isDead = false;
+        private class ActiveDebuffInfo
+        {
+            public Coroutine coroutine;
+            public System.Action onEndAction;
+
+            public ActiveDebuffInfo(Coroutine co, System.Action endAction)
+            {
+                this.coroutine = co;
+                this.onEndAction = endAction;
+            }
+        }
+        private Dictionary<string, ActiveDebuffInfo> activeDebuffs = new Dictionary<string, ActiveDebuffInfo>();
+
+
         private Transform pathHolder;
+        private float damageAmplify = 1.0f;
 
         public void SetPath(Transform ways)
         {
             pathHolder = ways;
         }
-        // ���� �̵�
+        // 몬스터 이동
         private void Start()
         {
             Vector3[] waypoints = new Vector3[pathHolder.childCount];
 
-            Debug.Log("���Ͱ� ��ȯ�Ǿ����ϴ�.");
+            Debug.Log("몬스터가 소환되었습니다.");
             for (int i = 0; i < waypoints.Length; i++)
             {
                 waypoints[i] = pathHolder.GetChild(i).position;
@@ -55,24 +74,85 @@ namespace MyGame.Objects
 
             }
         }
-        // ���� �̵�
 
-        public Vector3 GetPosition()
+        // 새로운 함수 구현을 위해 디버프 관련 추가 함수 주석처리리
+        // public Vector3 GetPosition()
+        // {
+        //     return transform.position;
+        // }
+
+        // public int GetReward()
+        // {
+        //     return reward;
+        // }
+
+        // public void AddReward(int value)
+        // {
+        //     reward += value;
+        // }
+
+        // // GetDamageAmplify 이거는 필요함?
+        // public float GetDamageAmplify()
+        // {
+        //     return damageAmplify;
+        // }
+
+        // public void SetDamageAmplify(float value)
+        // {
+        //     damageAmplify = value;
+        // }
+
+
+        public float GetSpeed() => speed;
+
+        public void SetSpeed(float newSpeed) => speed = newSpeed;
+
+        // 디버프 부여 함수
+        public void ApplyDebuff(string debuffKey, IEnumerator debuffCoroutine, System.Action onEndAction)
         {
-            return transform.position;
+            if (activeDebuffs.ContainsKey(debuffKey))
+            {
+                activeDebuffs[debuffKey].onEndAction?.Invoke();
+                StopCoroutine(activeDebuffs[debuffKey].coroutine);
+                activeDebuffs.Remove(debuffKey);
+            }
+
+            Coroutine co = StartCoroutine(debuffCoroutine);
+            activeDebuffs[debuffKey] = new ActiveDebuffInfo(co, onEndAction);
         }
 
-        public int GetReward()
+        // 디버프 삭제 함수
+        public void RemoveDebuff(string debuffKey)
         {
-            return reward;
+            if (activeDebuffs.ContainsKey(debuffKey))
+            {
+                activeDebuffs.Remove(debuffKey);
+            }
         }
+
+        // 죽으면 모든 디버프 정리
+        public void ClearAllDebuffs()
+        {
+            foreach (var debuff in activeDebuffs.Values)
+            {
+                if (debuff != null)
+                {
+                    StopCoroutine(debuff.coroutine);
+                }
+            }
+            activeDebuffs.Clear();
+        }
+
 
         public void TakeDamage(int amount)
         {
-            health -= amount;
+            //health -= amount;
+            int amplifiedDamage = Mathf.RoundToInt(amount * damageAmplify);
+            health -= amplifiedDamage;
 
             if (health <= 0f)
             {
+                this.isDead = true;
                 MonsterManager.Instance.KillMonster(this.gameObject);
             }
         }
@@ -82,7 +162,7 @@ namespace MyGame.Objects
             if (other != null && other.CompareTag("Finish"))
             {
                 //StageManager.Instance.ReachFinish(this);
-                Debug.Log("���Ͱ� Finish�� �����߽��ϴ�.");
+                Debug.Log("몬스터가 Finish에 도착했습니다.");
                 MonsterManager.Instance.KillMonster(this.gameObject);
             }
         }
