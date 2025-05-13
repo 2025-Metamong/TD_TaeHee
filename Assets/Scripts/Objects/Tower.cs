@@ -10,6 +10,7 @@ namespace MyGame.Objects
     {
         // Represents a tower that also serves as a bullet generator.
         [Header("Tower Stats")]   // 타워 정보 inspector에 표기하기 위한 용도.
+        [SerializeField, Tooltip("타워 ID")] private int ID = -1;
         [SerializeField, Tooltip("설치 비용")] private int cost = 10;
         [SerializeField, Tooltip("설치 위치")] private Transform position;
         [SerializeField, Tooltip("사거리")] private float range = 10f;
@@ -74,7 +75,6 @@ namespace MyGame.Objects
                 }
             }
         }
-
         public Transform GetPosition()
         {     // 타워 오브젝트의 Transform 컴포넌트 리턴.
             return this.position;
@@ -159,6 +159,14 @@ namespace MyGame.Objects
         public int GetLevel()
         {      // 타워의 레벨 리턴.
             return this.upgradeLevel;
+        }
+
+        public int GetID(){
+            return this.ID;
+        }
+        
+        public void SetID(int id){
+            this.ID = id;
         }
     }
 
