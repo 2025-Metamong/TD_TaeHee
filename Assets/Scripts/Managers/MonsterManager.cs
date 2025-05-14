@@ -36,6 +36,10 @@ namespace MyGame.Managers
             waveMonster.Enqueue(capsulePrefab);
             waveMonster.Enqueue(capsulePrefab);
         }
+
+        public static int Hp = 100;
+        public static int coin = 200;
+
         // for testing
 
         private float spawnTimer = 1f;
