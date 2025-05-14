@@ -11,7 +11,8 @@ namespace MyGame.Managers
         [Header("TowerManager Info")]
         [SerializeField] private GameObject towerPrefab;    // 생성할 타워의 prefab
         // private Tower[] towerList;  // TowerManager가 관리중인 타워들의 리스트.
-        private List<GameObject>towerList = new List<GameObject>();  // 타워 리스트를 게임 오브젝트 리스트로 수정.
+        // private List<GameObject>towerList = new List<GameObject>();  // 타워 리스트를 게임 오브젝트 리스트로 수정.
+        private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();  // 현재 소환 된 타워 리스트를 딕셔너리로 수정
         private int TowerIndex = 0;
         public static TowerManager Instance { get; private set; } // 싱글톤 패턴
         private void Awake()
@@ -53,8 +54,8 @@ namespace MyGame.Managers
                }
                Debug.Log("타워 인스턴스화 성공");
                var newTowerScript = newTower?.GetComponent<MonoBehaviour>();    // 새 타워에서 타워 스크립트 찾기
-               newTowerScript?.GetType()?.GetMethod("SetID", new Type[]{typeof(int)})?.Invoke(newTowerScript, new object[]{this.TowerIndex++});
-               this.towerList.Add(newTower);   // 타워 List에 타워 Add
+               newTowerScript?.GetType()?.GetMethod("SetID", new Type[]{typeof(int)})?.Invoke(newTowerScript, new object[]{this.TowerIndex});
+               this.towerDict.Add(this.TowerIndex++, newTower);   // 타워 List 딕셔너리리에 타워 Add
            }
            else {
                return;
