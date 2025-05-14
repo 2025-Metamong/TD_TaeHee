@@ -12,6 +12,8 @@ namespace MyGame.Objects
         [SerializeField] private int reward = 10;
         [SerializeField] private int damage = 1;
         [SerializeField] private float speed = 1f;
+        // Add Monster ID 
+        [SerializeField] private int ID = -1;
         private Transform pathHolder;
 
         // 디버프 관련 변수 추가
@@ -166,6 +168,13 @@ namespace MyGame.Objects
             }
         }
 
+        public int GetID(){
+            return this.ID;
+        }
+
+        public void SetID(int id){
+            this.ID = id;
+        }
     }
 
 }

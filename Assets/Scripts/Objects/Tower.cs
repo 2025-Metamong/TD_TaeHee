@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using MyGame.Managers;
-using System; // Assuming you have a MonsterManager script to handle monster logic
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices.WindowsRuntime; // Assuming you have a MonsterManager script to handle monster logic
 
 namespace MyGame.Objects
 {
@@ -112,38 +114,22 @@ namespace MyGame.Objects
                 minIndex : 가장 가까운 몬스터의 인덱스.
             */
             float max = 10000000f;
-            List<GameObject> monsterList = MonsterManager.Instance.GetMonsterList();
             float minDistance = max;
             int minIndex = 0;
+            bool find = false;
+            Transform target = null;
 
-            if (monsterList == null)
-            {    // Case 1. 몬스터가 없는 경우
-                //Debug.Log("몬스터가 없습니다.");
-                return null;
-            }
-
-            // 몬스터 배열 크기 만큼 검사. ( 거리 단위로 정렬이 안 되어 있을테니. )
-            for (int i = 0; i < monsterList.Count; i++)
-            {
-                // 거리 구하기. Vector3 내장 함수 Distance 사용. 
-                // monsterList[i].GetComponent<Monster>().GetPosition() 을 사용하면 될 것 같은데 귀찮아서..
-                // float distance = Vector3.Distance(this.transform.position, monsterList[i].GetPosition());
-                float distance = Vector3.Distance(this.transform.position, monsterList[i].transform.position);
-                // 사정거리 안에 몬스터가 있는 경우에만 가장 가까운 거리보다 더 가까운지 계산. 더 가까우면 update
-                if (distance <= this.range && distance < minDistance)
-                {
+            foreach(var pair in MonsterManager.Instance.GetMonsterList()){
+                float distance = Vector3.Distance(this.position.position, pair.Value.transform.position);
+                if (distance > this.range)  // 몬스터가 사거리 밖이면면
+                    continue;
+                if(distance < minDistance){
                     minDistance = distance;
-                    minIndex = i;
+                    minIndex = pair.Key;
+                    target = pair.Value.transform;
                 }
             }
-
-            if (minDistance == max)
-            {     // Case 2. 사정거리 내 몬스터 없으면 null 리턴.
-                //Debug.Log("사정거리 내 몬스터가 없습니다.");
-                return null;
-            }
-            //Debug.Log("사정거리 내 몬스터가 있습니다.");
-            return monsterList[minIndex].transform; // Case 3. 가장 가까운 몬스터의 Transform 컴포넌트 리턴.
+            return target; // Case 3. 가장 가까운 몬스터의 Transform 컴포넌트 리턴. 못 찾으면 null 리턴.
         }
 
         public int GetCost()
@@ -160,11 +146,17 @@ namespace MyGame.Objects
         {      // 타워의 레벨 리턴.
             return this.upgradeLevel;
         }
-
-        public int GetID(){
+        /// <summary>
+        /// int GetID()
+        /// returns ID of the Tower
+        /// </summary>
+        public int GetID(){ 
             return this.ID;
         }
-        
+        /// <summary>
+        /// void SetID(int)
+        /// set Tower's ID to the passed Value.
+        /// </summary>
         public void SetID(int id){
             this.ID = id;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using MyGame.Objects;
+using System;
 
 namespace MyGame.Managers
 {
@@ -13,7 +14,9 @@ namespace MyGame.Managers
         [Header("Wave Settings")]
         [SerializeField] private float spawnRate = 2f;
 
-        private List<GameObject> monsterList = new List<GameObject>();
+        // private List<GameObject> monsterList = new List<GameObject>();
+        // change monsterList to monsterDict
+        private Dictionary<int, GameObject> monsterDict = new Dictionary<int, GameObject>();
         private Queue<GameObject> waveMonster = new Queue<GameObject>();
 
         public Transform pathHolder; // waypoints
@@ -49,7 +52,7 @@ namespace MyGame.Managers
             RespawnMonster();
         }
 
-        // ���� ��ȯ (spawnRate�� ���� �� ������ ��ȯ)
+        // ???? ??? (spawnRate?? ???? ?? ?????? ???)
         private void RespawnMonster()
         {
             if (waveMonster.Count == 0) return;
@@ -57,32 +60,46 @@ namespace MyGame.Managers
             spawnTimer += Time.deltaTime;
             if (spawnTimer >= spawnRate)
             {
+                int monsterID = waveMonster.Count;
                 GameObject monsterPrefab = waveMonster.Dequeue();
                 GameObject newMonster = Instantiate(monsterPrefab, transform.position, Quaternion.identity);
 
-                // Monster���� way ����
+                // Monster???? way ????
                 Monster monsterScript = newMonster.GetComponent<Monster>();
                 monsterScript.SetPath(pathHolder);
 
-                monsterList.Add(newMonster);
+                // monsterList.Add(newMonster);
+                // Change monsterList to monsterDict
+                monsterDict.Add(monsterID, newMonster);
 
                 spawnTimer = 0f;
             }
         }
 
-        // ���Ͱ� �׾��� �� ȣ��
+        // ????? ????? ?? ???
         public void KillMonster(GameObject monster)
         {
-            if (monsterList.Contains(monster))
+            // if (monsterList.Contains(monster))
+            // {
+            //     //Monster monsters1 = monster.GetComponent<Monster>();
+            //     //ResourceManager.Instance.addCoins(monsters1.GetReward());
+            //     monsterList.Remove(monster);
+            //     Destroy(monster);
+            // }
+
+            // Change monsterList to monsterDict
+            var monsterScript = monster.GetComponent<MonoBehaviour>();
+            var monsterID = monsterScript?.GetType()?.GetMethod("GetID", new Type[]{})?.Invoke(monsterScript, new object[]{});
+            if (monsterDict.ContainsKey((int)monsterID))
             {
                 //Monster monsters1 = monster.GetComponent<Monster>();
                 //ResourceManager.Instance.addCoins(monsters1.GetReward());
-                monsterList.Remove(monster);
+                monsterDict.Remove((int)monsterID);
                 Destroy(monster);
             }
         }
 
-        // ���̺� ����
+        // ????? ????
         public void SetWave(List<GameObject> waveData)
         {
             waveMonster.Clear();
@@ -92,13 +109,19 @@ namespace MyGame.Managers
             }
         }
 
-        // ���� ��ȯ�� ���� ����Ʈ ��ȯ
-        public List<GameObject> GetMonsterList()
-        {
-            return monsterList;
+        // ???? ????? ???? ????? ???
+        // public List<GameObject> GetMonsterList()
+        // {
+        //     return monsterList;
+        // }
+        // ???? ????? ???? ????? ???
+        // Change monsterList to monsterDict
+        public IEnumerable<KeyValuePair<int, GameObject>> GetMonsterList()
+        {   // return Enumerator of Dictionary. each item is "KeyValuePair<int,GameObject>"
+            return this.monsterDict;
         }
 
-        // waypoints�� �׸��� ���� Gizmos
+        // waypoints?? ????? ???? Gizmos
         void OnDrawGizmos()
         {
             Vector3 startPosition = pathHolder.GetChild(0).position;
