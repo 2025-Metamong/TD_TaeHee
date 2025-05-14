@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class TowerShop : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public GameObject panel;
+    private int flag = 0;
 
-    // Update is called once per frame
-    void Update()
+    public void OnButtonClick()
     {
-        
+        if (flag == 0)
+        {
+            panel.SetActive(true); // UI ∫∏¿Ã±‚
+        }
+        else if (flag == 1)
+        {
+            panel.SetActive(false);
+            flag = 0;
+        }
+
     }
 }

@@ -13,6 +13,11 @@ namespace MyGame.Managers
         // private Tower[] towerList;  // TowerManager가 관리중인 타워들의 리스트.
         // private List<GameObject>towerList = new List<GameObject>();  // 타워 리스트를 게임 오브젝트 리스트로 수정.
         private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();  // 현재 소환 된 타워 리스트를 딕셔너리로 수정
+
+        // for testing
+        public List<GameObject> prefabList;
+        //
+
         private int TowerIndex = 0;
         public static TowerManager Instance { get; private set; } // 싱글톤 패턴
         private void Awake()
