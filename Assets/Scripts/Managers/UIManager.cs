@@ -1,3 +1,4 @@
+ï»¿using MyGame.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -31,66 +32,114 @@ public class UIManager : MonoBehaviour
 
     //public void UpdateHPUI(int hp)
     //{
-    //    // HP ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+    //    // HP í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
     //    hpText.text = $"HP: {hp}";
     //}
 
     //public void UpdateCoinUI(int coin)
     //{
-    //    // Coin ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+    //    // Coin í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
     //    coinText.text = $"Coin: {coin}";
     //}
 
     //public void UpdateWaveUI(int wave, int totalWaves)
     //{
-    //    // Wave ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+    //    // Wave í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
     //    waveText.text = $"Wave {wave + 1} / {totalWaves}";
     //}
 
     //public void ShowTowerSelectPanel()
     //{
-    //    // Å¸¿ö ¼±ÅÃÃ¢ ¿­±â
+    //    // íƒ€ì›Œ ì„ íƒì°½ ì—´ê¸°
     //    towerSelectPanel.SetActive(true);
     //}
 
     //public void HideTowerSelectPanel()
     //{
-    //    // Å¸¿ö ¼±ÅÃÃ¢ ´İ±â
+    //    // íƒ€ì›Œ ì„ íƒì°½ ë‹«ê¸°
     //    towerSelectPanel.SetActive(false);
     //}
 
     //public void OnClickWaveStart()
     //{
-    //    // Wave ½ÃÀÛ ¹öÆ° È°¼ºÈ­
+    //    // Wave ì‹œì‘ ë²„íŠ¼ í™œì„±í™”
     //    waveStartButton.interactable = true;
     //}
 
     //public void DisableClickWaveStart()
     //{
-    //    // Wave ½ÃÀÛ ¹öÆ° ºñÈ°¼ºÈ­
+    //    // Wave ì‹œì‘ ë²„íŠ¼ ë¹„í™œì„±í™”
     //    waveStartButton.interactable = false;
     //}
-    public Button towerShop;
-    public GameObject panel;
-    
-    private int flag = 0;
-    private bool panelOpen = false;
-    void Start()
-    {
-        towerShop.onClick.AddListener(TowerShopClicked);
-    }
-    void TowerShopClicked()
-    {
-        if (flag == 0)
-        {
-            panel.SetActive(true); // UI º¸ÀÌ±â
-            flag = 1;
-        }
-        else if (flag == 1)
-        {
-            panel.SetActive(false);
-            flag = 0;
-        }
-    }
+
+
+    //ìŠ¹ì›'s code TowerShopì— ëŒ€í•œ ì½”ë“œì¸ë° í˜„ì¬ TowerShop ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ê´€ë¦¬í•˜ê¸°ë¡œ í•¨
+
+    //public Button towerShop;
+    //public GameObject panel;
+    //public TowerManager towerManager;
+    //public GameObject itemTemplate;
+    //public Transform contentParent;
+
+    //private int flag = 0;
+    //private bool panelOpen = false;
+    //void Start()
+    //{
+    //    //towerShop.onClick.AddListener(PopulateShop);
+    //    towerShop.onClick.AddListener(TowerShopClicked);
+    //    panel.SetActive(false); // ì‹œì‘ ì‹œ ë¹„í™œì„±í™”
+
+    //    // ğŸ’¡ Startì—ì„œ ë¯¸ë¦¬ ë¡œë”©
+    //    PopulateShop();
+    //}
+    //void TowerShopClicked()
+    //{
+    //    if (flag == 0)
+    //    {
+    //        panel.SetActive(true); // UI ë³´ì´ê¸°
+    //        flag = 1;
+    //    }
+    //    else if (flag == 1)
+    //    {
+    //        panel.SetActive(false);
+    //        flag = 0;
+    //    }
+    //}
+
+    //void TowerShopClicked()
+    //{
+    //    if (flag == 0)
+    //    {
+    //        panel.SetActive(true); // UI ë³´ì´ê¸°
+    //        flag = 1;
+    //    }
+    //    else if (flag == 1)
+    //    {
+    //        panel.SetActive(false);
+    //        flag = 0;
+    //    }
+    //}
+
+    //void PopulateShop()
+    //{
+    //    foreach (var prefab in towerManager.prefabList)
+    //    {
+    //        GameObject newItem = Instantiate(itemTemplate, contentParent);
+    //        RenderTexture renderTexture = new RenderTexture(256, 256, 16);
+    //        renderTexture.Create();
+
+    //        Camera camera = new GameObject("PrefabCamera").AddComponent<Camera>();
+    //        camera.targetTexture = renderTexture;
+    //        camera.transform.position = prefab.transform.position + new Vector3(0, 1, -2);
+    //        camera.transform.LookAt(prefab.transform);
+
+    //        RawImage rawImage = newItem.GetComponentInChildren<RawImage>();
+    //        rawImage.texture = renderTexture;
+
+    //        // ì´ë¦„ ì„¤ì •
+    //        Text nameText = newItem.GetComponentInChildren<Text>();
+    //        nameText.text = prefab.name;
+    //    }
+    //}
 
 }
