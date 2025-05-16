@@ -8,7 +8,6 @@ public class TowerShop : MonoBehaviour
     public GameObject panel;
 
     private int flag = 0;
-    private bool panelOpen = false;
     private Button towerShopBtn;
     void Start()
     {

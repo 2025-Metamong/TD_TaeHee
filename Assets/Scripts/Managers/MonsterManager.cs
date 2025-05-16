@@ -43,6 +43,8 @@ namespace MyGame.Managers
         public static int Hp = 100;
         public static int coin = 200;
 
+        public static string[] monsterNames = {"Monster", "Monster2"};
+
         // for testing
 
         private float spawnTimer = 1f;

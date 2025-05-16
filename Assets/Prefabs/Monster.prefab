@@ -128,7 +128,10 @@ MonoBehaviour:
   reward: 10
   damage: 1
   speed: 7.5
+  ID: -1
   isDead: 0
+  damageAmplify: 1
+  isStunned: 0
 --- !u!54 &8625325723479541480
 Rigidbody:
   m_ObjectHideFlags: 0
