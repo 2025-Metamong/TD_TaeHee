@@ -35,10 +35,11 @@ public class RoguelikeUpgrade : MonoBehaviour
         for (int i = 0; i < optionButtons.Length; i++)
         {
             var btn = optionButtons[i];
+            choices[i].RandomizeValue();
             var data = choices[i];
             
             // 텍스트 세팅 (TextMeshProUGUI 쓰고 있다면 TMP 컴포넌트로 교체)
-            btn.GetComponentInChildren<Text>().text = data.upgradeName;
+            btn.GetComponentInChildren<Text>().text = $"{data.upgradeName}\n\n{data.value:F2}";
             
             // 기존 리스너 제거 후 새로 추가
             btn.onClick.RemoveAllListeners();
