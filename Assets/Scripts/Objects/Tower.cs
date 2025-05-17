@@ -9,7 +9,7 @@ using System.Runtime.InteropServices.WindowsRuntime; // Assuming you have a Mons
 namespace MyGame.Objects
 {
     // 타워 클릭 처리를 위해서는 Collider 가 필요하고, RangeIndicator로 사거리 표기할 수 있어야 함.
-    [RequireComponent(typeof(Collider), typeof(RangeIndicator))]
+    [RequireComponent(typeof(Collider))]
     public class Tower : MonoBehaviour
     {
         // Represents a tower that also serves as a bullet generator.
@@ -30,7 +30,6 @@ namespace MyGame.Objects
         private float attack = 0f;  // 공격 결정용 flag. 주기가 되면 1, 아니면 0
         private Transform target;   // 타워가 공격해야 할 몬스터의 transform 컴포넌트. 
         private GameObject rangeCylinder;  // 타워 사거리 표출용 컴포넌트.
-        private RangeIndicator rangeIndicator;
         void Awake()
         {
             // 사거리 표시 용 실린더 만들기.
@@ -45,9 +44,6 @@ namespace MyGame.Objects
             // 처음에는 보이지 않음.
             rangeCylinder.SetActive(false);
 
-            // 라인 렌더러로 그려보기.
-            rangeIndicator = GetComponent<RangeIndicator>();
-            rangeIndicator.Initialize(this.range);
         }
         void Start()
         {
@@ -103,8 +99,7 @@ namespace MyGame.Objects
         void OnMouseDown()
         {
             Debug.Log("마우스 클릭!");
-            // rangeCylinder.SetActive(true);
-            rangeIndicator.ShowForSeconds(displayTime);
+            rangeCylinder.SetActive(true);
             
         }
 
