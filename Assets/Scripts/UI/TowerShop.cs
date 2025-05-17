@@ -3,11 +3,7 @@ using UnityEngine.UI;
 
 public class TowerShop : MonoBehaviour
 {
-    // 현재 사용안함
-
     public GameObject panel;
-
-    private int flag = 0;
     private Button towerShopBtn;
     void Start()
     {
@@ -16,16 +12,7 @@ public class TowerShop : MonoBehaviour
     }
     void TowerShopClicked()
     {
-        if (flag == 0)
-        {
-            panel.SetActive(true); // UI 보이기
-            flag = 1;
-            this.gameObject.SetActive(false);
-        }
-        else if (flag == 1)
-        {
-            panel.SetActive(false);
-            flag = 0;
-        }
+        panel.SetActive(true); 
+        this.gameObject.SetActive(false);
     }
 }
