@@ -24,6 +24,7 @@ namespace MyGame.Objects
         //[SerializeField] private singleBullet bullet;  
         [SerializeField, Tooltip("탄환 Prefab")] private GameObject bullet;
         [SerializeField, Tooltip("사거리 표기 시간")] private float displayTime = 3f;
+        [SerializeField, Tooltip("사거리 표기용 Material")] private Material rangeMat;
         [SerializeField, Tooltip("타워 디버프 종류")] private List<debuffBase> debuffAssets = new List<debuffBase>();
 
         private List<debuffBase> debuffList;   // 실제 디버프 전달용 리스트
@@ -34,13 +35,22 @@ namespace MyGame.Objects
         {
             // 사거리 표시 용 실린더 만들기.
             rangeCylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            rangeCylinder.name = "range indicator";
-            rangeCylinder.transform.SetParent(this.transform);
-            rangeCylinder.transform.localPosition = Vector3.zero;
+            rangeCylinder.name = "range indicate cylinder";
+            rangeCylinder.transform.SetParent(this.transform);  // 부모는 타워.
+            rangeCylinder.transform.localPosition = new Vector3(0f, -0.5f, 0f); // 타워 바닥에에 위치.
 
-            // 실린더 크기 설정정
+            // 실린더에 메테리얼 적용.
+            Renderer rend = rangeCylinder.GetComponent<Renderer>();
+            rend.sharedMaterial = rangeMat;
+        
+            // 충돌 판정이 필요 없으므로 제거해야 함.
+            var collider = rangeCylinder.GetComponent<CapsuleCollider>();
+            Destroy(collider);
+
+            // 실린더 크기 설정
             float diameter = 2f * range;
             rangeCylinder.transform.localScale = new Vector3(diameter, 0.01f, diameter);
+
             // 처음에는 보이지 않음.
             rangeCylinder.SetActive(false);
 
