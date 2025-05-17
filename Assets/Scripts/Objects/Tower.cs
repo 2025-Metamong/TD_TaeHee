@@ -29,12 +29,25 @@ namespace MyGame.Objects
         private List<debuffBase> debuffList;   // 실제 디버프 전달용 리스트
         private float attack = 0f;  // 공격 결정용 flag. 주기가 되면 1, 아니면 0
         private Transform target;   // 타워가 공격해야 할 몬스터의 transform 컴포넌트. 
-        private RangeIndicator rangeIndicator;  // 타워 사거리 표출용 컴포넌트.
-
+        private GameObject rangeCylinder;  // 타워 사거리 표출용 컴포넌트.
+        private RangeIndicator rangeIndicator;
         void Awake()
         {
-            // 사거리 표기용 컴포넌트 찾아오기.
-            this.rangeIndicator = GetComponent<RangeIndicator>();            
+            // 사거리 표시 용 실린더 만들기.
+            rangeCylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            rangeCylinder.name = "range indicator";
+            rangeCylinder.transform.SetParent(this.transform);
+            rangeCylinder.transform.localPosition = Vector3.zero;
+
+            // 실린더 크기 설정정
+            float diameter = 2f * range;
+            rangeCylinder.transform.localScale = new Vector3(diameter, 0.01f, diameter);
+            // 처음에는 보이지 않음.
+            rangeCylinder.SetActive(false);
+
+            // 라인 렌더러로 그려보기.
+            rangeIndicator = GetComponent<RangeIndicator>();
+            rangeIndicator.Initialize(this.range);
         }
         void Start()
         {
@@ -42,8 +55,7 @@ namespace MyGame.Objects
             this.position = gameObject.transform;
             // 디버프 종류 ScriptableObject들 인스턴스화
             this.debuffList = new List<debuffBase>(debuffAssets);
-            Debug.Log("사거리 표시 테스트");
-            rangeIndicator.ShowForSeconds(displayTime);
+
         }
 
         // Update is called once per frame
@@ -91,7 +103,9 @@ namespace MyGame.Objects
         void OnMouseDown()
         {
             Debug.Log("마우스 클릭!");
+            // rangeCylinder.SetActive(true);
             rangeIndicator.ShowForSeconds(displayTime);
+            
         }
 
 
