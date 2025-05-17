@@ -4,7 +4,9 @@ using UnityEngine;
 using MyGame.Managers;
 using System;
 using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime; // Assuming you have a MonsterManager script to handle monster logic
+using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor.Search;
+using System.Collections; // Assuming you have a MonsterManager script to handle monster logic
 
 namespace MyGame.Objects
 {
@@ -12,7 +14,11 @@ namespace MyGame.Objects
     [RequireComponent(typeof(Collider))]
     public class Tower : MonoBehaviour
     {
-        // Represents a tower that also serves as a bullet generator.
+        /*
+            1. 사정거리 내 몬스터 타겟 지정해서 Bullet에 전달
+            2. 클릭 시 타워 사정거리 표시
+            3. 타워 업그레이드 수행
+        */
         [Header("Tower Stats")]   // 타워 정보 inspector에 표기하기 위한 용도.
         [SerializeField, Tooltip("타워 ID")] private int ID = -1;   // 디폴트는 -1로 설정.
         [SerializeField, Tooltip("설치 비용")] private int cost = 10;
@@ -31,6 +37,7 @@ namespace MyGame.Objects
         private float attack = 0f;  // 공격 결정용 flag. 주기가 되면 1, 아니면 0
         private Transform target;   // 타워가 공격해야 할 몬스터의 transform 컴포넌트. 
         private GameObject rangeCylinder;  // 타워 사거리 표출용 컴포넌트.
+        private Coroutine rangeCoroutine;
         void Awake()
         {
             // 사거리 표시 용 실린더 만들기.
@@ -109,8 +116,18 @@ namespace MyGame.Objects
         void OnMouseDown()
         {
             Debug.Log("마우스 클릭!");
-            rangeCylinder.SetActive(true);
+            if (rangeCoroutine != null)
+                StopCoroutine(rangeCoroutine);
+            rangeCoroutine = StartCoroutine(ShowRangeForSeconds());  // 사거리 표기
             
+        }
+
+        private IEnumerator ShowRangeForSeconds()
+        {
+            rangeCylinder.SetActive(true);
+            yield return new WaitForSeconds(this.displayTime);
+            rangeCylinder.SetActive(false);
+            rangeCoroutine = null;
         }
 
 
