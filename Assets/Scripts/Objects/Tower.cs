@@ -8,6 +8,8 @@ using System.Runtime.InteropServices.WindowsRuntime; // Assuming you have a Mons
 
 namespace MyGame.Objects
 {
+    // 타워 클릭 처리를 위해서는 Collider 가 필요하고, RangeIndicator로 사거리 표기할 수 있어야 함.
+    [RequireComponent(typeof(Collider), typeof(RangeIndicator))]
     public class Tower : MonoBehaviour
     {
         // Represents a tower that also serves as a bullet generator.
@@ -16,24 +18,32 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("설치 비용")] private int cost = 10;
         [SerializeField, Tooltip("설치 위치")] private Transform position;
         [SerializeField, Tooltip("사거리")] private float range = 10f;
-        [SerializeField, Tooltip("공격 빈도")] private float attackPeriod = 1f; 
+        [SerializeField, Tooltip("공격 빈도")] private float attackPeriod = 1f;
         [SerializeField, Tooltip("레벨")] private int upgradeLevel = 0;
         [SerializeField, Tooltip("업그레이드 비용")] private int upgradeCost = 5;
         //[SerializeField] private singleBullet bullet;  
         [SerializeField, Tooltip("탄환 Prefab")] private GameObject bullet;
+        [SerializeField, Tooltip("사거리 표기 시간")] private float displayTime = 3f;
         [SerializeField, Tooltip("타워 디버프 종류")] private List<debuffBase> debuffAssets = new List<debuffBase>();
 
         private List<debuffBase> debuffList;   // 실제 디버프 전달용 리스트
         private float attack = 0f;  // 공격 결정용 flag. 주기가 되면 1, 아니면 0
         private Transform target;   // 타워가 공격해야 할 몬스터의 transform 컴포넌트. 
+        private RangeIndicator rangeIndicator;  // 타워 사거리 표출용 컴포넌트.
 
+        void Awake()
+        {
+            // 사거리 표기용 컴포넌트 찾아오기.
+            this.rangeIndicator = GetComponent<RangeIndicator>();            
+        }
         void Start()
         {
             // position 변수 초기화
             this.position = gameObject.transform;
             // 디버프 종류 ScriptableObject들 인스턴스화
             this.debuffList = new List<debuffBase>(debuffAssets);
-
+            Debug.Log("사거리 표시 테스트");
+            rangeIndicator.ShowForSeconds(displayTime);
         }
 
         // Update is called once per frame
@@ -63,11 +73,11 @@ namespace MyGame.Objects
                     // bullt_object.GetComponent<singleBullet>().SetDirection(this.transform, target); // bullet 이 알아서 발사 될 것.
                     var bullet_script = bullet_object?.GetComponent<MonoBehaviour>();   // prefab의 스크립트 찾기
                     // SetDirection 적용
-                    var directionMethod = bullet_script?.GetType().GetMethod("SetDirection", new Type[] { typeof(Transform), typeof(Transform)});
-                    directionMethod?.Invoke(bullet_script, new object[] {this.transform, this.target});
+                    var directionMethod = bullet_script?.GetType().GetMethod("SetDirection", new Type[] { typeof(Transform), typeof(Transform) });
+                    directionMethod?.Invoke(bullet_script, new object[] { this.transform, this.target });
                     // // SetDebuff 로 bullet에 디버프 리스트 전달.
-                    var debuffMethod = bullet_script?.GetType().GetMethod("SetDebuff", new Type[] { typeof(List<debuffBase>)});
-                    debuffMethod?.Invoke(bullet_script, new object[] {this.debuffList});
+                    var debuffMethod = bullet_script?.GetType().GetMethod("SetDebuff", new Type[] { typeof(List<debuffBase>) });
+                    debuffMethod?.Invoke(bullet_script, new object[] { this.debuffList });
                     // 몬스터를 보도록 타워를 회전 시킬지 고민중.
                 }
                 else
@@ -77,6 +87,14 @@ namespace MyGame.Objects
                 }
             }
         }
+
+        void OnMouseDown()
+        {
+            Debug.Log("마우스 클릭!");
+            rangeIndicator.ShowForSeconds(displayTime);
+        }
+
+
         public Transform GetPosition()
         {     // 타워 오브젝트의 Transform 컴포넌트 리턴.
             return this.position;
@@ -116,14 +134,15 @@ namespace MyGame.Objects
             float max = 10000000f;
             float minDistance = max;
             int minIndex = 0;
-            bool find = false;
             Transform target = null;
 
-            foreach(var pair in MonsterManager.Instance.GetMonsterList()){
+            foreach (var pair in MonsterManager.Instance.GetMonsterList())
+            {
                 float distance = Vector3.Distance(this.position.position, pair.Value.transform.position);
                 if (distance > this.range)  // 몬스터가 사거리 밖이면면
                     continue;
-                if(distance < minDistance){
+                if (distance < minDistance)
+                {
                     minDistance = distance;
                     minIndex = pair.Key;
                     target = pair.Value.transform;
@@ -150,14 +169,16 @@ namespace MyGame.Objects
         /// int GetID()
         /// returns ID of the Tower
         /// </summary>
-        public int GetID(){ 
+        public int GetID()
+        {
             return this.ID;
         }
         /// <summary>
         /// void SetID(int)
         /// set Tower's ID to the passed Value.
         /// </summary>
-        public void SetID(int id){
+        public void SetID(int id)
+        {
             this.ID = id;
         }
     }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class HpPrint : MonoBehaviour
 {
     public TextMeshProUGUI hpText;
-    //public MonsterManager monsterManager;
 
     private void Start()
     {
