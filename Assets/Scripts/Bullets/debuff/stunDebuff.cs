@@ -8,7 +8,7 @@ public class StunDebuff : debuffBase
     public override void Apply(GameObject target)
     {
         var monster = target.GetComponent<Monster>();
-        if (monster == null || monster.isDead) return;
+        if (monster == null || monster.IsDead) return;
 
         // 디버프 구분에 사용하는 key 값은 debuffName
         string debuffKey = debuffName;
@@ -16,7 +16,7 @@ public class StunDebuff : debuffBase
         IEnumerator co = StunCoroutine(monster, debuffKey);
 
         System.Action onEnd = () => {
-            if (monster != null && !monster.isDead)
+            if (monster != null && !monster.IsDead)
             {
                 monster.SetStun(false);
                 Debug.Log($"[StunDebuff] 기절 해제 (갱신)");
@@ -28,14 +28,14 @@ public class StunDebuff : debuffBase
 
     private IEnumerator StunCoroutine(Monster monster, string debuffKey)
     {
-        if (monster==null || monster.isDead) yield break;
+        if (monster==null || monster.IsDead) yield break;
 
         monster.SetStun(true);
         Debug.Log($"[StunDebuff] 기절 적용 : {duration} 동안 멈춤");
 
         yield return new WaitForSeconds(duration);
 
-        if (monster != null && !monster.isDead)
+        if (monster != null && !monster.IsDead)
         {
             monster.SetStun(false);
             monster.RemoveDebuff(debuffKey);

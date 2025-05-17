@@ -1,72 +1,84 @@
 using UnityEngine;
 using MyGame.Objects;
 using System.Collections.Generic;
-using System;
 
 namespace MyGame.Managers
 {
     public class TowerManager : MonoBehaviour
     {
-        // 현재 씬 안에 있는 타워들을 관리하는 타워 매니저 클래스. 싱글톤으로 객체 생성함.
         [Header("TowerManager Info")]
-        [SerializeField] private GameObject towerPrefab;    // 생성할 타워의 prefab
-        // private Tower[] towerList;  // TowerManager가 관리중인 타워들의 리스트.
-        // private List<GameObject>towerList = new List<GameObject>();  // 타워 리스트를 게임 오브젝트 리스트로 수정.
-        private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();  // 현재 소환 된 타워 리스트를 딕셔너리로 수정
-        private int TowerIndex = 0;
-        public static TowerManager Instance { get; private set; } // 싱글톤 패턴
+        [SerializeField] private GameObject towerPrefab;
+
+        // 설치된 타워를 ID → GameObject로 관리
+        private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();
+
+        public static TowerManager Instance { get; private set; }
+
         private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
             else
             {
                 Destroy(gameObject);
+                return;
             }
+
         }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        /// <summary>
+        /// 화면 상의 월드 좌표로 타워 설치
+        /// </summary>
+        public void InstallTower(Vector3 position)
         {
-            // 
+            // TODO: ResourceManager로 실제 코인 검사
+            bool isEnough = true;
+            if (!isEnough) return;
+
+            var newTowerGo = Instantiate(towerPrefab, position, Quaternion.identity, transform);
+            var tower = newTowerGo.GetComponent<Tower>();
+            if (tower == null)
+            {
+                Debug.LogError("Tower prefab에 Tower 컴포넌트가 없습니다!");
+                Destroy(newTowerGo);
+                return;
+            }
+
+            // Awake()에서 ID가 이미 할당됨
+            towerDict.Add(tower.ID, newTowerGo);
+            Debug.Log($"타워 설치 완료! ID = {tower.ID}");
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// 해당 타워를 판매(제거)하고, 코인 환급
+        /// </summary>
+        public void SellTower(GameObject toDelete)
         {
+            var tower = toDelete.GetComponent<Tower>();
+            if (tower == null || !towerDict.ContainsKey(tower.ID))
+            {
+                Debug.LogWarning("존재하지 않는 타워이거나 이미 판매된 타워입니다.");
+                return;
+            }
 
-        }
-        public void InstallTower(Vector3 position){  // 설치할 위치만 전달 받기로 결정.
-        //    bool isEnough = ResourceManager.Instance.useCoins(T.GetCost());
-           bool isEnough = true;
-           // 돈이 충분한지 검사해서 타워를 설치하는 함수.
-           if(isEnough != false){ // 타워 설치를 위한 돈이 충분했던 경우.
-               // 사용된 Instantiate 함수 prototype : 
-               //   public static Object Instantiate(Object original, Vector3 position, Quaternion rotation, Transform parent);
-               GameObject newTower = Instantiate(towerPrefab, position, Quaternion.identity, this.transform);  // 새로운 타워 인스턴시에이트. 
-               // 인스턴스에 사용할 Prefab towerPrefab. 위치는 전달 받은 Vector3 position. 회전은? 0. 부모는 TowerManager.
+            // 코인 환급 로직
+            int refund = tower.GetSellPrice();
+            // ResourceManager.Instance.AddCoins(refund);
 
-               if(newTower == null){
-                   Debug.Log("타워 설치 실패");
-                   return;
-               }
-               Debug.Log("타워 인스턴스화 성공");
-               var newTowerScript = newTower?.GetComponent<MonoBehaviour>();    // 새 타워에서 타워 스크립트 찾기
-               newTowerScript?.GetType()?.GetMethod("SetID", new Type[]{typeof(int)})?.Invoke(newTowerScript, new object[]{this.TowerIndex});
-               this.towerDict.Add(this.TowerIndex++, newTower);   // 타워 List 딕셔너리리에 타워 Add
-           }
-           else {
-               return;
-           }
+            towerDict.Remove(tower.ID);
+            Destroy(toDelete);
+            Debug.Log($"타워(ID={tower.ID}) 판매 완료! 환급 코인: {refund}");
         }
-        public void SellTower(GameObject toDelete){
-            Debug.Log("Tower Selling");
+
+        /// <summary>
+        /// 현재 설치된 모든 타워 조회
+        /// </summary>
+        public IEnumerable<KeyValuePair<int, GameObject>> GetAllTowers()
+        {
+            return towerDict;
         }
-    
-    
     }
-
 }
-

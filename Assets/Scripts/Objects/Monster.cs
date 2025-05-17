@@ -1,180 +1,184 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MyGame.Managers; // Assuming you have a MonsterManager script to handle monster logic
+using MyGame.Managers;
 
 namespace MyGame.Objects
 {
     public class Monster : MonoBehaviour
     {
         [Header("Monster Stats")]
-        [SerializeField] private float health = 100;
+        [SerializeField] private float health = 100f;
         [SerializeField] private int reward = 10;
-        [SerializeField] private int damage = 1;
         [SerializeField] private float speed = 1f;
-        // Add Monster ID 
-        [SerializeField] private int ID = -1;
-        private Transform pathHolder;
+        [SerializeField] private bool isStunned = false;
+        [SerializeField] private float damageAmplify = 1.0f;
 
-        // 디버프 관련 변수 추가
-        public bool isDead = false;
+        // 디버프 관련
+        private Transform pathHolder;
+        private Dictionary<string, ActiveDebuffInfo> activeDebuffs = new Dictionary<string, ActiveDebuffInfo>();
+
+        // 고유 ID 자동 할당
+        private static int _nextID = 0;
+        public int ID { get; private set; }
+
+        // 외부에서 보상금액을 읽을 수 있도록 프로퍼티 추가
+        public int Reward => reward;
+
         private class ActiveDebuffInfo
         {
             public Coroutine coroutine;
             public System.Action onEndAction;
-
             public ActiveDebuffInfo(Coroutine co, System.Action endAction)
             {
-                this.coroutine = co;
-                this.onEndAction = endAction;
+                coroutine = co;
+                onEndAction = endAction;
             }
         }
-        private Dictionary<string, ActiveDebuffInfo> activeDebuffs = new Dictionary<string, ActiveDebuffInfo>();
 
-        // Slow Debuff
-        public float GetSpeed() => speed;
-        public void SetSpeed(float newSpeed) => speed = newSpeed;
+        // <summary>
+        // 몬스터가 사망했는지 여부를 외부에서 읽을 수 있도록 프로퍼티 추가
+        // </summary>
+        public bool IsDead => health <= 0f;
+        /// <summary>
+        /// 스턴(기절) 상태를 설정합니다.
+        /// </summary>
+        public void SetStun(bool tf)
+        {
+            isStunned = tf;
+        }
 
-        // Weak Debuff 
-        [SerializeField] private float damageAmplify = 1.0f;
-        public float GetDamageAmplify() => damageAmplify;
-        public void SetDamageAmplify(float value) => damageAmplify = value;
+        /// <summary>
+        /// 현재 스턴 상태를 외부에서 읽을 수 있도록 프로퍼티도 추가하면 좋습니다.
+        /// </summary>
+        public bool IsStunned => isStunned;
 
-        // Stun Debuff
-        [SerializeField] private bool isStunned = false;
-        public void SetStun(bool tf) => isStunned = tf;
+        /// <summary>
+        /// 현재 이동 속도를 반환합니다.
+        /// </summary>
+        public float GetSpeed()
+        {
+            return speed;
+        }
 
+        /// <summary>
+        /// 이동 속도를 설정합니다.
+        /// </summary>
+        public void SetSpeed(float newSpeed)
+        {
+            speed = newSpeed;
+        }
+
+        /// <summary>
+        /// 현재 데미지 배율을 반환합니다.
+        /// </summary>
+        public float GetDamageAmplify()
+        {
+            return damageAmplify;
+        }
+
+        /// <summary>
+        /// 데미지 배율을 설정합니다.
+        /// </summary>
+        public void SetDamageAmplify(float value)
+        {
+            damageAmplify = value;
+        }
+
+        void Awake()
+        {
+            ID = _nextID++;
+        }
 
         public void SetPath(Transform ways)
         {
             pathHolder = ways;
         }
-        // 몬스터 이동
+
         private void Start()
         {
+            // 경로 초기화
             Vector3[] waypoints = new Vector3[pathHolder.childCount];
-
-            Debug.Log("몬스터가 소환되었습니다.");
             for (int i = 0; i < waypoints.Length; i++)
-            {
                 waypoints[i] = pathHolder.GetChild(i).position;
-            }
 
             transform.position = waypoints[0];
-
             StartCoroutine(FollowPath(waypoints));
         }
+
         IEnumerator FollowPath(Vector3[] waypoints)
         {
-            transform.position = waypoints[0];
-
-            int currentWaypointIndex = 0;
-
-
-            while (currentWaypointIndex < waypoints.Length - 1)
+            int idx = 0;
+            while (idx < waypoints.Length - 1)
             {
-                if (this.isStunned)
+                if (activeDebuffs.ContainsKey("Stun"))
                 {
                     yield return null;
                     continue;
                 }
-                Vector3 targetWaypoint = waypoints[currentWaypointIndex + 1];
-                transform.LookAt(targetWaypoint);
-                transform.position = Vector3.MoveTowards(transform.position, targetWaypoint, speed * Time.deltaTime);
 
-                if (Vector3.Distance(transform.position, targetWaypoint) < 0.01f)
-                {
-                    currentWaypointIndex++;
-                }
+                Vector3 target = waypoints[idx + 1];
+                transform.LookAt(target);
+                transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+                if (Vector3.Distance(transform.position, target) < 0.01f)
+                    idx++;
+
                 yield return null;
-
             }
         }
-
-        // 새로운 함수 구현을 위해 디버프 관련 추가 함수 주석처리리
-        // public Vector3 GetPosition()
-        // {
-        //     return transform.position;
-        // }
-
-        // public int GetReward()
-        // {
-        //     return reward;
-        // }
-
-        // public void AddReward(int value)
-        // {
-        //     reward += value;
-        // }
-
-        // 디버프 부여 함수
-        public void ApplyDebuff(string debuffKey, IEnumerator debuffCoroutine, System.Action onEndAction)
-        {
-            if (activeDebuffs.ContainsKey(debuffKey))
-            {
-                activeDebuffs[debuffKey].onEndAction?.Invoke();
-                StopCoroutine(activeDebuffs[debuffKey].coroutine);
-                activeDebuffs.Remove(debuffKey);
-            }
-
-            Coroutine co = StartCoroutine(debuffCoroutine);
-            activeDebuffs[debuffKey] = new ActiveDebuffInfo(co, onEndAction);
-        }
-
-        // 디버프 삭제 함수
-        public void RemoveDebuff(string debuffKey)
-        {
-            if (activeDebuffs.ContainsKey(debuffKey))
-            {
-                activeDebuffs.Remove(debuffKey);
-            }
-        }
-
-        // 죽으면 모든 디버프 정리
-        public void ClearAllDebuffs()
-        {
-            foreach (var debuff in activeDebuffs.Values)
-            {
-                if (debuff != null)
-                {
-                    StopCoroutine(debuff.coroutine);
-                }
-            }
-            activeDebuffs.Clear();
-        }
-
 
         public void TakeDamage(float amount)
         {
-            //health -= amount;
-            int amplifiedDamage = Mathf.RoundToInt(amount * damageAmplify);
-            health -= amplifiedDamage;
-            Debug.Log($"Hit Monster Damage : {amplifiedDamage}");
-
+            int finalDamage = Mathf.RoundToInt(amount * (activeDebuffs.ContainsKey("Weak") ? 1.2f : 1f));
+            health -= finalDamage;
             if (health <= 0f)
             {
-                this.isDead = true;
-                MonsterManager.Instance.KillMonster(this.gameObject);
+                MonsterManager.Instance.KillMonster(gameObject);
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other != null && other.CompareTag("Finish"))
+            if (other.CompareTag("Finish"))
             {
-                //StageManager.Instance.ReachFinish(this);
-                Debug.Log("몬스터가 Finish에 도착했습니다.");
-                MonsterManager.Instance.KillMonster(this.gameObject);
+                MonsterManager.Instance.KillMonster(gameObject);
             }
         }
 
-        public int GetID(){
-            return this.ID;
+        // 디버프 API
+        public void ApplyDebuff(string key, IEnumerator debuffCoroutine, System.Action onEnd)
+        {
+             if (activeDebuffs.ContainsKey(key))
+            {
+                 activeDebuffs[key].onEndAction?.Invoke();
+                StopCoroutine(activeDebuffs[key].coroutine);
+                activeDebuffs.Remove(key);
+            }
+            Coroutine co = StartCoroutine(debuffCoroutine);
+            activeDebuffs[key] = new ActiveDebuffInfo(co, onEnd);
         }
 
-        public void SetID(int id){
-            this.ID = id;
+        /// <summary>
+       /// 해당 키의 디버프를 중단하고 제거합니다.
+       /// </summary>
+        public void RemoveDebuff(string key)
+       {
+           if (activeDebuffs.ContainsKey(key))
+           {
+               // 코루틴을 멈추고
+               StopCoroutine(activeDebuffs[key].coroutine);
+               // 종료 콜백 실행
+               activeDebuffs[key].onEndAction?.Invoke();
+               // 딕셔너리에서 제거
+               activeDebuffs.Remove(key);
+           }
+       }
+        public void ClearAllDebuffs()
+        {
+            foreach (var info in activeDebuffs.Values)
+                StopCoroutine(info.coroutine);
+            activeDebuffs.Clear();
         }
     }
-
 }

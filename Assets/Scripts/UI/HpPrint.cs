@@ -1,19 +1,19 @@
 using MyGame.Managers;
-using System.Xml;
 using TMPro;
 using UnityEngine;
 
 public class HpPrint : MonoBehaviour
 {
-    public TextMeshProUGUI hpText;
-    //public MonsterManager monsterManager;
+    private TextMeshProUGUI hpText;
 
-    private void Start()
+    private void Awake()
     {
         hpText = GetComponent<TextMeshProUGUI>();
     }
+
     void Update()
     {
-        hpText.text = MonsterManager.Hp.ToString();
+        // ResourceManager에서 현재 라이프(HP) 값을 가져와 표시
+        hpText.text = ResourceManager.Instance.CurrentLives.ToString();
     }
 }

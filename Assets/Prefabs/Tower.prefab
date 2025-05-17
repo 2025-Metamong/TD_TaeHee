@@ -122,9 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 0
-  position: {fileID: 0}
-  range: 0
-  attackPeriod: 0
-  upgradeLevel: 0
+  range: 5
+  attackPeriod: 1
   upgradeCost: 0
-  bullet: {fileID: 3084736807602813044, guid: 596108dc9e090fc4a8be2911651baaa8, type: 3}
+  bulletPrefab: {fileID: 3084736807602813044, guid: 596108dc9e090fc4a8be2911651baaa8, type: 3}
+  debuffAssets: []

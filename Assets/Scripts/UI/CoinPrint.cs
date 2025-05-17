@@ -1,19 +1,19 @@
 using MyGame.Managers;
-using System.Xml;
 using TMPro;
 using UnityEngine;
 
 public class CoinPrint : MonoBehaviour
 {
-    public TextMeshProUGUI coinText;
-    //public MonsterManager monsterManager;
+    private TextMeshProUGUI coinText;
 
-    private void Start()
+    private void Awake()
     {
         coinText = GetComponent<TextMeshProUGUI>();
     }
+
     void Update()
     {
-        coinText.text = MonsterManager.coin.ToString();  
+        // MonsterManager.coin 대신 ResourceManager에서 현재 코인 값을 가져와 표시
+        coinText.text = ResourceManager.Instance.CurrentCoins.ToString();
     }
 }
