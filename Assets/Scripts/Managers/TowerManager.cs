@@ -72,6 +72,16 @@ namespace MyGame.Managers
         {
             return this.towerPrefabs;
         }
+
+        public void SetDamageIncrease(float N, float M)
+        {
+            Debug.Log($"모든 타워 공격력 * (1 + { N }) + {M} 수행");
+        }
+
+        public void SetAttackSpeedIncrease(float N)
+        {
+            Debug.Log($"모든 타워 공격 속도 * {N} 수행");
+        }
     
     }
 
