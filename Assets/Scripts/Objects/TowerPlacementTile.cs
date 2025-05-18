@@ -1,7 +1,4 @@
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using MyGame.Managers;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // 타워를 얹을 수 있는 타일들에 들어가는 스크립트. 타일 위에 마우스가 올라가 있는지 확인하고 색상을 변경함.
