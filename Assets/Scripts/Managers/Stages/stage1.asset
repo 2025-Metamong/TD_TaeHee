@@ -15,7 +15,9 @@ MonoBehaviour:
   startCoins: 100
   playerHP: 10
   monsterSpawnList: []
-  map: {fileID: 4447890313209953315, guid: 28b5292b9a7648c4fb351127cb559c8b, type: 3}
+  map: {fileID: 2851751867144945868, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
+  spawnPoint: {fileID: 0}
+  pathHolder: {fileID: 0}
   cameraBounds:
     serializedVersion: 2
     x: -100
