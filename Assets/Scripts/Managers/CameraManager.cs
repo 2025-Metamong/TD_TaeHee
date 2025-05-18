@@ -3,13 +3,13 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [Header("Pan Settings (Left Drag)")]
-    [Tooltip("팬 속도 계수")]
+    [Tooltip("카메라 이동 속도 계수")]
     public float panSpeed = 1.0f;
     [Header("Pan Limits (World X/Z)")]
     [Tooltip("X축 이동 제한 (min, max)")]
-    public Vector2 panXLimits = new Vector2(-10f, 10f);
+    public Vector2 panXLimits = new Vector2(-50f, 50f);
     [Tooltip("Z축 이동 제한 (min, max)")]
-    public Vector2 panZLimits = new Vector2(-10f, 10f);
+    public Vector2 panZLimits = new Vector2(-50f, 50f);
 
     [Header("Orbit Settings (Right Drag)")]
     [Tooltip("Yaw 회전 속도 (수평)")]
