@@ -10,7 +10,7 @@ using System.Collections; // Assuming you have a MonsterManager script to handle
 
 namespace MyGame.Objects
 {
-    // 타워 클릭 처리를 위해서는 Collider 가 필요하고, RangeIndicator로 사거리 표기할 수 있어야 함.
+    // 타워 클릭 처리를 위해서는 Collider 가 필요
     [RequireComponent(typeof(Collider))]
     public class Tower : MonoBehaviour
     {
@@ -25,6 +25,7 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("설치 위치")] private Transform position;
         [SerializeField, Tooltip("사거리")] private float range = 10f;
         [SerializeField, Tooltip("공격 빈도")] private float attackPeriod = 1f;
+        [SerializeField, Tooltip("피해량")] private float damage = 15f; // 피해량 추가.
         [SerializeField, Tooltip("레벨")] private int upgradeLevel = 0;
         [SerializeField, Tooltip("업그레이드 비용")] private int upgradeCost = 5;
         //[SerializeField] private singleBullet bullet;  
@@ -94,15 +95,17 @@ namespace MyGame.Objects
                     // Case 1. 타겟을 찾은 경우
                     // GameObject bullt_object = Instantiate(bullet, transform.position, Quaternion.identity);
                     GameObject bullet_object = Instantiate(bullet, transform.position, Quaternion.identity);
-                    // 여러가지 타입의 bullet에 적용 가능하도록 수정할 것.
-                    // bullt_object.GetComponent<singleBullet>().SetDirection(this.transform, target); // bullet 이 알아서 발사 될 것.
+
                     var bullet_script = bullet_object?.GetComponent<MonoBehaviour>();   // prefab의 스크립트 찾기
-                    // SetDirection 적용
+                    // SetDirection 으로 bullet 날아갈 방향 적용
                     var directionMethod = bullet_script?.GetType().GetMethod("SetDirection", new Type[] { typeof(Transform), typeof(Transform) });
                     directionMethod?.Invoke(bullet_script, new object[] { this.transform, this.target });
-                    // // SetDebuff 로 bullet에 디버프 리스트 전달.
+                    // SetDebuff 로 bullet에 디버프 리스트 전달.
                     var debuffMethod = bullet_script?.GetType().GetMethod("SetDebuff", new Type[] { typeof(List<debuffBase>) });
                     debuffMethod?.Invoke(bullet_script, new object[] { this.debuffList });
+                    // SetDamage로 bullet에 공격력 전달.
+                    var damageMethod = bullet_script?.GetType().GetMethod("SetDamage", new Type[] { typeof(float) });
+                    damageMethod?.Invoke(bullet_script, new object[] { this.damage });                    
                     // 몬스터를 보도록 타워를 회전 시킬지 고민중.
                 }
                 else
