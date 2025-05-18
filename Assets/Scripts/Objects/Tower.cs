@@ -50,7 +50,7 @@ namespace MyGame.Objects
             // 실린더에 메테리얼 적용.
             Renderer rend = rangeCylinder.GetComponent<Renderer>();
             rend.sharedMaterial = rangeMat;
-        
+
             // 충돌 판정이 필요 없으므로 제거해야 함.
             var collider = rangeCylinder.GetComponent<CapsuleCollider>();
             Destroy(collider);
@@ -105,7 +105,7 @@ namespace MyGame.Objects
                     debuffMethod?.Invoke(bullet_script, new object[] { this.debuffList });
                     // SetDamage로 bullet에 공격력 전달.
                     var damageMethod = bullet_script?.GetType().GetMethod("SetDamage", new Type[] { typeof(float) });
-                    damageMethod?.Invoke(bullet_script, new object[] { this.damage });                    
+                    damageMethod?.Invoke(bullet_script, new object[] { this.damage });
                     // 몬스터를 보도록 타워를 회전 시킬지 고민중.
                 }
                 else
@@ -122,7 +122,7 @@ namespace MyGame.Objects
             if (rangeCoroutine != null)
                 StopCoroutine(rangeCoroutine);
             rangeCoroutine = StartCoroutine(ShowRangeForSeconds());  // 사거리 표기
-            
+
         }
 
         private IEnumerator ShowRangeForSeconds()
@@ -219,6 +219,16 @@ namespace MyGame.Objects
         public void SetID(int id)
         {
             this.ID = id;
+        }
+
+        public void SetDamage(float dam)
+        {
+            this.damage = dam;
+        }
+
+        public float GetDamage()
+        {
+            return this.damage;
         }
     }
 
