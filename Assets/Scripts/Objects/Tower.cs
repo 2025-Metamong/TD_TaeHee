@@ -230,6 +230,16 @@ namespace MyGame.Objects
         {
             return this.damage;
         }
+
+        public float GetAttackPeriod()
+        {
+            return this.attackPeriod;
+        }
+
+        public void SetAttackPeriod(float newAttackPeriod)
+        {
+            this.attackPeriod = newAttackPeriod;
+        }
     }
 
 }
