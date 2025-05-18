@@ -9,7 +9,10 @@ namespace MyGame.Managers
     {
         // 현재 씬 안에 있는 타워들을 관리하는 타워 매니저 클래스. 싱글톤으로 객체 생성함.
         [Header("TowerManager Info")]
-        [SerializeField] private List<GameObject> towerPrefabs;    // 생성할 타워의 prefab
+        [SerializeField, Tooltip("타워 프리팹 리스트")] private List<GameObject> towerPrefabs;
+        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 N")] private float nDamage;
+        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 M")] private float mDamage;
+        [SerializeField, Tooltip("글로벌 공격속도 증가 팩터 Speed")] private float globalSpeedModifier;
         private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();  // 현재 소환 된 타워 리스트를 딕셔너리로 수정
 
         private int TowerIndex = 0;
@@ -54,8 +57,21 @@ namespace MyGame.Managers
                     return;
                 }
                 Debug.Log("타워 인스턴스화 성공");
-                var newTowerScript = newTower?.GetComponent<MonoBehaviour>();    // 새 타워에서 타워 스크립트 찾기
-                newTowerScript?.GetType()?.GetMethod("SetID", new Type[] { typeof(int) })?.Invoke(newTowerScript, new object[] { this.TowerIndex });
+                if (!newTower.TryGetComponent<MonoBehaviour>(out var newTowerScript))   // 새 타워에서 스크립트 찾기.
+                {
+                    Debug.Log("객체에 스크립트 존재하지 않음");
+                    return;
+                }
+                // 타워 ID 세팅
+                newTowerScript.GetType()?.GetMethod("SetID", new Type[] { typeof(int) })?.Invoke(newTowerScript, new object[] { this.TowerIndex });
+            
+                // 글로벌 데미지 계산식 적용
+                var originalDamage = newTowerScript.GetType()?.GetMethod("GetDamage", new Type[] {})?.Invoke(newTowerScript, new object[] { });
+                float newDamage = (float)originalDamage * (1 + this.nDamage) + this.mDamage;
+                newTowerScript.GetType()?.GetMethod("SetDamage", new Type[] {typeof(float)})?.Invoke(newTowerScript, new object[] { newDamage });
+
+                // 글로벌 공격속도 계산식 적용
+
                 this.towerDict.Add(this.TowerIndex++, newTower);   // 타워 List 딕셔너리리에 타워 Add
             }
             else
@@ -72,12 +88,28 @@ namespace MyGame.Managers
         {
             return this.towerPrefabs;
         }
-
+    
+        // 현존하는 타워 + 이후 등장할 타워들 데미지 증가 기능
         public void SetDamageIncrease(float N, float M)
         {
-            Debug.Log($"모든 타워 공격력 * (1 + { N }) + {M} 수행");
+            Debug.Log($"모든 타워 공격력 * (1 + {N}) + {M} 수행");
+
+
+            foreach (var tower in this.towerDict)
+            {
+                if (!tower.Value.TryGetComponent<MonoBehaviour>(out var towerScript)) // 스크립트 찾기.
+                {
+                    Debug.Log("객체에 스크립트 존재하지 않음");
+                    continue;
+                }
+                // 존재하는 타워 중 하나 데미지 증가 수행.
+                var damageIncMethod = towerScript.GetType()?.GetMethod("SetDamageIncrease", new Type[] { typeof(float), typeof(float) });
+                damageIncMethod?.Invoke(towerScript, new object[] { N, M });
+            }
+
         }
 
+        // 현존하는 타워 + 이후에 등장하는 타워 모두 데미지 증가 기능.
         public void SetAttackSpeedIncrease(float N)
         {
             Debug.Log($"모든 타워 공격 속도 * {N} 수행");
