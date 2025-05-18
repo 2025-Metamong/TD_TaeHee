@@ -94,6 +94,8 @@ namespace MyGame.Managers
         {
             Debug.Log($"모든 타워 공격력 * (1 + {N}) + {M} 수행");
 
+            this.nDamage = N;
+            this.mDamage = M;
 
             foreach (var tower in this.towerDict)
             {
@@ -103,8 +105,10 @@ namespace MyGame.Managers
                     continue;
                 }
                 // 존재하는 타워 중 하나 데미지 증가 수행.
-                var damageIncMethod = towerScript.GetType()?.GetMethod("SetDamageIncrease", new Type[] { typeof(float), typeof(float) });
-                damageIncMethod?.Invoke(towerScript, new object[] { N, M });
+                var originalDamage = towerScript.GetType()?.GetMethod("GetDamage", new Type[] {})?.Invoke(towerScript, new object[] { });
+                float newDamage = (float)originalDamage * (1 + N) + M;
+                var damageIncMethod = towerScript.GetType()?.GetMethod("SetDamage", new Type[] { typeof(float) });
+                damageIncMethod?.Invoke(towerScript, new object[] { newDamage });
             }
 
         }
@@ -113,6 +117,22 @@ namespace MyGame.Managers
         public void SetAttackSpeedIncrease(float N)
         {
             Debug.Log($"모든 타워 공격 속도 * {N} 수행");
+
+            this.globalSpeedModifier = N;
+
+            foreach (var tower in this.towerDict)
+            {
+                if (!tower.Value.TryGetComponent<MonoBehaviour>(out var towerScript)) // 스크립트 찾기.
+                {
+                    Debug.Log("객체에 스크립트 존재하지 않음");
+                    continue;
+                }
+                // 존재하는 타워들 하나씩 공격 속도 증가 수행.
+                var originalAttackPeriod = towerScript.GetType()?.GetMethod("GetAttakPeriod", new Type[] {})?.Invoke(towerScript, new object[] { });
+                float newAttackPeriod = (float)originalAttackPeriod * N;
+                var attackSpeedSetMethod = towerScript.GetType()?.GetMethod("SetAttakPeriod", new Type[] { typeof(float) });
+                attackSpeedSetMethod?.Invoke(towerScript, new object[] { newAttackPeriod });
+            }
         }
     
     }
