@@ -89,7 +89,7 @@ namespace MyGame.Managers
             return this.towerPrefabs;
         }
     
-        // 현존하는 타워 + 이후 등장할 타워들 데미지 증가 기능
+        // 현존하는 타워 공격력 증가 + 추후 설치될 타워에 적용 위해 공격력 증가 계수 저장
         public void SetDamageIncrease(float N, float M)
         {
             Debug.Log($"모든 타워 공격력 * (1 + {N}) + {M} 수행");
@@ -113,7 +113,7 @@ namespace MyGame.Managers
 
         }
 
-        // 현존하는 타워 + 이후에 등장하는 타워 모두 데미지 증가 기능.
+        // 현존하는 타워 공격 속도 증가 + 추후 설치될 타워에 적용 위해 공격 속도 증가 계수 저장.
         public void SetAttackSpeedIncrease(float N)
         {
             Debug.Log($"모든 타워 공격 속도 * {N} 수행");
@@ -128,9 +128,9 @@ namespace MyGame.Managers
                     continue;
                 }
                 // 존재하는 타워들 하나씩 공격 속도 증가 수행.
-                var originalAttackPeriod = towerScript.GetType()?.GetMethod("GetAttakPeriod", new Type[] {})?.Invoke(towerScript, new object[] { });
+                var originalAttackPeriod = towerScript.GetType()?.GetMethod("GetAttackPeriod", new Type[] {})?.Invoke(towerScript, new object[] { });
                 float newAttackPeriod = (float)originalAttackPeriod * N;
-                var attackSpeedSetMethod = towerScript.GetType()?.GetMethod("SetAttakPeriod", new Type[] { typeof(float) });
+                var attackSpeedSetMethod = towerScript.GetType()?.GetMethod("SetAttackPeriod", new Type[] { typeof(float) });
                 attackSpeedSetMethod?.Invoke(towerScript, new object[] { newAttackPeriod });
             }
         }
