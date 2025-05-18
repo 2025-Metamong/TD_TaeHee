@@ -18,10 +18,7 @@ namespace MyGame.Objects
 
         [SerializeField, Tooltip("충돌 시 디버프 리스트")]
         private List<debuffBase> debuffList = new List<debuffBase>();
-
-        // 몬스터별 디버프 유지 / 추적용 딕셔너리
-        private static Dictionary<GameObject, Dictionary<string, Coroutine>> monsterDebuffMap = new Dictionary<GameObject, Dictionary<string, Coroutine>>();
-
+        
         // public event Action<GameObject> OnCollider; // 충돌 시 이벤트 발생 (예: 이펙트용)
         public GameObject hitEffect = null;
 
@@ -31,9 +28,9 @@ namespace MyGame.Objects
             this.direction = dir;
         }
 
-        public void SetDebuff(List<debuffBase> towerDebuffList){
-            this.debuffList = towerDebuffList;
-        }
+        public void SetDebuff(List<debuffBase> towerDebuffList) => debuffList = towerDebuffList;
+
+        public void SetDamage(float towerDamage) => damage = towerDamage;
 
         void Start()
         {
