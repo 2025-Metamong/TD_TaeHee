@@ -16,12 +16,30 @@ public class StageInfo : ScriptableObject
     [Tooltip("List of monsters to spawn: spawn time (seconds) and monster data index.")]
     public List<StageMonsterEntry> monsterSpawnList = new List<StageMonsterEntry>();
 
-    [Header("Map & Camera")]
+    [Header("Map")]
     [Tooltip("Reference to the root GameObject of the map for this stage.")]
     public GameObject map;
+    [Tooltip("Transparent GameObject where monster spanws")]
+    public GameObject spawnPoint;
+    [Tooltip("Way Points that monster moves")]
+    public Transform pathHolder;
 
+    [Header("Camera Bounds")]
     [Tooltip("Allowed camera movement bounds in world units (x: min/max, y: min/max).")]
     public Rect cameraBounds = new Rect(-100f, -100f, 100f, 100f);
+
+    private void OnValidate()
+    {
+        if (map == null) return;
+
+        // map 안에서 "MonsterSpawner" 이름의 자식을 찾아서 spawnPoint로 할당
+        var sp = map.transform.Find("MonsterSpawner");
+        if (sp != null) spawnPoint = sp.gameObject;
+
+        // map 안에서 "Way" 이름의 자식을 찾아서 pathHolder로 할당
+        var ph = map.transform.Find("Way");
+        if (ph != null) pathHolder = ph;
+    }
 }
 
 [Serializable]
@@ -39,3 +57,4 @@ public struct StageMonsterEntry
         monsterDataIndex = index;
     }
 }
+
