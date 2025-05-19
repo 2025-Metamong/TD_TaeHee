@@ -6,7 +6,6 @@ using UnityEngine;
 public class TowerPlacementTile : MonoBehaviour
 {
     [Header("Tile Info")]   // 타일 정보 인스펙터에 표기용.
-    [SerializeField, Tooltip("설치 모드인지 아닌지 표기")] private bool mode = true; // 타워 매니저에서 관리하는 게 나을까?
     [SerializeField, Tooltip("설치 가능/불가 표기")] private bool canBuild = true;
     [SerializeField, Tooltip("마우스 On 시 색상")] private Color hoverColor = Color.red;
     [SerializeField, Tooltip("타일 위치")] private Vector3 tilePosition;
@@ -32,6 +31,11 @@ public class TowerPlacementTile : MonoBehaviour
     // 마우스가 타일에 올라오면 색상 변경.
     void OnMouseEnter()
     {
+        // if (!TowerManager.Instance.GetMode())
+        // {
+        //     Debug.Log("설치 모드가 아닙니다.");
+        //     return;
+        // }
         Debug.Log("타일에 마우스 들어옴");
         rend.GetPropertyBlock(propBlock);   // MaterialPropertyBlock에서 값 복사해오기
         propBlock.SetColor(_BaseColorID, hoverColor);   // 타일 색상 변경
@@ -41,6 +45,11 @@ public class TowerPlacementTile : MonoBehaviour
     // 마우스가 타일에서 나갈 때 원래 색상으로 복귀
     void OnMouseExit()
     {
+        // if (TowerManager.Instance.GetMode() != true)
+        // {
+        //     Debug.Log("설치 모드가 아닙니다.");
+        //     return;
+        // }        
         Debug.Log("타일에서 마우스 나감");
         rend.GetPropertyBlock(propBlock);   // MaterialPropertyBlock에서 값 복사해오기
         propBlock.SetColor(_BaseColorID, originalColor);    // 타일 색상 되돌리기
@@ -50,6 +59,11 @@ public class TowerPlacementTile : MonoBehaviour
     // 해당 타일을 클릭했을 때 타워 생성 호출.
     void OnMouseDown()
     {
+        // if (TowerManager.Instance.GetMode() != true)
+        // {
+        //     Debug.Log("설치 모드가 아닙니다.");
+        //     return;
+        // }
         if (!canBuild)
         {
             Debug.Log("여기에 타워를 지을 수 없습니다.");
@@ -58,6 +72,10 @@ public class TowerPlacementTile : MonoBehaviour
         // 현재 타일 위치 타워 매니저에 전달해서 타워 설치 요청.
         Vector3 installPosition = this.tilePosition + offset;
         TowerManager.Instance.InstallTower(installPosition);
+
+        // 타워 설치 완료 시 이 타일에는 다른 타워를 놓을 수 없다.
+        this.canBuild = false;
+        TowerManager.Instance.SetMode(false);
     }
 }
 

@@ -620,3 +620,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Text: {fileID: 0}
+  towerPrefab: {fileID: 5759323174869759602, guid: 359f45e95bf4fce4a933a08b684bf081, type: 3}
