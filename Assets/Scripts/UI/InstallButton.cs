@@ -31,6 +31,12 @@ public class InstallButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void SetPrefab(GameObject tower)
+    {
+        this.towerPrefab = tower;
+        Debug.Log($"tower prefab name {towerPrefab.name}");
     }
 }

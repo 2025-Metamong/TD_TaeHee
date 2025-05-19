@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Text: {fileID: 0}
-  towerPrefab: {fileID: 5759323174869759602, guid: 359f45e95bf4fce4a933a08b684bf081, type: 3}
+  towerPrefab: {fileID: 0}
 --- !u!1 &6795914608645661521
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 5641808898363906900}
   - component: {fileID: 2083890104944461895}
   - component: {fileID: 7181206058171594502}
+  - component: {fileID: 693604530186433302}
   m_Layer: 5
   m_Name: TowerCard
   m_TagString: Untagged
@@ -485,6 +486,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &693604530186433302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8081759595139242377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94b0f477ec63e4449fa4e227d655355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 5759323174869759602, guid: 359f45e95bf4fce4a933a08b684bf081, type: 3}
+  towerImage: {fileID: 0}
+  towerScript: {fileID: 0}
 --- !u!1 &8874154937029464950
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,4 +636,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Text: {fileID: 0}
-  towerPrefab: {fileID: 5759323174869759602, guid: 359f45e95bf4fce4a933a08b684bf081, type: 3}
+  towerPrefab: {fileID: 0}
