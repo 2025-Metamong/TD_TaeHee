@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 491038387653774994}
   - component: {fileID: 2726641221238025520}
   m_Layer: 0
-  m_Name: Tower_Second
+  m_Name: Single_None
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,8 +132,7 @@ MonoBehaviour:
   bullet: {fileID: 3084736807602813044, guid: 596108dc9e090fc4a8be2911651baaa8, type: 3}
   displayTime: 3
   rangeMat: {fileID: 2100000, guid: ab84aa58a08c2ca499b690a7948fcaba, type: 2}
-  debuffAssets:
-  - {fileID: 11400000, guid: 0c7b5708966dd944384e16c0c7cf29e8, type: 2}
+  debuffAssets: []
 --- !u!120 &2726641221238025520
 LineRenderer:
   serializedVersion: 2
