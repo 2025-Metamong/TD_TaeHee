@@ -9,6 +9,8 @@ public class TowerPlacementTile : MonoBehaviour
     [SerializeField, Tooltip("설치 가능/불가 표기")] private bool canBuild = true;
     [SerializeField, Tooltip("마우스 On 시 색상")] private Color hoverColor = Color.red;
     [SerializeField, Tooltip("타일 위치")] private Vector3 tilePosition;
+    [SerializeField, Tooltip("타일 위치")] public static GameObject towerPrefab;
+    
 
     private Renderer rend;  // 타일의 랜더러 컴포넌트 저장용.
     private Color originalColor;
@@ -71,7 +73,7 @@ public class TowerPlacementTile : MonoBehaviour
         }
         // 현재 타일 위치 타워 매니저에 전달해서 타워 설치 요청.
         Vector3 installPosition = this.tilePosition + offset;
-        TowerManager.Instance.InstallTower(installPosition);
+        TowerManager.Instance.InstallTower(towerPrefab, installPosition);
 
         // 타워 설치 완료 시 이 타일에는 다른 타워를 놓을 수 없다.
         this.canBuild = false;

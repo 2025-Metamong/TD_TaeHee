@@ -41,8 +41,8 @@ namespace MyGame.Managers
         {
 
         }
-        public void InstallTower(Vector3 position)
-        {  // 설치할 위치만 전달 받기로 결정.
+        public void InstallTower(GameObject tower, Vector3 position)
+        {  // 설치할 타워까지 전달 받기로 변경.
            //    bool isEnough = ResourceManager.Instance.useCoins(T.GetCost());
             bool isEnough = true;
             // 돈이 충분한지 검사해서 타워를 설치하는 함수.
@@ -50,7 +50,7 @@ namespace MyGame.Managers
             { // 타워 설치를 위한 돈이 충분했던 경우.
               // 사용된 Instantiate 함수 prototype : 
               //   public static Object Instantiate(Object original, Vector3 position, Quaternion rotation, Transform parent);
-                GameObject newTower = Instantiate(towerPrefabs[0], position, Quaternion.identity, this.transform);  // 새로운 타워 인스턴시에이트. 
+                GameObject newTower = Instantiate(tower, position, Quaternion.identity, this.transform);  // 새로운 타워 인스턴시에이트. 
 
                 if (newTower == null)
                 {

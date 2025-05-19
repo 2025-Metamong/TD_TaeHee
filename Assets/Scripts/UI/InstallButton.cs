@@ -24,6 +24,7 @@ public class InstallButton : MonoBehaviour
         if (!buildMode)
         {
             TowerManager.Instance.SetMode(true);
+            TowerPlacementTile.towerPrefab = this.towerPrefab;
         }
         Debug.Log($"설치 모드 : {TowerManager.Instance.GetMode()}");
     }
