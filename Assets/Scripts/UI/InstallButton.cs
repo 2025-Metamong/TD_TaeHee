@@ -14,16 +14,29 @@ public class InstallButton : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(ToInstallMode);
         Text = GetComponentInChildren<TextMeshProUGUI>();
         Text.text = "install";
+        towerScript = towerPrefab.GetComponent<Tower>();
     }
 
     private void ToInstallMode()
     {
         Debug.Log("Install Button Clicked");
-        // TowerManager.Instance.InstallMode();
         bool buildMode = TowerManager.Instance.GetMode();
         if (!buildMode)
         {
-            TowerManager.Instance.SetMode(true);
+            // Tower StageManager가 만들어지면 이 코드를 사용해 볼 예정.
+            // if (StageManager.Instance.useCoins(this.towerScript.GetCost()))
+            // {
+            //     TowerManager.Instance.SetMode(true);
+            //     TowerPlacementTile.towerPrefab = this.towerPrefab;
+            // }
+            // else
+            // {
+            //     Debug.Log($"타워{this.towerPrefab.name} 건축에 필요한 돈이 부족");
+            //     return;
+            // }
+
+            // Tower StageManager가 만들어지면 이 코드는 사용 안할 것.
+            TowerManager.Instance.SetMode(true);    // 건축 모드 활성화
             TowerPlacementTile.towerPrefab = this.towerPrefab;
         }
         Debug.Log($"설치 모드 : {TowerManager.Instance.GetMode()}");
