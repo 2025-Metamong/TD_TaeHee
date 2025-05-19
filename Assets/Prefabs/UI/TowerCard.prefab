@@ -498,7 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94b0f477ec63e4449fa4e227d655355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 5759323174869759602, guid: 359f45e95bf4fce4a933a08b684bf081, type: 3}
+  towerPrefab: {fileID: 0}
   towerImage: {fileID: 0}
   towerScript: {fileID: 0}
 --- !u!1 &8874154937029464950

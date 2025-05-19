@@ -25,6 +25,11 @@ public class TowerCard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void SetTowerPrefab(GameObject tower)
+    {
+        this.towerPrefab = tower;
     }
 }
