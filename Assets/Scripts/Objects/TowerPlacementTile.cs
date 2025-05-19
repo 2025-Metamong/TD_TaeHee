@@ -31,11 +31,11 @@ public class TowerPlacementTile : MonoBehaviour
     // 마우스가 타일에 올라오면 색상 변경.
     void OnMouseEnter()
     {
-        // if (!TowerManager.Instance.GetMode())
-        // {
-        //     Debug.Log("설치 모드가 아닙니다.");
-        //     return;
-        // }
+        if (!TowerManager.Instance.GetMode())
+        {
+            Debug.Log("설치 모드가 아닙니다.");
+            return;
+        }
         Debug.Log("타일에 마우스 들어옴");
         rend.GetPropertyBlock(propBlock);   // MaterialPropertyBlock에서 값 복사해오기
         propBlock.SetColor(_BaseColorID, hoverColor);   // 타일 색상 변경
@@ -45,11 +45,11 @@ public class TowerPlacementTile : MonoBehaviour
     // 마우스가 타일에서 나갈 때 원래 색상으로 복귀
     void OnMouseExit()
     {
-        // if (TowerManager.Instance.GetMode() != true)
-        // {
-        //     Debug.Log("설치 모드가 아닙니다.");
-        //     return;
-        // }        
+        if (TowerManager.Instance.GetMode() != true)
+        {
+            Debug.Log("설치 모드가 아닙니다.");
+            return;
+        }        
         Debug.Log("타일에서 마우스 나감");
         rend.GetPropertyBlock(propBlock);   // MaterialPropertyBlock에서 값 복사해오기
         propBlock.SetColor(_BaseColorID, originalColor);    // 타일 색상 되돌리기
@@ -59,11 +59,11 @@ public class TowerPlacementTile : MonoBehaviour
     // 해당 타일을 클릭했을 때 타워 생성 호출.
     void OnMouseDown()
     {
-        // if (TowerManager.Instance.GetMode() != true)
-        // {
-        //     Debug.Log("설치 모드가 아닙니다.");
-        //     return;
-        // }
+        if (TowerManager.Instance.GetMode() != true)
+        {
+            Debug.Log("설치 모드가 아닙니다.");
+            return;
+        }
         if (!canBuild)
         {
             Debug.Log("여기에 타워를 지을 수 없습니다.");
