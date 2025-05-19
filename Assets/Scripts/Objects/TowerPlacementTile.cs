@@ -9,7 +9,7 @@ public class TowerPlacementTile : MonoBehaviour
     [SerializeField, Tooltip("설치 가능/불가 표기")] private bool canBuild = true;
     [SerializeField, Tooltip("마우스 On 시 색상")] private Color hoverColor = Color.red;
     [SerializeField, Tooltip("타일 위치")] private Vector3 tilePosition;
-    [SerializeField, Tooltip("타일 위치")] public static GameObject towerPrefab;
+    [SerializeField, Tooltip("타일에 설치할 타워 종류")] public static GameObject towerPrefab;
     
 
     private Renderer rend;  // 타일의 랜더러 컴포넌트 저장용.
