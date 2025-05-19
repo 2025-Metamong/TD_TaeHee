@@ -20,6 +20,7 @@ public class TowerCard : MonoBehaviour
             var setMethod = button.GetType()?.GetMethod("SetPrefab", new Type[] { typeof(GameObject) });
             setMethod?.Invoke(button, new object[] { towerPrefab });
         }
+        Instantiate(towerImage, this.transform);
     }
 
     // Update is called once per frame
@@ -31,5 +32,6 @@ public class TowerCard : MonoBehaviour
     public void SetTowerPrefab(GameObject tower)
     {
         this.towerPrefab = tower;
+        towerImage.sprite = this.towerPrefab.GetComponent<Tower>().portrait;
     }
 }
