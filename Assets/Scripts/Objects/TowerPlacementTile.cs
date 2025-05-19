@@ -45,7 +45,7 @@ public class TowerPlacementTile : MonoBehaviour
     // 마우스가 타일에서 나갈 때 원래 색상으로 복귀
     void OnMouseExit()
     {
-        if (TowerManager.Instance.GetMode() != true)
+        if (TowerManager.Instance.GetMode() != true && this.canBuild == true)
         {
             Debug.Log("설치 모드가 아닙니다.");
             return;
