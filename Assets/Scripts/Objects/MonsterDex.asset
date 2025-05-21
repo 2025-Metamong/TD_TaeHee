@@ -16,10 +16,10 @@ MonoBehaviour:
   - id: 0
     prefab: {fileID: 2785157774413505645, guid: dd603117316f20f4ea4297b55fd8ab75, type: 3}
     monsterName: Monster
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 65ff266b4a8990146af9acf95c21f41d, type: 3}
     description: 
   - id: 1
     prefab: {fileID: 2785157774413505645, guid: 9ebb6b541ebd5cf4380f07bd4c8927fe, type: 3}
     monsterName: Monster2
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 989c81ba46d25fe43bd84477a17ae9e0, type: 3}
     description: 

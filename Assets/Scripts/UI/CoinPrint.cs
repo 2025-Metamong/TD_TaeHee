@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CoinPrint : MonoBehaviour
 {
+    [SerializeField] private StageInfo stageInfo;
     public TextMeshProUGUI coinText;
     //public MonsterManager monsterManager;
 
@@ -14,6 +15,6 @@ public class CoinPrint : MonoBehaviour
     }
     void Update()
     {
-        coinText.text = MonsterManager.coin.ToString();  
+        coinText.text = stageInfo.startCoins.ToString();
     }
 }

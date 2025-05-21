@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HpPrint : MonoBehaviour
 {
+    [SerializeField] private StageInfo stageInfo;
     public TextMeshProUGUI hpText;
 
     private void Start()
@@ -13,6 +14,6 @@ public class HpPrint : MonoBehaviour
     }
     void Update()
     {
-        hpText.text = MonsterManager.Hp.ToString();
+        hpText.text = stageInfo.playerHP.ToString();
     }
 }

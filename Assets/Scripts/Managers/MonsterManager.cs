@@ -22,11 +22,17 @@ namespace MyGame.Managers
         private int listCount = 0;
         private Queue<GameObject> respwanMonsterQueue = new Queue<GameObject>();
 
-        public Transform pathHolder; // waypoints
-        private float spawnTimer = 1f;
+        private float spawnTimer = 0f;
 
-        [Header("Wave Settings")]
-        [SerializeField] private float spawnRate = 2f;
+        //0521 - stage info
+        [SerializeField] private StageInfo stageInfo;
+
+        private List<int> waveMonster = new List<int>();
+        private float currentSpawnRate = 0f;
+        private int waveIndex = 0;
+
+        public Transform pathHolder; // waypoints
+
 
 
         // 0520 - for rouglike
@@ -59,7 +65,9 @@ namespace MyGame.Managers
         //    waveMonster.Enqueue(capsulePrefab);
         //    waveMonster.Enqueue(capsulePrefab);
         //}
-        private List<int> waveMonster = new List<int> { 0, 0, 1 };
+        //[Header("Wave Settings")]
+        //[SerializeField] private float spawnRate = 2f;
+
 
         public static int Hp = 100; // for user
         public static int coin = 200; // for user
@@ -70,6 +78,12 @@ namespace MyGame.Managers
 
         private void Start()
         {
+            // wave monster set
+            foreach (var i in stageInfo.monsterSpawnList)
+            {
+                waveMonster.Add(i.monsterDataIndex);
+            }
+
             List <MonsterEntry> monsterList = monsterDex.GetAllEntries();
             for(int i=0; i<waveMonster.Count; i++)
             {
@@ -81,6 +95,9 @@ namespace MyGame.Managers
                     }
                 }
             }
+
+            pathHolder = stageInfo.pathHolder; // waypoints set
+            currentSpawnRate = stageInfo.monsterSpawnList[waveIndex].spawnTime;
         }
 
         void Update()
@@ -93,16 +110,18 @@ namespace MyGame.Managers
             if (respwanMonsterQueue.Count == 0) return;
 
             spawnTimer += Time.deltaTime;
-            if (spawnTimer >= spawnRate)
+            if (spawnTimer >= currentSpawnRate)
             {
                 int monsterID = listCount;
                 GameObject monsterPrefab = respwanMonsterQueue.Dequeue();
 
-                GameObject newMonster = Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+                //GameObject newMonster = Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+                GameObject newMonster = Instantiate(monsterPrefab, stageInfo.spawnPoint.transform.position, Quaternion.identity);
 
                 // Monster way set
                 Monster monsterScript = newMonster.GetComponent<Monster>();
                 monsterScript.SetPath(pathHolder);
+                monsterScript.SetID(monsterID);
 
                 // monsterList.Add(newMonster);
                 // Change monsterList to monsterDict
@@ -122,6 +141,12 @@ namespace MyGame.Managers
 
                 spawnTimer = 0f;
                 listCount++;
+                waveIndex++;
+
+                if (waveIndex < stageInfo.monsterSpawnList.Count)
+                {
+                    currentSpawnRate = stageInfo.monsterSpawnList[waveIndex].spawnTime;
+                }
             }
         }
 
