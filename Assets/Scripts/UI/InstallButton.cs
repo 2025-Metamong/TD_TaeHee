@@ -12,8 +12,8 @@ public class InstallButton : MonoBehaviour
     void Start()
     {
         GetComponent<Button>().onClick.AddListener(ToInstallMode);
-        Text = GetComponentInChildren<TextMeshProUGUI>();
-        Text.text = "install";
+        // Text = GetComponentInChildren<TextMeshProUGUI>();
+        // Text.text = "";
         towerScript = towerPrefab.GetComponent<Tower>();
     }
 
