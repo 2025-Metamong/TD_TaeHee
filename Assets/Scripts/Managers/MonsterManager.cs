@@ -17,7 +17,7 @@ namespace MyGame.Managers
         //private Queue<GameObject> waveMonster = new Queue<GameObject>();
 
         // 0520-monster dict
-        [Header("Monster List")]
+        //[Header("Monster List")]
         [SerializeField] private MonsterDex monsterDex;
         private int listCount = 0;
         private Queue<GameObject> respwanMonsterQueue = new Queue<GameObject>();
@@ -29,11 +29,15 @@ namespace MyGame.Managers
 
         private List<int> waveMonster = new List<int>();
         private float currentSpawnRate = 0f;
+        private int monsterCount = 0;
+
+        private Transform pathHolder; // waypoints
+
+        //0521 - wave start
+        private bool waveStartCheck = false;
+        private bool waveEndCheck = false;
         private int waveIndex = 0;
-
-        public Transform pathHolder; // waypoints
-
-
+        [SerializeField] private StageManager stageManager;
 
         // 0520 - for rouglike
         private float healthPercentDecrease = 0f;
@@ -80,12 +84,12 @@ namespace MyGame.Managers
         private void Start()
         {
             // wave monster set
-            foreach (var i in stageInfo.monsterSpawnList)
+            foreach (var i in stageInfo.monsterSpawnList[stageManager.currentWave].entries)
             {
                 waveMonster.Add(i.monsterDataIndex);
             }
 
-            List <MonsterEntry> monsterList = monsterDex.GetAllEntries();
+            List<MonsterEntry> monsterList = monsterDex.GetAllEntries();
             for(int i=0; i<waveMonster.Count; i++)
             {
                 for (int j = 0; j < monsterList.Count; j++)
@@ -98,17 +102,30 @@ namespace MyGame.Managers
             }
 
             pathHolder = stageInfo.pathHolder; // waypoints set
-            currentSpawnRate = stageInfo.monsterSpawnList[waveIndex].spawnTime;
+            currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[monsterCount].spawnTime;
         }
 
         void Update()
         {
-            RespawnMonster();
+            if (waveStartCheck == true)
+            {
+                RespawnMonster();
+                if (waveEndCheck == true)
+                {
+                    waveStartCheck = false;
+                    stageManager.FinishWave();
+                }
+            }
+            
         }
 
         private void RespawnMonster()
         {
-            if (respwanMonsterQueue.Count == 0) return;
+            if (respwanMonsterQueue.Count == 0)
+            {
+                waveEndCheck = true; // To check if the monster wave has ended, use monsterCount.
+                return;
+            }
 
             spawnTimer += Time.deltaTime;
             if (spawnTimer >= currentSpawnRate)
@@ -141,11 +158,12 @@ namespace MyGame.Managers
 
                 spawnTimer = 0f;
                 listCount++;
-                waveIndex++;
+                monsterCount++;
 
-                if (waveIndex < stageInfo.monsterSpawnList.Count)
+                
+                if (monsterCount < stageInfo.monsterSpawnList.Count)
                 {
-                    currentSpawnRate = stageInfo.monsterSpawnList[waveIndex].spawnTime;
+                    currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[monsterCount].spawnTime;
                 }
             }
         }
@@ -190,6 +208,12 @@ namespace MyGame.Managers
             }
         }
 
+        public void StartWave(int val)
+        {
+            waveIndex = val;
+            waveStartCheck = true;
+        }
+
         /// /////////////////////////////////// after wave idea, need modify
         public void SetWave(List<GameObject> waveData)
         {
@@ -211,18 +235,18 @@ namespace MyGame.Managers
         }
 
         // draw Gizmos for way point
-        void OnDrawGizmos()
-        {
-            Vector3 startPosition = pathHolder.GetChild(0).position;
-            Vector3 previousPosition = startPosition;
+        //void OnDrawGizmos()
+        //{
+        //    Vector3 startPosition = pathHolder.GetChild(0).position;
+        //    Vector3 previousPosition = startPosition;
 
-            foreach (Transform waypoint in pathHolder)
-            {
-                Gizmos.DrawSphere(waypoint.position, 0.3f);
-                Gizmos.DrawLine(previousPosition, waypoint.position);
-                previousPosition = waypoint.position;
-            }
-        }
+        //    foreach (Transform waypoint in pathHolder)
+        //    {
+        //        Gizmos.DrawSphere(waypoint.position, 0.3f);
+        //        Gizmos.DrawLine(previousPosition, waypoint.position);
+        //        previousPosition = waypoint.position;
+        //    }
+        //}
     }
 
 }

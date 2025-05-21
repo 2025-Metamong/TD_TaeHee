@@ -15,16 +15,13 @@ MonoBehaviour:
   startCoins: 100
   playerHP: 10
   monsterSpawnList:
-  - spawnTime: 1
-    monsterDataIndex: 0
-  - spawnTime: 4
-    monsterDataIndex: 0
-  - spawnTime: 1
-    monsterDataIndex: 1
-  - spawnTime: 1
-    monsterDataIndex: 0
-  - spawnTime: 1
-    monsterDataIndex: 1
+  - entries:
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 1
+    - spawnTime: 1
+      monsterDataIndex: 1
   map: {fileID: 2851751867144945868, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
   spawnPoint: {fileID: 6696431832559060788, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
   pathHolder: {fileID: 5784456370869308289, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}

@@ -13,8 +13,8 @@ public class StageInfo : ScriptableObject
     public int playerHP = 10;
 
     [Header("Monster Spawn List")]
-    [Tooltip("List of monsters to spawn: spawn time (seconds) and monster data index.")]
-    public List<StageMonsterEntry> monsterSpawnList = new List<StageMonsterEntry>();
+    [Tooltip("Each element is one 'wave' of monsters.")]
+    public List<MonsterWave> monsterSpawnList = new List<MonsterWave>();
 
     [Header("Map")]
     [Tooltip("Reference to the root GameObject of the map for this stage.")]
@@ -42,6 +42,13 @@ public class StageInfo : ScriptableObject
     }
 }
 
+[System.Serializable]
+public class MonsterWave
+{
+    [Tooltip("List of monsters to spawn: spawn time (seconds) and monster data index.")]
+    public List<StageMonsterEntry> entries = new List<StageMonsterEntry>();
+}
+
 [Serializable]
 public struct StageMonsterEntry
 {
@@ -57,4 +64,3 @@ public struct StageMonsterEntry
         monsterDataIndex = index;
     }
 }
-
