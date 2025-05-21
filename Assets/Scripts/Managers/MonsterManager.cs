@@ -64,6 +64,7 @@ namespace MyGame.Managers
         //{
         //    waveMonster.Enqueue(capsulePrefab);
         //    waveMonster.Enqueue(capsulePrefab);
+        //    Debug.Log($"몬스터 큐에 있는 몬스터 수 : {waveMonster.Count}");
         //}
         //[Header("Wave Settings")]
         //[SerializeField] private float spawnRate = 2f;
@@ -122,7 +123,6 @@ namespace MyGame.Managers
                 Monster monsterScript = newMonster.GetComponent<Monster>();
                 monsterScript.SetPath(pathHolder);
                 monsterScript.SetID(monsterID);
-
                 // monsterList.Add(newMonster);
                 // Change monsterList to monsterDict
                 monsterDict.Add(monsterID, newMonster);
@@ -184,6 +184,7 @@ namespace MyGame.Managers
             {
                 //Monster monsters1 = monster.GetComponent<Monster>();
                 //ResourceManager.Instance.addCoins(monsters1.GetReward());
+                
                 monsterDict.Remove((int)monsterID);
                 Destroy(monster);
             }
