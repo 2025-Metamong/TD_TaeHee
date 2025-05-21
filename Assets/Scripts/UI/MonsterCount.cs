@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class MonsterCount : MonoBehaviour
 {
     public TextMeshProUGUI countText;
+    [SerializeField] 
+    private StageInfo stageInfo;
+    [SerializeField] private MonsterDex monsterDex;
     int count = 0;
 
     private void Start()
@@ -14,9 +17,16 @@ public class MonsterCount : MonoBehaviour
         string parentImageName = GetComponentInParent<Image>().sprite.name;
         Debug.Log(parentImageName);
 
-        foreach (string i in MonsterManager.monsterNames)
+        //foreach (string i in MonsterManager.monsterNames)
+        //{
+        //    if (parentImageName == i)
+        //    {
+        //        count++;
+        //    }
+        //}
+        foreach (StageMonsterEntry i in stageInfo.monsterSpawnList)
         {
-            if (parentImageName == i)
+            if (parentImageName == monsterDex.GetEntryByID(i.monsterDataIndex).monsterName)
             {
                 count++;
             }
@@ -29,4 +39,5 @@ public class MonsterCount : MonoBehaviour
     {
         countText.text =  "X "+ count.ToString();
     }
+
 }

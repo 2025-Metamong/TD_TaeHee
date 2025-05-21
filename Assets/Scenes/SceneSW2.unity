@@ -268,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60462dece4ad1654d81a36b9be2b5d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageInfo: {fileID: 11400000, guid: b4c5763c0159b874184d2b11af2e2864, type: 2}
   hpText: {fileID: 0}
 --- !u!1 &160605433
 GameObject:
@@ -1273,13 +1274,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.067916304, y: -0.17075075, z: 0.03146712, w: 0.982467}
+  m_LocalRotation: {x: 0.07144249, y: -0.29752696, z: 0.02233309, w: 0.95177466}
   m_LocalPosition: {x: 33.6, y: 13.1, z: -44.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 8.291, y: -19.557, z: 2.238}
+  m_LocalEulerAnglesHint: {x: 8.585, y: -34.719, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1493,6 +1494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d88b94b0214c4640b51f01f079a0c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageInfo: {fileID: 11400000, guid: b4c5763c0159b874184d2b11af2e2864, type: 2}
   coinText: {fileID: 0}
 --- !u!1 &1113545336
 GameObject:
@@ -2243,6 +2245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stageMap1
       objectReference: {fileID: 0}
+    - target: {fileID: 2852433853334365723, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
+      propertyPath: stageInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: b4c5763c0159b874184d2b11af2e2864, type: 2}
     - target: {fileID: 2852433853334365723, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
       propertyPath: monsterDex
       value: 
