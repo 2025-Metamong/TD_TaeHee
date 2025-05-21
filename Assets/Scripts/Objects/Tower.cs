@@ -1,12 +1,9 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using MyGame.Managers;
 using System;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEditor.Search;
-using System.Collections; // Assuming you have a MonsterManager script to handle monster logic
+using System.Collections;
+using UnityEngine.UI; // Assuming you have a MonsterManager script to handle monster logic
 
 namespace MyGame.Objects
 {
@@ -23,6 +20,7 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("타워 ID")] private int ID = -1;   // 디폴트는 -1로 설정.
         [SerializeField, Tooltip("설치 비용")] private int cost = 10;
         [SerializeField, Tooltip("설치 위치")] private Transform position;
+        [SerializeField, Tooltip("타워 이미지")] public Sprite portrait;
         [SerializeField, Tooltip("사거리")] private float range = 10f;
         [SerializeField, Tooltip("공격 빈도")] private float attackPeriod = 1f;
         [SerializeField, Tooltip("피해량")] private float damage = 15f; // 피해량 추가.

@@ -33,10 +33,17 @@ public class TowerShopPanel : MonoBehaviour
         {
             Debug.Log("타워 카드 인스턴스 화");
             GameObject card = Instantiate(towerCard, parentTransform);
-
+            if (card == null)
+            {
+                Debug.Log("타워 카드 인스턴스 화 실패");
+            }
+            // 타워 카드에 프리팹 전달하고 활성화.
+            card.GetComponent<TowerCard>().SetTowerPrefab(towerData);
             card.SetActive(true);
         }
     }
+
+    // 패널 닫기 함수.
     private void ClosePanel()
     {
         this.gameObject.SetActive(false);
