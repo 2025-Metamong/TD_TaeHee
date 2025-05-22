@@ -253,7 +253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3537f1e3147c6484c9b601d68e60b651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startButton: {fileID: 0}
   stageSelectStageName: StageSelectScene
   mainGameStageName: MainGameScene
 --- !u!1 &244745442
@@ -418,7 +417,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 921567816}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: GoToStageSelect
         m_Mode: 1
@@ -694,7 +693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3537f1e3147c6484c9b601d68e60b651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startButton: {fileID: 363729781}
   stageSelectStageName: SelectStage
   mainGameStageName: SceneOne
 --- !u!1 &961739749

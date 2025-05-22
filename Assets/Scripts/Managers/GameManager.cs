@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -7,12 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-     [Header("UI Buttons")]
-    [SerializeField] private Button startButton;  // Start 버튼 참조
-
-    [Header("StageManager에 넘길 Scene(Stage) Name")]
-    [SerializeField] private string stageSelectStageName = "SelectStage";
-    [SerializeField] private string mainGameStageName = "SceneOne";
+    private Button startButton;
+    private Button exitButton;
 
     void Awake()
     {
@@ -20,46 +15,65 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
 
-            // 현재 씬이 ‘GameStartScene’일 때만 계속 유지
-            if (SceneManager.GetActiveScene().name == "GameStartScene")
+            // 현재 씬이 ‘GameStart’일 때만 계속 유지
+            if (SceneManager.GetActiveScene().name == "GameStart")
                 DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void Start()
+    void OnDestroy()
     {
-        // 버튼이 제대로 할당됐는지 체크
-        if (startButton == null)
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"[GameManager] OnSceneLoaded 호출: scene.name = {scene.name}");
+
+        if (scene.name == "GameStart")
         {
-            startButton = GameObject.Find("Canvas/Start").GetComponent<Button>();
-            Debug.Log("[GameManager] startButton을 Find로 할당했습니다.");
+            // 버튼 찾기
+            startButton = GameObject.Find("Canvas/Start")?.GetComponent<Button>();
+            if (startButton != null)
+            {
+                startButton.onClick.RemoveAllListeners();
+                startButton.onClick.AddListener(GoToStageSelect);
+            }
+        }
+        else if (scene.name == "SceneOne")
+        {
+            Debug.Log("[GameManager] SceneOne 분기 진입 (하드코딩)");
+            exitButton = GameObject.Find("Canvas/Exit")?.GetComponent<Button>();
+            Debug.Log($"[GameManager] ExitButton 찾음? {(exitButton!=null)}");
+            if (exitButton == null)
+            {
+                Debug.LogError("[GameManager] SceneOne에서 Exit 버튼을 찾을 수 없습니다. 경로를 확인하세요.");
+                return;
+            }
+
+            exitButton.onClick.RemoveAllListeners();
+            exitButton.onClick.AddListener(ExitScene);
+            Debug.Log("[GameManager] SceneOne 로드 직후 Exit 버튼 리스너 등록 완료");
         }
 
-        // 코드로 리스너 등록
-        startButton.onClick.AddListener(GoToStageSelect);
-
-        Debug.Log("[GameManager] Start()에서 버튼 리스너 등록 완료");
     }
 
     public void GoToStageSelect()
     {
-         Debug.Log($"[GameManager] 실제 로드 시도 씬 이름: {stageSelectStageName}");
-
-        StageManager.Instance.LoadStage(stageSelectStageName);
+        const string target = "SelectStage";
+        Debug.Log($"[GameManager] 씬 전환 시도(하드코딩): {target}");
+        StageManager.Instance.LoadStage(target);
     }
 
     public void StartGame()
     {
-        if (string.IsNullOrEmpty(mainGameStageName))
-        {
-            Debug.LogWarning("StartGame: mainGameStageName이 비어있습니다.");
-            return;
-        }
-        StageManager.Instance.LoadStage(mainGameStageName);
+        StageManager.Instance.LoadStage("SceneOne");
     }
 
     public void LoadScene(string stageName)
@@ -69,12 +83,14 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("LoadScene: stageName이 비어있습니다.");
             return;
         }
+        Debug.Log($"[StageManager] 로드 시도: {stageName}");
         SceneManager.LoadScene(stageName);
     }
 
     public void ExitScene()
     {
-        Debug.Log("[GameManager] ExitScene 호출됨");
-        StageManager.Instance.LoadStage(stageSelectStageName);
+        const string target = "SelectStage";
+        Debug.Log($"[GameManager] ExitScene 하드코딩 씬 전환 시도: {target}");
+        StageManager.Instance.LoadStage(target);
     }
 }
