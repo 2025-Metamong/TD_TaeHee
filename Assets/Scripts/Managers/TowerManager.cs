@@ -10,6 +10,7 @@ namespace MyGame.Managers
         // 현재 씬 안에 있는 타워들을 관리하는 타워 매니저 클래스. 싱글톤으로 객체 생성함.
         [Header("TowerManager Info")]
         [SerializeField, Tooltip("타워 프리팹 리스트")] private List<GameObject> towerPrefabs;
+        [SerializeField, Tooltip("설치 모드인지 아닌지 표기")] private bool mode = false; // 타워 매니저에서 관리하는 게 나을까?
         [SerializeField, Tooltip("글로벌 공격력 증가 팩터 N")] private float nDamage;
         [SerializeField, Tooltip("글로벌 공격력 증가 팩터 M")] private float mDamage;
         [SerializeField, Tooltip("글로벌 공격속도 증가 팩터 Speed")] private float globalSpeedModifier;
@@ -40,8 +41,8 @@ namespace MyGame.Managers
         {
 
         }
-        public void InstallTower(Vector3 position)
-        {  // 설치할 위치만 전달 받기로 결정.
+        public void InstallTower(GameObject tower, Vector3 position)
+        {  // 설치할 타워까지 전달 받기로 변경.
            //    bool isEnough = ResourceManager.Instance.useCoins(T.GetCost());
             bool isEnough = true;
             // 돈이 충분한지 검사해서 타워를 설치하는 함수.
@@ -49,7 +50,7 @@ namespace MyGame.Managers
             { // 타워 설치를 위한 돈이 충분했던 경우.
               // 사용된 Instantiate 함수 prototype : 
               //   public static Object Instantiate(Object original, Vector3 position, Quaternion rotation, Transform parent);
-                GameObject newTower = Instantiate(towerPrefabs[0], position, Quaternion.identity, this.transform);  // 새로운 타워 인스턴시에이트. 
+                GameObject newTower = Instantiate(tower, position, Quaternion.identity, this.transform);  // 새로운 타워 인스턴시에이트. 
 
                 if (newTower == null)
                 {
@@ -64,11 +65,11 @@ namespace MyGame.Managers
                 }
                 // 타워 ID 세팅
                 newTowerScript.GetType()?.GetMethod("SetID", new Type[] { typeof(int) })?.Invoke(newTowerScript, new object[] { this.TowerIndex });
-            
+
                 // 글로벌 데미지 계산식 적용
-                var originalDamage = newTowerScript.GetType()?.GetMethod("GetDamage", new Type[] {})?.Invoke(newTowerScript, new object[] { });
+                var originalDamage = newTowerScript.GetType()?.GetMethod("GetDamage", new Type[] { })?.Invoke(newTowerScript, new object[] { });
                 float newDamage = (float)originalDamage * (1 + this.nDamage) + this.mDamage;
-                newTowerScript.GetType()?.GetMethod("SetDamage", new Type[] {typeof(float)})?.Invoke(newTowerScript, new object[] { newDamage });
+                newTowerScript.GetType()?.GetMethod("SetDamage", new Type[] { typeof(float) })?.Invoke(newTowerScript, new object[] { newDamage });
 
                 // 글로벌 공격속도 계산식 적용
 
@@ -88,7 +89,7 @@ namespace MyGame.Managers
         {
             return this.towerPrefabs;
         }
-    
+
         // 현존하는 타워 공격력 증가 + 추후 설치될 타워에 적용 위해 공격력 증가 계수 저장
         public void SetDamageIncrease(float N, float M)
         {
@@ -105,7 +106,7 @@ namespace MyGame.Managers
                     continue;
                 }
                 // 존재하는 타워 중 하나 데미지 증가 수행.
-                var originalDamage = towerScript.GetType()?.GetMethod("GetDamage", new Type[] {})?.Invoke(towerScript, new object[] { });
+                var originalDamage = towerScript.GetType()?.GetMethod("GetDamage", new Type[] { })?.Invoke(towerScript, new object[] { });
                 float newDamage = (float)originalDamage * (1 + N) + M;
                 var damageIncMethod = towerScript.GetType()?.GetMethod("SetDamage", new Type[] { typeof(float) });
                 damageIncMethod?.Invoke(towerScript, new object[] { newDamage });
@@ -128,14 +129,23 @@ namespace MyGame.Managers
                     continue;
                 }
                 // 존재하는 타워들 하나씩 공격 속도 증가 수행.
-                var originalAttackPeriod = towerScript.GetType()?.GetMethod("GetAttackPeriod", new Type[] {})?.Invoke(towerScript, new object[] { });
+                var originalAttackPeriod = towerScript.GetType()?.GetMethod("GetAttackPeriod", new Type[] { })?.Invoke(towerScript, new object[] { });
                 float newAttackPeriod = (float)originalAttackPeriod * N;
                 var attackSpeedSetMethod = towerScript.GetType()?.GetMethod("SetAttackPeriod", new Type[] { typeof(float) });
                 attackSpeedSetMethod?.Invoke(towerScript, new object[] { newAttackPeriod });
             }
         }
+
+        public bool GetMode()
+        {
+            return this.mode;
+        }
+
+        public void SetMode(bool newMode)
+        {
+            this.mode = newMode;
+        }
     
     }
 
 }
-

@@ -15,6 +15,7 @@ namespace MyGame.Objects
         // Add Monster ID 
         [SerializeField] private int ID = -1;
         private Transform pathHolder;
+        private Dictionary<string, ActiveDebuffInfo> activeDebuffs = new Dictionary<string, ActiveDebuffInfo>();
 
         // 디버프 관련 변수 추가
         public bool isDead = false;
@@ -29,7 +30,6 @@ namespace MyGame.Objects
                 this.onEndAction = endAction;
             }
         }
-        private Dictionary<string, ActiveDebuffInfo> activeDebuffs = new Dictionary<string, ActiveDebuffInfo>();
 
         // Slow Debuff
         public float GetSpeed() => speed;
@@ -44,17 +44,22 @@ namespace MyGame.Objects
         [SerializeField] private bool isStunned = false;
         public void SetStun(bool tf) => isStunned = tf;
 
+        // 0520-rouglike
+        public float GetHealth() => health;
+        public void SetHealth(float newHealth) => health = newHealth;
+        public void SetReward(int extraReward) => reward += extraReward;
 
         public void SetPath(Transform ways)
         {
             pathHolder = ways;
         }
+
         // 몬스터 이동
         private void Start()
         {
             Vector3[] waypoints = new Vector3[pathHolder.childCount];
 
-            Debug.Log("몬스터가 소환되었습니다.");
+            //Debug.Log("몬스터가 소환되었습니다.");
             for (int i = 0; i < waypoints.Length; i++)
             {
                 waypoints[i] = pathHolder.GetChild(i).position;
@@ -155,6 +160,7 @@ namespace MyGame.Objects
             {
                 this.isDead = true;
                 MonsterManager.Instance.KillMonster(this.gameObject);
+                //StageManager.Instance.addCoins(reward);
             }
         }
 
@@ -164,6 +170,7 @@ namespace MyGame.Objects
             {
                 //StageManager.Instance.ReachFinish(this);
                 Debug.Log("몬스터가 Finish에 도착했습니다.");
+                //StageManager.Instance.takeDamage(damage);
                 MonsterManager.Instance.KillMonster(this.gameObject);
             }
         }

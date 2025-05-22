@@ -11,8 +11,8 @@ public class TowerInfoButton : MonoBehaviour
     void Start()
     {
         GetComponent<Button>().onClick.AddListener(ToInstallMode);
-        Text = GetComponentInChildren<TextMeshProUGUI>();
-        Text.text = "info";
+        // Text = GetComponentInChildren<TextMeshProUGUI>();
+        // Text.text = "";
 
         towerScript = towerPrefab.GetComponent<Tower>();
         if (towerScript != null)
@@ -30,6 +30,12 @@ public class TowerInfoButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+    public void SetPrefab(GameObject tower)
+    {
+        this.towerPrefab = tower;
+        Debug.Log($"tower prefab name {towerPrefab.name}");
+    }    
 }

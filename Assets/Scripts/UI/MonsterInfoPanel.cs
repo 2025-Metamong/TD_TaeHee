@@ -26,7 +26,7 @@ public class MonsterInfoPanel : MonoBehaviour
         {
             if (image.gameObject.name.StartsWith("Monster"))
             {
-                Debug.Log(image.gameObject.name);
+                //Debug.Log(image.gameObject.name);
                 Destroy(image.gameObject); //Monster image firnd and delete
             }
         }

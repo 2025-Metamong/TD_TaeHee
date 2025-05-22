@@ -12,21 +12,10 @@ public class StageManager : MonoBehaviour
     [SerializeField] private CanvasGroup fadeCanvasGroup;  // 화면 전체를 덮는 CanvasGroup
     [SerializeField] private float fadeDuration = 0.5f;    // 페이드 인/아웃 시간
 
-    [Header("Player Resource")]
-    public int Health = 100;
-    public int Coin = 0;
-
-    [Header("Stage Info")]
-    [SerializeField] private List<StageInfo> stageInfoList = new List<StageInfo>();
-    [SerializeField] private int currentStage = 0;
-    [SerializeField] private int totalWave = 2;
-    public int currentWave = 0;
-    private bool waveFlag = false; // wave flag (false = ready, true = wave start)
-
-    public MonsterManager monsterManager;
     void Awake()
     {
         // 싱글톤 설정
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -35,24 +24,23 @@ public class StageManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+
         // 최초에는 페이드 아웃 상태로
         if (fadeCanvasGroup != null)
             fadeCanvasGroup.alpha = 0f;
-
-        // 불러온 진행 정보가 있을 경우 초기화
-        Health = 100;
-        Coin = 0;
-        currentWave = 0;
     }
 
     /// <summary>
     /// 외부에서 호출할 씬(스테이지) 로드 함수
+
     /// </summary>
     public void LoadStage(string sceneName)
     {
         if (string.IsNullOrEmpty(sceneName))
         {
+
             Debug.LogWarning($"StageManager.LoadStage: sceneName이 비어있습니다.");
+
             return;
         }
         StartCoroutine(LoadSceneCoroutine(sceneName));
@@ -103,50 +91,27 @@ public class StageManager : MonoBehaviour
             yield return null;
         }
         fadeCanvasGroup.alpha = to;
-    }
+        
+    // by seungwon
+    [Header("stage info")]
+    [SerializeField]  private List<StageInfo> stageInfoList = new List<StageInfo>();
+    public MonsterManager monsterManager;
+    public int currentWave = 0;
 
-    public void takeDamage(int damage)
-    {
-        Health -= damage;
-        Debug.Log($"StageManager: Took {damage} damage. Current Health: {Health}");
-        if (Health <= 0)
-        {
-            Health = 0;
-            Debug.Log("StageManager: Player Dead");
-            EndStage(false);
-        }
-    }
+    // for testing
+    int currentStage = 0;
+    int totalWave = 2;
+    
+    // for testing
 
-    /// <summary>
-    /// 코인 사용 시 호출, 사용 가능 여부 반환
-    /// </summary>
-    public bool UseCoin(int cost)
-    {
-        if (Coin >= cost)
-        {
-            Coin -= cost;
-            Debug.Log($"StageManager: Used {cost} coins. Remaining Coin: {Coin}");
-            return true;
-        }
-        Debug.LogWarning($"StageManager: Not enough coins. Have {Coin}, need {cost}");
-        return false;
-    }
-
-    /// <summary>
-    /// 몬스터 처치 등으로 코인 추가
-    /// </summary>
-    public void AddCoins(int amount)
-    {
-        Coin += amount;
-        Debug.Log($"StageManager: Gained {amount} coins. Total Coin: {Coin}");
-    }
+    private bool waveFlag = false; // wave flag (false = ready, true = wave start)
 
     public void SetFlag(bool value)
     {
         if (value && waveFlag == false)
         {
             Debug.Log("Stage Manager : Wave Start");
-            // monsterManager.StartWave(currentWave);
+            monsterManager.StartWave(currentWave);
             waveFlag = true;
         }
     }
@@ -155,27 +120,7 @@ public class StageManager : MonoBehaviour
     {
         waveFlag = false;
         currentWave += 1;
-        Debug.Log($"Wave {currentWave - 1} End");
-
-        // all wave clear
-        if (currentWave > totalWave)
-        {
-            GameManager.Instance.SetLastClearStage(currentStage);
-            LoadStage("SelectStage");
-        }
+        Debug.Log("Wave End");
     }
-    
-    /// <summary>
-    /// 스테이지 종료 처리
-    /// </summary>
-    private void EndStage(bool isCleared)
-    {
-        if (isCleared)
-            Debug.Log($"StageManager: Stage {currentStage} Cleared");
-        else
-            Debug.Log($"StageManager: Stage {currentStage} Failed");
 
-        // 씬 전환
-        LoadStage("SelectStage");
-    }
 }
