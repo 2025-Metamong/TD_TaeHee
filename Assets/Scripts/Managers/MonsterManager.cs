@@ -85,11 +85,6 @@ namespace MyGame.Managers
         private void Start()
         {
             List<MonsterEntry> monsterList = monsterDex.GetAllEntries();
-
-            SetWave(monsterList);
-
-            pathHolder = stageInfo.pathHolder; // waypoints set
-            currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[monsterCount].spawnTime;
         }
 
         void Update()
@@ -272,7 +267,7 @@ namespace MyGame.Managers
             SetWave(monsterList);
             
             pathHolder = stageInfo.pathHolder; // waypoints set
-            currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[monsterCount].spawnTime;
+            currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[0].spawnTime;
         }
     }
 

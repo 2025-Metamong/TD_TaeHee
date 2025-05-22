@@ -22,26 +22,19 @@ public class MonsterCount : MonoBehaviour
 
     private void Start()
     {
-        //Transform parentTransform = transform.parent;
+        this.UpdateMonsterCount();
+    }
+
+    private void Update()
+    {
+        countText.text = "X " + count.ToString();
+        this.UpdateMonsterCount();
+    }
+
+    private void UpdateMonsterCount()
+    {
         string parentImageName = GetComponentInParent<Image>().sprite.name;
         Debug.Log(parentImageName);
-
-        //foreach (string i in MonsterManager.monsterNames)
-        //{
-        //    if (parentImageName == i)
-        //    {
-        //        count++;
-        //    }
-        //}
-
-        
-        //foreach (StageMonsterEntry i in stageInfo.monsterSpawnList)
-        //{
-        //    if (parentImageName == monsterDex.GetEntryByID(i.monsterDataIndex).monsterName)
-        //    {
-        //        count++;
-        //    }
-        //}
         
         monsterWave = stageInfo.monsterSpawnList[stageManager.currentWave];
         foreach (StageMonsterEntry i in monsterWave.entries)
@@ -53,11 +46,6 @@ public class MonsterCount : MonoBehaviour
         }
 
         countText = GetComponent<TextMeshProUGUI>();
-    }
-
-    private void Update()
-    {
-        countText.text =  "X "+ count.ToString();
     }
 
 }

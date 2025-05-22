@@ -850,7 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterDex: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
-  stageInfo: {fileID: 11400000, guid: 5fd9030bff149f74fbf7e665b0d2bf73, type: 2}
+  stageInfo: {fileID: 0}
   stageManager: {fileID: 395788539}
 --- !u!4 &1058977233
 Transform:

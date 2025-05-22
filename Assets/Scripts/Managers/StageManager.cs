@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using MyGame.Managers;
-using System.Linq;
 
 public class StageManager : MonoBehaviour
 {
@@ -136,11 +135,12 @@ public class StageManager : MonoBehaviour
 
     public void FinishStage()
     {
-        var allComps = GetComponentsInChildren<Component>(includeInactive: true);
-
-        foreach (var comp in allComps)
+        foreach (Transform child in transform)
         {
-            Destroy(comp.gameObject);
+            if (child.gameObject.name.StartsWith("stageMap"))
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 
