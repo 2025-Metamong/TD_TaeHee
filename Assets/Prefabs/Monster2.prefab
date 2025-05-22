@@ -127,7 +127,7 @@ MonoBehaviour:
   health: 100
   reward: 10
   damage: 1
-  speed: 7.5
+  speed: 20
   ID: -1
   isDead: 0
   damageAmplify: 1

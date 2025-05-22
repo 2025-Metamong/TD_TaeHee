@@ -35,7 +35,7 @@ public class TowerPlacementTile : MonoBehaviour
     {
         if (!TowerManager.Instance.GetMode())
         {
-            Debug.Log("설치 모드가 아닙니다.");
+            //Debug.Log("설치 모드가 아닙니다.");
             return;
         }
         Debug.Log("타일에 마우스 들어옴");
@@ -49,7 +49,7 @@ public class TowerPlacementTile : MonoBehaviour
     {
         if (TowerManager.Instance.GetMode() != true && this.canBuild == true)
         {
-            Debug.Log("설치 모드가 아닙니다.");
+            //Debug.Log("설치 모드가 아닙니다.");
             return;
         }        
         Debug.Log("타일에서 마우스 나감");
@@ -63,7 +63,7 @@ public class TowerPlacementTile : MonoBehaviour
     {
         if (TowerManager.Instance.GetMode() != true)
         {
-            Debug.Log("설치 모드가 아닙니다.");
+            //Debug.Log("설치 모드가 아닙니다.");
             return;
         }
         if (!canBuild)

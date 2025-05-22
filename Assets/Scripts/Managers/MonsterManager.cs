@@ -83,23 +83,9 @@ namespace MyGame.Managers
 
         private void Start()
         {
-            // wave monster set
-            foreach (var i in stageInfo.monsterSpawnList[stageManager.currentWave].entries)
-            {
-                waveMonster.Add(i.monsterDataIndex);
-            }
-
             List<MonsterEntry> monsterList = monsterDex.GetAllEntries();
-            for(int i=0; i<waveMonster.Count; i++)
-            {
-                for (int j = 0; j < monsterList.Count; j++)
-                {
-                    if (waveMonster[i] == monsterList[j].id)
-                    {
-                        respwanMonsterQueue.Enqueue(monsterList[j].prefab);
-                    }
-                }
-            }
+
+            SetWave(monsterList);
 
             pathHolder = stageInfo.pathHolder; // waypoints set
             currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[monsterCount].spawnTime;
@@ -107,16 +93,21 @@ namespace MyGame.Managers
 
         void Update()
         {
-            if (waveStartCheck == true)
+            List<MonsterEntry> monsterList = monsterDex.GetAllEntries();
+            if (waveStartCheck)
             {
+                //Debug.Log($"Monster Manager : RespawnMonster, current Wave : {stageManager.currentWave}");
                 RespawnMonster();
-                if (waveEndCheck == true)
-                {
-                    waveStartCheck = false;
-                    stageManager.FinishWave();
-                }
             }
-            
+            if (waveStartCheck && waveEndCheck && monsterDict.Count == 0)
+            {
+                waveStartCheck = false;
+                waveEndCheck = false;
+                stageManager.FinishWave();
+                waveMonster.Clear();
+                SetWave(monsterList);
+            }
+
         }
 
         private void RespawnMonster()
@@ -161,7 +152,7 @@ namespace MyGame.Managers
                 monsterCount++;
 
                 
-                if (monsterCount < stageInfo.monsterSpawnList.Count)
+                if (monsterCount < stageInfo.monsterSpawnList[stageManager.currentWave].entries.Count)
                 {
                     currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[monsterCount].spawnTime;
                 }
@@ -210,17 +201,47 @@ namespace MyGame.Managers
 
         public void StartWave(int val)
         {
+            monsterCount = 0;
             waveIndex = val;
             waveStartCheck = true;
+            Debug.Log("Monster Manager : Start wave");
         }
 
         /// /////////////////////////////////// after wave idea, need modify
-        public void SetWave(List<GameObject> waveData)
+        public void SetWave(List<MonsterEntry> monsterList)
         {
-            respwanMonsterQueue.Clear();
-            foreach (var monster in waveData)
+            try
             {
-                respwanMonsterQueue.Enqueue(monster);
+                var waveData = stageInfo.monsterSpawnList[stageManager.currentWave];
+
+                if (waveData.entries == null)
+                {
+                    Debug.LogWarning("MonsterManager: entries가 null입니다.");
+                    return;
+                }
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Debug.LogError($"MonsterManager: currentWave({stageManager.currentWave})가 monsterSpawnList 범위를 초과했습니다.");
+                return;
+            }
+
+
+            // wave monster set
+            foreach (var i in stageInfo.monsterSpawnList[stageManager.currentWave].entries)
+            {
+                waveMonster.Add(i.monsterDataIndex);
+            }
+
+            for (int i = 0; i < waveMonster.Count; i++)
+            {
+                for (int j = 0; j < monsterList.Count; j++)
+                {
+                    if (waveMonster[i] == monsterList[j].id)
+                    {
+                        respwanMonsterQueue.Enqueue(monsterList[j].prefab);
+                    }
+                }
             }
         }
 

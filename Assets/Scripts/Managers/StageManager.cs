@@ -94,11 +94,6 @@ public class StageManager : MonoBehaviour
     public MonsterManager monsterManager;
     public int currentWave = 0;
 
-    private void Update()
-    {
-
-    }
-
     // for testing
     int currentStage = 0;
     int totalWave = 2;
@@ -109,9 +104,9 @@ public class StageManager : MonoBehaviour
 
     public void SetFlag(bool value)
     {
-        if (value)
+        if (value && waveFlag == false)
         {
-            Debug.Log("Wave Start");
+            Debug.Log("Stage Manager : Wave Start");
             monsterManager.StartWave(currentWave);
             waveFlag = true;
         }
@@ -120,7 +115,7 @@ public class StageManager : MonoBehaviour
     public void FinishWave()
     {
         waveFlag = false;
-        currentStage += 1;
+        currentWave += 1;
         Debug.Log("Wave End");
     }
 
