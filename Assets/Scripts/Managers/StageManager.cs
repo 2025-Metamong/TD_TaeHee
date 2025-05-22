@@ -8,13 +8,14 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager Instance { get; private set; }
 
-    [Header("·Îµù ÆäÀÌµå ¼³Á¤")]
-    [SerializeField] private CanvasGroup fadeCanvasGroup;  // È­¸é ÀüÃ¼¸¦ µ¤´Â CanvasGroup
-    [SerializeField] private float fadeDuration = 0.5f;    // ÆäÀÌµå ÀÎ/¾Æ¿ô ½Ã°£
+    [Header("ë¡œë”© í˜ì´ë“œ ì„¤ì •")]
+    [SerializeField] private CanvasGroup fadeCanvasGroup;  // í™”ë©´ ì „ì²´ë¥¼ ë®ëŠ” CanvasGroup
+    [SerializeField] private float fadeDuration = 0.5f;    // í˜ì´ë“œ ì¸/ì•„ì›ƒ ì‹œê°„
 
     void Awake()
     {
-        // ½Ì±ÛÅæ ¼³Á¤
+        // ì‹±ê¸€í†¤ ì„¤ì •
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -23,49 +24,53 @@ public class StageManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // ÃÖÃÊ¿¡´Â ÆäÀÌµå ¾Æ¿ô »óÅÂ·Î
+
+        // ìµœì´ˆì—ëŠ” í˜ì´ë“œ ì•„ì›ƒ ìƒíƒœë¡œ
         if (fadeCanvasGroup != null)
             fadeCanvasGroup.alpha = 0f;
     }
 
     /// <summary>
-    /// ¿ÜºÎ¿¡¼­ È£ÃâÇÒ ¾À(½ºÅ×ÀÌÁö) ·Îµå ÇÔ¼ö
+    /// ì™¸ë¶€ì—ì„œ í˜¸ì¶œí•  ì”¬(ìŠ¤í…Œì´ì§€) ë¡œë“œ í•¨ìˆ˜
+
     /// </summary>
     public void LoadStage(string sceneName)
     {
         if (string.IsNullOrEmpty(sceneName))
         {
-            Debug.LogWarning($"StageManager.LoadStage: sceneNameÀÌ ºñ¾îÀÖ½À´Ï´Ù.");
+
+            Debug.LogWarning($"StageManager.LoadStage: sceneNameì´ ë¹„ì–´ìˆìŠµë‹ˆë‹¤.");
+
             return;
         }
         StartCoroutine(LoadSceneCoroutine(sceneName));
     }
 
     /// <summary>
-    /// ÆäÀÌµå ÀÎ ¡æ ºñµ¿±â ·Îµå ¡æ ÆäÀÌµå ¾Æ¿ô Èå¸§
+    /// í˜ì´ë“œ ì¸ â†’ ë¹„ë™ê¸° ë¡œë“œ â†’ í˜ì´ë“œ ì•„ì›ƒ íë¦„
     /// </summary>
     private IEnumerator LoadSceneCoroutine(string sceneName)
     {
-        // 1) ÆäÀÌµå ÀÎ
+        // 1) í˜ì´ë“œ ì¸
         if (fadeCanvasGroup != null)
         {
             yield return StartCoroutine(Fade(0f, 1f));
         }
 
-        // 2) ºñµ¿±â ¾À ·Îµå
+        // 2) ë¹„ë™ê¸° ì”¬ ë¡œë“œ
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
         op.allowSceneActivation = false;
 
-        // ·ÎµùÀÌ ³¡³¯ ¶§±îÁö ´ë±â
+        // ë¡œë”©ì´ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°
         while (op.progress < 0.9f)
             yield return null;
 
-        // ¿Ï·á Ç¥½Ã ÈÄ ¹Ù·Î È°¼ºÈ­
+        // ì™„ë£Œ í‘œì‹œ í›„ ë°”ë¡œ í™œì„±í™”
         op.allowSceneActivation = true;
         while (!op.isDone)
             yield return null;
 
-        // 3) ÆäÀÌµå ¾Æ¿ô
+        // 3) í˜ì´ë“œ ì•„ì›ƒ
         if (fadeCanvasGroup != null)
         {
             yield return StartCoroutine(Fade(1f, 0f));
@@ -73,7 +78,7 @@ public class StageManager : MonoBehaviour
     }
 
     /// <summary>
-    /// CanvasGroup alpha¸¦ from¡æto·Î º¯°æ
+    /// CanvasGroup alphaë¥¼ fromâ†’toë¡œ ë³€ê²½
     /// </summary>
     private IEnumerator Fade(float from, float to)
     {
@@ -86,8 +91,7 @@ public class StageManager : MonoBehaviour
             yield return null;
         }
         fadeCanvasGroup.alpha = to;
-    }
-
+        
     // by seungwon
     [Header("stage info")]
     [SerializeField]  private List<StageInfo> stageInfoList = new List<StageInfo>();
@@ -118,6 +122,5 @@ public class StageManager : MonoBehaviour
         currentWave += 1;
         Debug.Log("Wave End");
     }
-
 
 }

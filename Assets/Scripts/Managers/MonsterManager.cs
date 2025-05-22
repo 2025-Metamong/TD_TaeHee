@@ -271,6 +271,3 @@ namespace MyGame.Managers
     }
 
 }
-
-
-
