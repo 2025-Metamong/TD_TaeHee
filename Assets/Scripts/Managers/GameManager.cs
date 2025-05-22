@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         }
         else if (Instance != this)
         {
+            Debug.Log("Destory Game Manager");
             Destroy(gameObject);
             return;
         }
@@ -84,14 +85,16 @@ public class GameManager : MonoBehaviour
 
     public void GoToStageSelect()
     {
-        const string target = "SelectStage";
-        Debug.Log($"[GameManager] GotoStageSelect: {target}");
-        StageManager.Instance.LoadStage(target);
+        this.LoadScene("SelectStage");
+        // const string target = "SelectStage";
+        // Debug.Log($"[GameManager] GotoStageSelect: {target}");
+        // StageManager.Instance.LoadStage(target);
     }
 
     public void StartGame()
     {
-        StageManager.Instance.LoadStage("SceneOne");
+        this.LoadScene("InStage");
+        // StageManager.Instance.LoadStage("SceneOne");
     }
 
     public void LoadScene(string stageName)
@@ -107,8 +110,9 @@ public class GameManager : MonoBehaviour
 
     public void ExitScene()
     {
-        const string target = "SelectStage";
-        Debug.Log($"[GameManager] ExitScene: {target}");
-        StageManager.Instance.LoadStage(target);
+        this.LoadScene("SelectStage");
+        // const string target = "SelectStage";
+        // Debug.Log($"[GameManager] ExitScene: {target}");
+        // StageManager.Instance.LoadStage(target);
     }
 }

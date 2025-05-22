@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class WaveStartButton : MonoBehaviour
 {
-    public StageManager targetScript;
     private Button waveStarButton;
     void Start()
     {
@@ -12,6 +11,6 @@ public class WaveStartButton : MonoBehaviour
     }
     public void OnButtonClick()
     {
-        targetScript.SetFlag(true);
+        StageManager.Instance.SetFlag(true);
     }
 }

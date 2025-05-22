@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using MyGame.Managers;
+using System.Linq;
 
 public class StageManager : MonoBehaviour
 {
@@ -11,6 +12,15 @@ public class StageManager : MonoBehaviour
     [Header("로딩 페이드 설정")]
     [SerializeField] private CanvasGroup fadeCanvasGroup;  // 화면 전체를 덮는 CanvasGroup
     [SerializeField] private float fadeDuration = 0.5f;    // 페이드 인/아웃 시간
+
+    // by seungwon
+    [Header("stage info")]
+    [SerializeField] private List<StageInfo> stageInfoList = new List<StageInfo>();
+    [SerializeField] private MonsterManager monsterManager;
+    public int currentWave = 0;
+
+    // 마지막 클리어 스테이지 번호
+    int currentStage = 0;
 
     void Awake()
     {
@@ -34,22 +44,24 @@ public class StageManager : MonoBehaviour
     /// 외부에서 호출할 씬(스테이지) 로드 함수
 
     /// </summary>
-    public void LoadStage(string sceneName)
+    public void LoadStage(int stageIndex = -1)
     {
-        if (string.IsNullOrEmpty(sceneName))
+        if (stageIndex < 0)
         {
 
             Debug.LogWarning($"StageManager.LoadStage: sceneName이 비어있습니다.");
 
             return;
         }
-        StartCoroutine(LoadSceneCoroutine(sceneName));
+        this.currentWave = 0;
+        StartCoroutine(LoadSceneCoroutine(stageIndex));
+        monsterManager.SetMonsterManagerStageInfo(stageInfoList[stageIndex]);
     }
 
     /// <summary>
     /// 페이드 인 → 비동기 로드 → 페이드 아웃 흐름
     /// </summary>
-    private IEnumerator LoadSceneCoroutine(string sceneName)
+    private IEnumerator LoadSceneCoroutine(int stageIndex)
     {
         // 1) 페이드 인
         if (fadeCanvasGroup != null)
@@ -58,7 +70,7 @@ public class StageManager : MonoBehaviour
         }
 
         // 2) 비동기 씬 로드
-        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation op = SceneManager.LoadSceneAsync("InStage");
         op.allowSceneActivation = false;
 
         // 로딩이 끝날 때까지 대기
@@ -75,6 +87,9 @@ public class StageManager : MonoBehaviour
         {
             yield return StartCoroutine(Fade(1f, 0f));
         }
+
+        // Loading Map Prefab
+        Instantiate(stageInfoList[stageIndex].map, this.transform);
     }
 
     /// <summary>
@@ -91,20 +106,16 @@ public class StageManager : MonoBehaviour
             yield return null;
         }
         fadeCanvasGroup.alpha = to;
-        
-    // by seungwon
-    [Header("stage info")]
-    [SerializeField]  private List<StageInfo> stageInfoList = new List<StageInfo>();
-    public MonsterManager monsterManager;
-    public int currentWave = 0;
+    }
 
-    // for testing
-    int currentStage = 0;
-    int totalWave = 2;
-    
     // for testing
 
     private bool waveFlag = false; // wave flag (false = ready, true = wave start)
+
+    void Start()
+    {
+        monsterManager = MonsterManager.Instance;
+    }
 
     public void SetFlag(bool value)
     {
@@ -121,6 +132,16 @@ public class StageManager : MonoBehaviour
         waveFlag = false;
         currentWave += 1;
         Debug.Log("Wave End");
+    }
+
+    public void FinishStage()
+    {
+        var allComps = GetComponentsInChildren<Component>(includeInactive: true);
+
+        foreach (var comp in allComps)
+        {
+            Destroy(comp.gameObject);
+        }
     }
 
 }
