@@ -6,10 +6,19 @@ using UnityEngine.UI;
 public class MonsterCount : MonoBehaviour
 {
     public TextMeshProUGUI countText;
-    [SerializeField] 
-    private StageInfo stageInfo;
+    [SerializeField] private StageInfo stageInfo;
     [SerializeField] private MonsterDex monsterDex;
+    private StageManager stageManager;
+    private MonsterWave monsterWave;
     int count = 0;
+
+    private void Awake()
+    {
+        if (stageManager == null)
+        {
+            stageManager = StageManager.Instance;
+        }
+    }
 
     private void Start()
     {
@@ -24,7 +33,18 @@ public class MonsterCount : MonoBehaviour
         //        count++;
         //    }
         //}
-        foreach (StageMonsterEntry i in stageInfo.monsterSpawnList)
+
+        
+        //foreach (StageMonsterEntry i in stageInfo.monsterSpawnList)
+        //{
+        //    if (parentImageName == monsterDex.GetEntryByID(i.monsterDataIndex).monsterName)
+        //    {
+        //        count++;
+        //    }
+        //}
+        
+        monsterWave = stageInfo.monsterSpawnList[stageManager.currentWave];
+        foreach (StageMonsterEntry i in monsterWave.entries)
         {
             if (parentImageName == monsterDex.GetEntryByID(i.monsterDataIndex).monsterName)
             {

@@ -160,6 +160,7 @@ namespace MyGame.Objects
             {
                 this.isDead = true;
                 MonsterManager.Instance.KillMonster(this.gameObject);
+                //StageManager.Instance.addCoins(reward);
             }
         }
 
@@ -169,6 +170,7 @@ namespace MyGame.Objects
             {
                 //StageManager.Instance.ReachFinish(this);
                 Debug.Log("몬스터가 Finish에 도착했습니다.");
+                //StageManager.Instance.takeDamage(damage);
                 MonsterManager.Instance.KillMonster(this.gameObject);
             }
         }
