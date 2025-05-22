@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public int LastClearStage { get; private set; }
 
     private Button startButton;
     private Button exitButton;
@@ -25,6 +26,23 @@ public class GameManager : MonoBehaviour
             return;
         }
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    /// <summary>
+    /// 외부에서 마지막 클리어 스테이지를 설정
+    /// </summary>
+    public void SetLastClearStage(int stageIndex)
+    {
+        LastClearStage = stageIndex;
+        Debug.Log($"[GameManager] Last clear stage set to {stageIndex}");
+        // 필요하다면 PlayerPrefs 에 저장
+        PlayerPrefs.SetInt("LastClearStage", stageIndex);
+        PlayerPrefs.Save();
+    }
+
+    void Start()
+    {
+        LastClearStage = PlayerPrefs.GetInt("LastClearStage", 0);
     }
 
     void OnDestroy()
@@ -67,7 +85,7 @@ public class GameManager : MonoBehaviour
     public void GoToStageSelect()
     {
         const string target = "SelectStage";
-        Debug.Log($"[GameManager] 씬 전환 시도(하드코딩): {target}");
+        Debug.Log($"[GameManager] GotoStageSelect: {target}");
         StageManager.Instance.LoadStage(target);
     }
 
@@ -90,7 +108,7 @@ public class GameManager : MonoBehaviour
     public void ExitScene()
     {
         const string target = "SelectStage";
-        Debug.Log($"[GameManager] ExitScene 하드코딩 씬 전환 시도: {target}");
+        Debug.Log($"[GameManager] ExitScene: {target}");
         StageManager.Instance.LoadStage(target);
     }
 }
