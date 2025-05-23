@@ -49,6 +49,7 @@ namespace MyGame.Managers
         private int extraCoin = 0;
         // 0520 - for rouglike
 
+
         private void Awake()
         {
             if (Instance == null)
@@ -182,13 +183,14 @@ namespace MyGame.Managers
             // }
 
             // Change monsterList to monsterDict
+
             var monsterScript = monster.GetComponent<MonoBehaviour>();
             var monsterID = monsterScript?.GetType()?.GetMethod("GetID", new Type[] { })?.Invoke(monsterScript, new object[] { });
             if (monsterDict.ContainsKey((int)monsterID))
             {
                 //Monster monsters1 = monster.GetComponent<Monster>();
                 //ResourceManager.Instance.addCoins(monsters1.GetReward());
-
+                //audioSource.PlayOneShot(death);
                 monsterDict.Remove((int)monsterID);
                 Destroy(monster);
             }

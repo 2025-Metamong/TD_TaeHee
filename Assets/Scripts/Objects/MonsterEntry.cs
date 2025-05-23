@@ -8,4 +8,5 @@ public class MonsterEntry
     public string monsterName;
     public Sprite icon;
     public string description;
+    public AudioClip audioClip;
 }

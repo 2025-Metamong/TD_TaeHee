@@ -12,6 +12,7 @@ namespace MyGame.Objects
         [SerializeField] private int reward = 10;
         [SerializeField] private int damage = 1;
         [SerializeField] private float speed = 1f;
+        [SerializeField] private int index = -1;
         // Add Monster ID 
         [SerializeField] private int ID = -1;
         private Transform pathHolder;
@@ -49,6 +50,9 @@ namespace MyGame.Objects
         public void SetHealth(float newHealth) => health = newHealth;
         public void SetReward(int extraReward) => reward += extraReward;
 
+        // 5023-sound
+        //public AudioClip deathSound;
+
         public void SetPath(Transform ways)
         {
             pathHolder = ways;
@@ -58,6 +62,7 @@ namespace MyGame.Objects
         private void Start()
         {
             Vector3[] waypoints = new Vector3[pathHolder.childCount];
+            
 
             //Debug.Log("몬스터가 소환되었습니다.");
             for (int i = 0; i < waypoints.Length; i++)
@@ -69,6 +74,7 @@ namespace MyGame.Objects
 
             StartCoroutine(FollowPath(waypoints));
         }
+
         IEnumerator FollowPath(Vector3[] waypoints)
         {
             transform.position = waypoints[0];
@@ -158,6 +164,8 @@ namespace MyGame.Objects
 
             if (health <= 0f)
             {
+                AudioManager.Instance.PlaySound(index);
+                //AudioSource.PlayClipAtPoint(deathSound, transform.position);
                 this.isDead = true;
                 MonsterManager.Instance.KillMonster(this.gameObject);
                 //StageManager.Instance.addCoins(reward);
@@ -170,6 +178,7 @@ namespace MyGame.Objects
             {
                 //StageManager.Instance.ReachFinish(this);
                 Debug.Log("몬스터가 Finish에 도착했습니다.");
+                AudioManager.Instance.PlayerHitSound();
                 //StageManager.Instance.takeDamage(damage);
                 MonsterManager.Instance.KillMonster(this.gameObject);
             }
