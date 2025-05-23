@@ -67,7 +67,8 @@ public class UpgradeSellLogic : MonoBehaviour
             return;
         }
 
-        // 성공 시 UI 표기 연장
+        // 성공 시 UI 표기 연장, UI 업데이트.
+        modiButtons.GetComponent<ModiButtons>().SetData(towerScript.GetUpgradeCost(), towerScript.GetSellPrice());
         if (modiShowCoroutine != null)
         {
             StopCoroutine(modiShowCoroutine);

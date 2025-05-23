@@ -992,6 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterInfoBtn: {fileID: 1361480301}
   imageTemplate: {fileID: 8536843269357291896, guid: 40df48d7ea00d3f4f8b70a79ea5187a5, type: 3}
+  monsterDex: {fileID: 0}
 --- !u!114 &915942570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2036,8 +2037,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 62.5}
-  m_SizeDelta: {x: 800, y: 125}
+  m_AnchoredPosition: {x: 0, y: 100}
+  m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1420844599
 MonoBehaviour:
@@ -2054,6 +2055,7 @@ MonoBehaviour:
   closeButton: {fileID: 0}
   towerShopButton: {fileID: 1113545336}
   towerCard: {fileID: 8081759595139242377, guid: d0bdf007da20b8d45b882361b3da137c, type: 3}
+  towerInfoCard: {fileID: 0}
   parentTransform: {fileID: 0}
 --- !u!114 &1420844600
 MonoBehaviour:
@@ -2075,9 +2077,9 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
