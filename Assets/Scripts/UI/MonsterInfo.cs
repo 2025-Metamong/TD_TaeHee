@@ -15,6 +15,6 @@ public class MonsterInfo : MonoBehaviour
     void MonsterInfoClicked()
     {
         panel.SetActive(true); // UI ∫∏¿Ã±‚
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
     }
 }

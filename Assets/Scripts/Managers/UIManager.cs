@@ -24,10 +24,10 @@ public class UIManager : MonoBehaviour
     //    if (Instance == null) Instance = this;
     //    else Destroy(gameObject);
     //}
-    // void Start()
-    // {   // 테스트 용 코드. 나중에 지워야 함!!!
-    //     // RoguelikeUpgrade.Instance.ShowUpgradeMenu();
-    // }
+    void Start()
+    {   // 테스트 용 코드. 나중에 지워야 함!!!
+        //RoguelikeUpgrade.Instance.ShowUpgradeMenu();
+    }
     //private void Start()
     //{
     //    waveStartButton.onClick.AddListener(onClickWaveStart);
