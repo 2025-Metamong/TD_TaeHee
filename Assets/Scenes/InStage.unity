@@ -877,6 +877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterInfoBtn: {fileID: 1361480301}
   imageTemplate: {fileID: 8536843269357291896, guid: 40df48d7ea00d3f4f8b70a79ea5187a5, type: 3}
+  monsterDex: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
 --- !u!114 &915942570
 MonoBehaviour:
   m_ObjectHideFlags: 0

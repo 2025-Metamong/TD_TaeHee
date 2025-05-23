@@ -15,25 +15,25 @@ MonoBehaviour:
   monsterEntries:
   - id: 0
     prefab: {fileID: 7899276199218208755, guid: 8c5842cedbc4b2d4a9833608834d8902, type: 3}
-    monsterName: 
-    icon: {fileID: 0}
+    monsterName: Logger
+    icon: {fileID: 21300000, guid: 3bc687de065e4e24fba40456338ca734, type: 3}
     description: 
     audioClip: {fileID: 8300000, guid: 85319b9a5f4f05146bae389605e678ce, type: 3}
   - id: 1
     prefab: {fileID: 2523974245157552435, guid: fa28ecdfa0fcb7243b6475bb9041149d, type: 3}
-    monsterName: 
-    icon: {fileID: 0}
+    monsterName: CampingCar
+    icon: {fileID: 21300000, guid: 3461ee32e0392c1498e477b071ffb53b, type: 3}
     description: 
     audioClip: {fileID: 8300000, guid: f826810931f55d346bb8636968dea051, type: 3}
   - id: 2
     prefab: {fileID: 8280684495788430602, guid: 23e5b33db66412a48a2cae4540a36af0, type: 3}
-    monsterName: 
-    icon: {fileID: 0}
+    monsterName: Excavator
+    icon: {fileID: 21300000, guid: 0a4e273c0e808924a9ec79b8395d9a03, type: 3}
     description: 
-    audioClip: {fileID: 8300000, guid: f826810931f55d346bb8636968dea051, type: 3}
+    audioClip: {fileID: 8300000, guid: 05f9fa182a3004b4f8266721946a8936, type: 3}
   - id: 3
     prefab: {fileID: 2854203087011216405, guid: 9855b15e8a9be9040b39b0858d5ded4a, type: 3}
-    monsterName: 
-    icon: {fileID: 0}
+    monsterName: RollingTown
+    icon: {fileID: 21300000, guid: 79b84ff4c270b054794a227138cb405c, type: 3}
     description: 
-    audioClip: {fileID: 8300000, guid: f826810931f55d346bb8636968dea051, type: 3}
+    audioClip: {fileID: 8300000, guid: c945dc5468ce9cd48b1f5baa8e9ea930, type: 3}
