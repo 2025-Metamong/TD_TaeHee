@@ -620,7 +620,7 @@ RectTransform:
   m_GameObject: {fileID: 2674613273353163452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.01, z: 0.07}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1010037672483936151}
@@ -813,8 +813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e0b32d4162c9d49b02635f091c4273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeText: {fileID: 0}
-  sellText: {fileID: 0}
+  upgradeText: {fileID: 573685268709037428}
+  sellText: {fileID: 1349834539090722419}
 --- !u!1 &3506980097998801358
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,6 +944,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3847066558099235152}
+  - component: {fileID: 4756355676094579711}
   m_Layer: 0
   m_Name: TowerSelectUI
   m_TagString: Untagged
@@ -959,14 +960,32 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6472596907574778030}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6682616257051235954}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &4756355676094579711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6472596907574778030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4d2701bf9a6845a49e7cb22555999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerScript: {fileID: 0}
+  message: {fileID: 2521977735597473833}
+  modiButtons: {fileID: 3278645223412305097}
+  closeButton: {fileID: 2134974666589530678}
+  sellButton: {fileID: 3558825781926613902}
+  upgradeButton: {fileID: 6736516299648150809}
 --- !u!1 &7178690130279391709
 GameObject:
   m_ObjectHideFlags: 0

@@ -124,9 +124,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: -1
   cost: 10
+  sellPrice: 10
   position: {fileID: 0}
+  portrait: {fileID: 0}
   range: 10
   attackPeriod: 1
+  damage: 15
   upgradeLevel: 0
   upgradeCost: 5
   bullet: {fileID: 3084736807602813044, guid: 596108dc9e090fc4a8be2911651baaa8, type: 3}
@@ -134,6 +137,7 @@ MonoBehaviour:
   rangeMat: {fileID: 2100000, guid: ab84aa58a08c2ca499b690a7948fcaba, type: 2}
   debuffAssets:
   - {fileID: 11400000, guid: 0c7b5708966dd944384e16c0c7cf29e8, type: 2}
+  towerSelectUIPrefab: {fileID: 6472596907574778030, guid: 2773363861f7760448034c07b7e16404, type: 3}
 --- !u!120 &2726641221238025520
 LineRenderer:
   serializedVersion: 2

@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: -1
   cost: 10
+  sellPrice: 10
   position: {fileID: 0}
   portrait: {fileID: 21300000, guid: 96d8e7ea6956aca4b9da9a13fd81566f, type: 3}
   range: 10
@@ -135,6 +136,7 @@ MonoBehaviour:
   displayTime: 3
   rangeMat: {fileID: 2100000, guid: ab84aa58a08c2ca499b690a7948fcaba, type: 2}
   debuffAssets: []
+  towerSelectUIPrefab: {fileID: 6472596907574778030, guid: 2773363861f7760448034c07b7e16404, type: 3}
 --- !u!120 &2726641221238025520
 LineRenderer:
   serializedVersion: 2

@@ -3,7 +3,6 @@ using UnityEngine;
 using MyGame.Managers;
 using System;
 using System.Collections;
-using UnityEngine.UI; // Assuming you have a MonsterManager script to handle monster logic
 
 namespace MyGame.Objects
 {
@@ -29,10 +28,11 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("업그레이드 비용")] private int upgradeCost = 5;
         //[SerializeField] private singleBullet bullet;  
         [SerializeField, Tooltip("탄환 Prefab")] private GameObject bullet;
-        [SerializeField, Tooltip("사거리 표기 시간")] private float displayTime = 3f;
+        [SerializeField, Tooltip("사거리 표기 시간")] private float displayTime = 1f;
         [SerializeField, Tooltip("사거리 표기용 Material")] private Material rangeMat;
         [SerializeField, Tooltip("타워 디버프 종류")] private List<debuffBase> debuffAssets = new List<debuffBase>();
-        public GameObject towerSelectUI;    // 타워 조작 UI
+        public GameObject towerSelectUIPrefab;    // 타워 조작 UI Prefab
+        private GameObject towerSelectUI;
         private UpgradeSellLogic modifyLogic;
 
         private List<debuffBase> debuffList;   // 실제 디버프 전달용 리스트
@@ -56,13 +56,16 @@ namespace MyGame.Objects
             var collider = rangeCylinder.GetComponent<CapsuleCollider>();
             Destroy(collider);
 
-            // 실린더 크기 설정
-            float diameter = 2f * range;
-            rangeCylinder.transform.localScale = new Vector3(diameter, 0.01f, diameter);
-
             // 처음에는 보이지 않음.
             rangeCylinder.SetActive(false);
 
+        }
+
+        private void SetCylinderSize()
+        {
+            // 실린더 크기 설정
+            float diameter = 2f * range;
+            rangeCylinder.transform.localScale = new Vector3(diameter, 0.01f, diameter);
         }
         void Start()
         {
@@ -71,7 +74,6 @@ namespace MyGame.Objects
             // 디버프 종류 ScriptableObject들 인스턴스화
             this.debuffList = new List<debuffBase>(debuffAssets);
 
-            this.modifyLogic = GetComponent<UpgradeSellLogic>();
         }
 
         // Update is called once per frame
@@ -118,17 +120,37 @@ namespace MyGame.Objects
             }
         }
 
+        public void TurnOffSelectUI()
+        {
+            Destroy(this.towerSelectUI);
+        }
+
         void OnMouseDown()
         {
             Debug.Log("마우스 클릭!");
-            if (rangeCoroutine != null)
-                StopCoroutine(rangeCoroutine);
-            rangeCoroutine = StartCoroutine(ShowRangeForSeconds());  // 사거리 표기
+            ShowRange();        // 사거리 표기.
+            // 판매, 업그레이드 버튼 표기.
 
+            // Prefab 인스턴스 화.
+            this.towerSelectUI = Instantiate(towerSelectUIPrefab);
+            Vector3 uiPosition = this.transform.position;
+            uiPosition.y += 4;
+            towerSelectUI.transform.position = uiPosition;
+            this.modifyLogic = towerSelectUI.GetComponent<UpgradeSellLogic>();
+
+            // 인스턴스 활성화.
             towerSelectUI.SetActive(true);
+            modifyLogic.SetTowerScript(this.GetComponent<Tower>());
             modifyLogic.ShowUI();
         }
 
+        private void ShowRange()
+        {
+            SetCylinderSize();  // 그리기 전 실린더 크기 업데이트.
+            if (rangeCoroutine != null)
+                StopCoroutine(rangeCoroutine);
+            rangeCoroutine = StartCoroutine(ShowRangeForSeconds());  // 정해진 시간 만큼 사거리 표기            
+        }
         private IEnumerator ShowRangeForSeconds()
         {
             rangeCylinder.SetActive(true);
@@ -154,22 +176,22 @@ namespace MyGame.Objects
             // Case 2 : 업그레이드 실패 == false 리턴
             // bool upgradeAble = StageManager.Instance.UseCoins(this.upgradeCost);
             bool upgradeAble = true;    // 테스트용. 고쳐야 함.
+            // bool upgradeAble = false;    // 테스트용. 고쳐야 함.
 
             if (upgradeAble)
             {
                 Debug.Log("업그레이드 성공");
-                towerSelectUI.SetActive(false);
                 this.upgradeLevel += 1; // 레벨 증가
                 this.attackPeriod += this.attackPeriod * this.upgradeLevel * 0.1f;  // 공격 속도 10% 증가
                 this.range += this.range * this.upgradeLevel * 0.1f;    // 사거리 10% 증가
                 this.damage += this.damage * this.upgradeLevel * 0.1f;    // 사거리 10% 증가
+                this.upgradeCost += Mathf.RoundToInt(this.upgradeCost * 0.25f);   // 업그레이드 비용 증가.
+                ShowRange();        // 사거리 표기.
                 return true;
             }
 
             return false;
         }
-
-
 
         // 타워가 타겟 찾는 로직.
         private Transform FindTarget()
@@ -259,6 +281,13 @@ namespace MyGame.Objects
         public int GetSellPrice()
         {
             return this.sellPrice;
+        }
+
+        // 타워 파괴 될 때 가지고 있는 오브젝트들 같이 파괴.
+        public void OnDestroy()
+        {
+            Destroy(this.towerSelectUI);
+            Destroy(this.rangeCylinder);
         }
     }
 
