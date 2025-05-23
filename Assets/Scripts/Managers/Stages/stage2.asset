@@ -18,12 +18,15 @@ MonoBehaviour:
   - entries:
     - spawnTime: 1
       monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 2
+  - entries:
+    - spawnTime: 1
+      monsterDataIndex: 2
+    - spawnTime: 5
+      monsterDataIndex: 0
   map: {fileID: 2851751867144945868, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
   spawnPoint: {fileID: 6696431832559060788, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
   pathHolder: {fileID: 5784456370869308289, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
-  cameraBounds:
-    serializedVersion: 2
-    x: -100
-    y: -100
-    width: 100
-    height: 100
+  panXLimits: {x: -50, y: 50}
+  panZLimits: {x: -50, y: 50}

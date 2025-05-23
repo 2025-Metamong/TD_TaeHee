@@ -27,7 +27,7 @@ namespace MyGame.Managers
         //0521 - stage info
         [SerializeField] private StageInfo stageInfo;
 
-        private List<int> waveMonster = new List<int>();
+        public List<int> waveMonster = new List<int>();
         private float currentSpawnRate = 0f;
         private int monsterCount = 0;
 
@@ -75,8 +75,8 @@ namespace MyGame.Managers
         //[SerializeField] private float spawnRate = 2f;
 
 
-        public static int Hp = 100; // for user
-        public static int coin = 200; // for user
+        //public static int Hp = 100; // for user
+        //public static int coin = 200; // for user
 
         public static string[] monsterNames = { "Monster", "Monster2" }; ////////////////////////////////////// need modify
 
@@ -102,6 +102,7 @@ namespace MyGame.Managers
                 stageManager.FinishWave();
                 waveMonster.Clear();
                 SetWave(monsterList);
+                MonsterInfoPanel.Instance.MonsterImageSet();
             }
 
         }
@@ -219,7 +220,7 @@ namespace MyGame.Managers
             foreach (var i in stageInfo.monsterSpawnList[stageManager.currentWave].entries)
             {
                 waveMonster.Add(i.monsterDataIndex);
-                Debug.Log(i.monsterDataIndex);
+                //Debug.Log(i.monsterDataIndex);
             }
 
             for (int i = 0; i < waveMonster.Count; i++)
