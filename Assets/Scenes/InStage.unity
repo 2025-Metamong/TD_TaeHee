@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1840750ad7ea314f9665fa5a74e1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 1
+  panSpeed: 2
   panXLimits: {x: -50, y: 50}
   panZLimits: {x: -50, y: 50}
   yawSpeed: 50
@@ -1126,6 +1126,10 @@ MonoBehaviour:
   pitchLimits: {x: 15, y: 60}
   zoomSpeed: 10
   fovLimits: {x: 15, y: 90}
+  orthographicSizeLimits: {x: 5, y: 20}
+  perspectivePoint: {fileID: 0}
+  topDownPoint: {fileID: 0}
+  orthographicSize: 10
 --- !u!1 &1083322805
 GameObject:
   m_ObjectHideFlags: 0
