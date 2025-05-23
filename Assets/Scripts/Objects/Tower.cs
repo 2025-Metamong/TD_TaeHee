@@ -19,6 +19,7 @@ namespace MyGame.Objects
         [Header("Tower Stats")]   // 타워 정보 inspector에 표기하기 위한 용도.
         [SerializeField, Tooltip("타워 ID")] private int ID = -1;   // 디폴트는 -1로 설정.
         [SerializeField, Tooltip("설치 비용")] private int cost = 10;
+        [SerializeField, Tooltip("판매 비용")] private int sellPrice = 10;
         [SerializeField, Tooltip("설치 위치")] private Transform position;
         [SerializeField, Tooltip("타워 이미지")] public Sprite portrait;
         [SerializeField, Tooltip("사거리")] private float range = 10f;
@@ -31,6 +32,8 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("사거리 표기 시간")] private float displayTime = 3f;
         [SerializeField, Tooltip("사거리 표기용 Material")] private Material rangeMat;
         [SerializeField, Tooltip("타워 디버프 종류")] private List<debuffBase> debuffAssets = new List<debuffBase>();
+        public GameObject towerSelectUI;    // 타워 조작 UI
+        private UpgradeSellLogic modifyLogic;
 
         private List<debuffBase> debuffList;   // 실제 디버프 전달용 리스트
         private float attack = 0f;  // 공격 결정용 flag. 주기가 되면 1, 아니면 0
@@ -68,6 +71,7 @@ namespace MyGame.Objects
             // 디버프 종류 ScriptableObject들 인스턴스화
             this.debuffList = new List<debuffBase>(debuffAssets);
 
+            this.modifyLogic = GetComponent<UpgradeSellLogic>();
         }
 
         // Update is called once per frame
@@ -121,6 +125,8 @@ namespace MyGame.Objects
                 StopCoroutine(rangeCoroutine);
             rangeCoroutine = StartCoroutine(ShowRangeForSeconds());  // 사거리 표기
 
+            towerSelectUI.SetActive(true);
+            modifyLogic.ShowUI();
         }
 
         private IEnumerator ShowRangeForSeconds()
@@ -131,30 +137,41 @@ namespace MyGame.Objects
             rangeCoroutine = null;
         }
 
-
         public Transform GetPosition()
         {     // 타워 오브젝트의 Transform 컴포넌트 리턴.
             return this.position;
         }
         public float GetRange()
-        {    // 타워 사거리 리턴턴
+        {    // 타워 사거리 리턴
             return this.range;
         }
 
-        //public bool UpgradeTower(){
-        //    // 타워 레벨 업그레이드 용 함수.
-        //    // Case 1 : 돈이 충분해서 업그레이드 성공 == stat 업데이트 하고 true 리턴
-        //    // Case 2 : 업그레이드 실패 == false 리턴
-        //    if (ResourceManager.Instance.useCoins(this.upgradeCost) == true){
-        //        this.upgradeLevel += 1; // 레벨 증가
-        //        this.attackPeriod += this.attackPeriod * 0.1f;  // 공격 속도 10% 증가
-        //        this.range += this.range * 0.1f;    // 사거리 10% 증가
-        //        // this.bullet.UpgradeBullet();     // 탄환 업그레이드???
-        //    }
+        // 타워 업그레이드 로직.
+        public bool UpgradeTower()
+        {
+            // 타워 레벨 업그레이드 용 함수.
+            // Case 1 : 돈이 충분해서 업그레이드 성공 == stat 업데이트 하고 true 리턴
+            // Case 2 : 업그레이드 실패 == false 리턴
+            // bool upgradeAble = StageManager.Instance.UseCoins(this.upgradeCost);
+            bool upgradeAble = true;    // 테스트용. 고쳐야 함.
 
-        //    return false;
-        //}
+            if (upgradeAble)
+            {
+                Debug.Log("업그레이드 성공");
+                towerSelectUI.SetActive(false);
+                this.upgradeLevel += 1; // 레벨 증가
+                this.attackPeriod += this.attackPeriod * this.upgradeLevel * 0.1f;  // 공격 속도 10% 증가
+                this.range += this.range * this.upgradeLevel * 0.1f;    // 사거리 10% 증가
+                this.damage += this.damage * this.upgradeLevel * 0.1f;    // 사거리 10% 증가
+                return true;
+            }
 
+            return false;
+        }
+
+
+
+        // 타워가 타겟 찾는 로직.
         private Transform FindTarget()
         {
 
@@ -237,6 +254,11 @@ namespace MyGame.Objects
         public void SetAttackPeriod(float newAttackPeriod)
         {
             this.attackPeriod = newAttackPeriod;
+        }
+
+        public int GetSellPrice()
+        {
+            return this.sellPrice;
         }
     }
 

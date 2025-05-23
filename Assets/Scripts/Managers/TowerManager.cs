@@ -80,9 +80,16 @@ namespace MyGame.Managers
                 return;
             }
         }
-        public void SellTower(GameObject toDelete)
+
+        // 판매할 타워 아이디 전달 받아서 판매가 StageManager에 주고 Destroy하고 TowerDict에서 제거.
+        public void SellTower(int toDeleteID)
         {
             Debug.Log("Tower Selling");
+            GameObject toDelete = towerDict[toDeleteID];
+            Tower script = toDelete.GetComponent<Tower>();
+            // StageManager.Instance.UseCoins(-(script.GetSellPrice()));    // 구현되면 처리해야 함.
+            towerDict.Remove(toDeleteID);
+            Destroy(toDelete);
         }
 
         public IEnumerable<GameObject> GetTowerPrefabs()
