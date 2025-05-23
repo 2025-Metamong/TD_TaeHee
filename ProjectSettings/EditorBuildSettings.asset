@@ -12,8 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/SelectStage.unity
     guid: abf7390173552c649b256e62d4eddc72
   - enabled: 1
-    path: Assets/Scenes/InStage.unity
+    path: Assets/Scenes/ForCard.unity
     guid: 9320d4251903b3a4fbbdb5565498a22b
+  - enabled: 1
+    path: Assets/Scenes/InStage.unity
+    guid: 32446469fdbd51a44bf20da68f79f381
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0
