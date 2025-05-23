@@ -17,6 +17,10 @@ public class CameraController : MonoBehaviour
     public float zoomSpeed = 10f;
     public Vector2 fovLimits = new Vector2(15f, 90f);
 
+    [Header("Perspective Zoom Y Limits")]
+    [Tooltip("Perspective 모드에서 카메라 Y축 이동(min, max)")]
+    public Vector2 zoomYLimits = new Vector2(5f, 30f);
+
     [Header("Top-Down Zoom Limits")]
     [Tooltip("Top-Down 모드에서 허용할 오쏘그래픽 사이즈(min, max)")]
     public Vector2 orthographicSizeLimits = new Vector2(5f, 20f);
@@ -114,7 +118,6 @@ public class CameraController : MonoBehaviour
 
         if (isTopDown)
         {
-            // Top-Down 모드에서 orthographicSizeLimits 범위 안에서만 변경
             orthographicSize = Mathf.Clamp(
                 orthographicSize - scroll * zoomSpeed,
                 orthographicSizeLimits.x,
@@ -124,12 +127,28 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            cam.fieldOfView = Mathf.Clamp(
-                cam.fieldOfView - scroll * zoomSpeed,
-                fovLimits.x,
-                fovLimits.y
-            );
-            savedFOV = cam.fieldOfView;
+            // 3D 모드: 카메라를 forward 방향으로 이동하되 Y 한계 도달 시 X/Z 이동 무시
+            Vector3 originalPos = transform.position;
+            Vector3 moveDelta = transform.forward * scroll * zoomSpeed;
+            Vector3 newPos = originalPos + moveDelta;
+            // Y는 무조건 클램프
+            newPos.y = Mathf.Clamp(newPos.y, zoomYLimits.x, zoomYLimits.y);
+
+            // Y 한계에 도달했다면 X/Z 이동 취소
+            bool yClamped = (newPos.y == zoomYLimits.x || newPos.y == zoomYLimits.y);
+            if (yClamped)
+            {
+                newPos.x = originalPos.x;
+                newPos.z = originalPos.z;
+            }
+            else
+            {
+                // X/Z는 팬 제한 내로 유지
+                newPos.x = Mathf.Clamp(newPos.x, panXLimits.x, panXLimits.y);
+                newPos.z = Mathf.Clamp(newPos.z, panZLimits.x, panZLimits.y);
+            }
+
+            transform.position = newPos;
         }
     }
 
