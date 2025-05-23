@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     //}
     void Start()
     {   // 테스트 용 코드. 나중에 지워야 함!!!
-        RoguelikeUpgrade.Instance.ShowUpgradeMenu();
+        // RoguelikeUpgrade.Instance.ShowUpgradeMenu();
     }
     //private void Start()
     //{
