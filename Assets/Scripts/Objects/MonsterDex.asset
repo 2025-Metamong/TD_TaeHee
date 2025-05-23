@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterEntries:
   - id: 0
-    prefab: {fileID: 2785157774413505645, guid: dd603117316f20f4ea4297b55fd8ab75, type: 3}
-    monsterName: Monster
-    icon: {fileID: 21300000, guid: 65ff266b4a8990146af9acf95c21f41d, type: 3}
+    prefab: {fileID: 7899276199218208755, guid: 8c5842cedbc4b2d4a9833608834d8902, type: 3}
+    monsterName: 
+    icon: {fileID: 0}
     description: 
   - id: 1
-    prefab: {fileID: 2785157774413505645, guid: 9ebb6b541ebd5cf4380f07bd4c8927fe, type: 3}
-    monsterName: Monster2
-    icon: {fileID: 21300000, guid: 989c81ba46d25fe43bd84477a17ae9e0, type: 3}
+    prefab: {fileID: 2523974245157552435, guid: fa28ecdfa0fcb7243b6475bb9041149d, type: 3}
+    monsterName: 
+    icon: {fileID: 0}
+    description: 
+  - id: 2
+    prefab: {fileID: 8280684495788430602, guid: 23e5b33db66412a48a2cae4540a36af0, type: 3}
+    monsterName: 
+    icon: {fileID: 0}
     description: 

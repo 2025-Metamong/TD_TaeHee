@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 203844589}
   - component: {fileID: 203844588}
   - component: {fileID: 203844587}
-  - component: {fileID: 203844590}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -241,20 +240,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &203844590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203844586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3537f1e3147c6484c9b601d68e60b651, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stageSelectStageName: StageSelectScene
-  mainGameStageName: MainGameScene
 --- !u!1 &244745442
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,11 +478,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 395788538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edb7fab93a840434ba966c3f4702b0c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 85748e8ff215f944f86e942088ce598a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fadeCanvasGroup: {fileID: 0}
   fadeDuration: 0.5
+  stageInfoList:
+  - {fileID: 11400000, guid: b4c5763c0159b874184d2b11af2e2864, type: 2}
+  - {fileID: 11400000, guid: eed3cf821219a234d9f9ff1c4fc16a7a, type: 2}
+  monsterManager: {fileID: 1058977232}
+  currentWave: 0
 --- !u!4 &395788540
 Transform:
   m_ObjectHideFlags: 0
@@ -507,7 +497,7 @@ Transform:
   m_GameObject: {fileID: 395788538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -120, y: 80, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -675,7 +665,7 @@ Transform:
   m_GameObject: {fileID: 921567813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -120, y: 80, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -693,8 +683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3537f1e3147c6484c9b601d68e60b651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageSelectStageName: SelectStage
-  mainGameStageName: SceneOne
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,6 +820,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1058977231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1058977233}
+  - component: {fileID: 1058977232}
+  m_Layer: 0
+  m_Name: MonsterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1058977232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058977231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870344f17b7443a4c8e5d57bd2dc5040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterDex: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
+  stageInfo: {fileID: 0}
+  stageManager: {fileID: 395788539}
+--- !u!4 &1058977233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058977231}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1235377276
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,3 +979,4 @@ SceneRoots:
   - {fileID: 244745445}
   - {fileID: 395788540}
   - {fileID: 921567815}
+  - {fileID: 1058977233}

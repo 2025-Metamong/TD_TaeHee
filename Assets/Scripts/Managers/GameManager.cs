@@ -22,10 +22,11 @@ public class GameManager : MonoBehaviour
         }
         else if (Instance != this)
         {
+            Debug.Log("Destory Game Manager");
             Destroy(gameObject);
             return;
         }
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        // SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     /// <summary>
@@ -45,10 +46,10 @@ public class GameManager : MonoBehaviour
         LastClearStage = PlayerPrefs.GetInt("LastClearStage", 0);
     }
 
-    void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+    // void OnDestroy()
+    // {
+    //     SceneManager.sceneLoaded -= OnSceneLoaded;
+    // }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -64,34 +65,36 @@ public class GameManager : MonoBehaviour
                 startButton.onClick.AddListener(GoToStageSelect);
             }
         }
-        else if (scene.name == "SceneOne")
+        else if (scene.name == "InStage")
         {
-            Debug.Log("[GameManager] SceneOne 분기 진입 (하드코딩)");
+            Debug.Log("[GameManager] InStage 분기 진입 (하드코딩)");
             exitButton = GameObject.Find("Canvas/Exit")?.GetComponent<Button>();
             Debug.Log($"[GameManager] ExitButton 찾음? {(exitButton!=null)}");
             if (exitButton == null)
             {
-                Debug.LogError("[GameManager] SceneOne에서 Exit 버튼을 찾을 수 없습니다. 경로를 확인하세요.");
+                Debug.LogError("[GameManager] InStage에서 Exit 버튼을 찾을 수 없습니다. 경로를 확인하세요.");
                 return;
             }
 
             exitButton.onClick.RemoveAllListeners();
             exitButton.onClick.AddListener(ExitScene);
-            Debug.Log("[GameManager] SceneOne 로드 직후 Exit 버튼 리스너 등록 완료");
+            Debug.Log("[GameManager] InStage 로드 직후 Exit 버튼 리스너 등록 완료");
         }
 
     }
 
     public void GoToStageSelect()
     {
-        const string target = "SelectStage";
-        Debug.Log($"[GameManager] GotoStageSelect: {target}");
-        StageManager.Instance.LoadStage(target);
+        this.LoadScene("SelectStage");
+        // const string target = "SelectStage";
+        // Debug.Log($"[GameManager] GotoStageSelect: {target}");
+        // StageManager.Instance.LoadStage(target);
     }
 
     public void StartGame()
     {
-        StageManager.Instance.LoadStage("SceneOne");
+        this.LoadScene("InStage");
+        // StageManager.Instance.LoadStage("SceneOne");
     }
 
     public void LoadScene(string stageName)
@@ -107,8 +110,9 @@ public class GameManager : MonoBehaviour
 
     public void ExitScene()
     {
-        const string target = "SelectStage";
-        Debug.Log($"[GameManager] ExitScene: {target}");
-        StageManager.Instance.LoadStage(target);
+        this.LoadScene("SelectStage");
+        // const string target = "SelectStage";
+        // Debug.Log($"[GameManager] ExitScene: {target}");
+        // StageManager.Instance.LoadStage(target);
     }
 }

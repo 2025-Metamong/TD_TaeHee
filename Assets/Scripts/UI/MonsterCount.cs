@@ -5,43 +5,53 @@ using UnityEngine.UI;
 
 public class MonsterCount : MonoBehaviour
 {
-    public TextMeshProUGUI countText;
-    [SerializeField] private StageInfo stageInfo;
-    [SerializeField] private MonsterDex monsterDex;
-    private StageManager stageManager;
-    private MonsterWave monsterWave;
-    int count = 0;
-
+    public static MonsterCount Instance { get; private set; }
     private void Awake()
     {
         if (stageManager == null)
         {
             stageManager = StageManager.Instance;
         }
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
+    public TextMeshProUGUI countText;
+    [SerializeField] private StageInfo stageInfo;
+    [SerializeField] private MonsterDex monsterDex;
+    private StageManager stageManager;
+    private MonsterWave monsterWave;
+    int count = 0;
+    int buffwave = 0;
+    int stageIndex = 0;
 
     private void Start()
     {
-        //Transform parentTransform = transform.parent;
+        this.UpdateMonsterCount();
+    }
+
+    private void Update()
+    {
+        countText.text = "X " + count.ToString();
+        if (stageManager.currentWave > buffwave)
+        {
+            buffwave = stageManager.currentWave;
+            count = 0;
+            this.UpdateMonsterCount();
+        }
+        
+    }
+
+    private void UpdateMonsterCount()
+    {
         string parentImageName = GetComponentInParent<Image>().sprite.name;
         Debug.Log(parentImageName);
-
-        //foreach (string i in MonsterManager.monsterNames)
-        //{
-        //    if (parentImageName == i)
-        //    {
-        //        count++;
-        //    }
-        //}
-
-        
-        //foreach (StageMonsterEntry i in stageInfo.monsterSpawnList)
-        //{
-        //    if (parentImageName == monsterDex.GetEntryByID(i.monsterDataIndex).monsterName)
-        //    {
-        //        count++;
-        //    }
-        //}
         
         monsterWave = stageInfo.monsterSpawnList[stageManager.currentWave];
         foreach (StageMonsterEntry i in monsterWave.entries)
@@ -55,9 +65,8 @@ public class MonsterCount : MonoBehaviour
         countText = GetComponent<TextMeshProUGUI>();
     }
 
-    private void Update()
+    public void getStageIndex(int val)
     {
-        countText.text =  "X "+ count.ToString();
+        stageIndex = val;
     }
-
 }

@@ -1,3 +1,4 @@
+using MyGame.Objects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 public class StageButton : MonoBehaviour
 {
     [Tooltip("로드할 Scene 이름")]
-    public string stageName;
+    public int StageIndex=-1;
     private Button _button;
 
     void Awake()
@@ -21,12 +22,13 @@ public class StageButton : MonoBehaviour
 
     private void OnClicked()
     {
-        if (stageName == null || string.IsNullOrEmpty(stageName))
+        if (StageIndex < 0)
         {
-            Debug.LogWarning($"[{stageName}]에 할당된 StageData가 없거나 stageName이 비어있습니다.");
+            Debug.LogWarning($"[{StageIndex}]에 할당된 StageData가 없거나 stageName이 비어있습니다.");
             return;
         }
 
-        GameManager.Instance.LoadScene(stageName);
+        GameManager.Instance.LoadScene("InStage");
+        StageManager.Instance.LoadStage(StageIndex);
     }
 }

@@ -49,7 +49,6 @@ namespace MyGame.Managers
         private int extraCoin = 0;
         // 0520 - for rouglike
 
-        
         private void Awake()
         {
             if (Instance == null)
@@ -60,6 +59,7 @@ namespace MyGame.Managers
             {
                 Destroy(gameObject);
             }
+            DontDestroyOnLoad(gameObject);
         }
 
         // for testing
@@ -77,18 +77,13 @@ namespace MyGame.Managers
         public static int Hp = 100; // for user
         public static int coin = 200; // for user
 
-        public static string[] monsterNames = {"Monster", "Monster2"}; ////////////////////////////////////// need modify
+        public static string[] monsterNames = { "Monster", "Monster2" }; ////////////////////////////////////// need modify
 
         // for testing
 
         private void Start()
         {
             List<MonsterEntry> monsterList = monsterDex.GetAllEntries();
-
-            SetWave(monsterList);
-
-            pathHolder = stageInfo.pathHolder; // waypoints set
-            currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[monsterCount].spawnTime;
         }
 
         void Update()
@@ -151,7 +146,7 @@ namespace MyGame.Managers
                 listCount++;
                 monsterCount++;
 
-                
+
                 if (monsterCount < stageInfo.monsterSpawnList[stageManager.currentWave].entries.Count)
                 {
                     currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[monsterCount].spawnTime;
@@ -188,12 +183,12 @@ namespace MyGame.Managers
 
             // Change monsterList to monsterDict
             var monsterScript = monster.GetComponent<MonoBehaviour>();
-            var monsterID = monsterScript?.GetType()?.GetMethod("GetID", new Type[]{})?.Invoke(monsterScript, new object[]{});
+            var monsterID = monsterScript?.GetType()?.GetMethod("GetID", new Type[] { })?.Invoke(monsterScript, new object[] { });
             if (monsterDict.ContainsKey((int)monsterID))
             {
                 //Monster monsters1 = monster.GetComponent<Monster>();
                 //ResourceManager.Instance.addCoins(monsters1.GetReward());
-                
+
                 monsterDict.Remove((int)monsterID);
                 Destroy(monster);
             }
@@ -204,33 +199,25 @@ namespace MyGame.Managers
             monsterCount = 0;
             waveIndex = val;
             waveStartCheck = true;
-            Debug.Log("Monster Manager : Start wave");
+            //Debug.Log("Monster Manager : Start wave");
         }
 
         /// /////////////////////////////////// after wave idea, need modify
         public void SetWave(List<MonsterEntry> monsterList)
         {
-            try
+            waveMonster.Clear();
+            if (stageInfo.monsterSpawnList.Count <= stageManager.currentWave)
             {
-                var waveData = stageInfo.monsterSpawnList[stageManager.currentWave];
-
-                if (waveData.entries == null)
-                {
-                    Debug.LogWarning("MonsterManager: entries가 null입니다.");
-                    return;
-                }
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Debug.LogError($"MonsterManager: currentWave({stageManager.currentWave})가 monsterSpawnList 범위를 초과했습니다.");
+                stageManager.FinishStage();
+                GameManager.Instance.ExitScene();
                 return;
             }
-
 
             // wave monster set
             foreach (var i in stageInfo.monsterSpawnList[stageManager.currentWave].entries)
             {
                 waveMonster.Add(i.monsterDataIndex);
+                Debug.Log(i.monsterDataIndex);
             }
 
             for (int i = 0; i < waveMonster.Count; i++)
@@ -268,6 +255,19 @@ namespace MyGame.Managers
         //        previousPosition = waypoint.position;
         //    }
         //}
+
+        // StageManager Interface
+        public void SetMonsterManagerStageInfo(StageInfo si)
+        {
+            this.stageInfo = si;
+
+            List<MonsterEntry> monsterList = monsterDex.GetAllEntries();
+
+            SetWave(monsterList);
+            
+            pathHolder = stageInfo.pathHolder; // waypoints set
+            currentSpawnRate = stageInfo.monsterSpawnList[stageManager.currentWave].entries[0].spawnTime;
+        }
     }
 
 }
