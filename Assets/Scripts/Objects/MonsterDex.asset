@@ -18,13 +18,22 @@ MonoBehaviour:
     monsterName: 
     icon: {fileID: 0}
     description: 
+    audioClip: {fileID: 8300000, guid: 85319b9a5f4f05146bae389605e678ce, type: 3}
   - id: 1
     prefab: {fileID: 2523974245157552435, guid: fa28ecdfa0fcb7243b6475bb9041149d, type: 3}
     monsterName: 
     icon: {fileID: 0}
     description: 
+    audioClip: {fileID: 8300000, guid: f826810931f55d346bb8636968dea051, type: 3}
   - id: 2
     prefab: {fileID: 8280684495788430602, guid: 23e5b33db66412a48a2cae4540a36af0, type: 3}
     monsterName: 
     icon: {fileID: 0}
     description: 
+    audioClip: {fileID: 8300000, guid: f826810931f55d346bb8636968dea051, type: 3}
+  - id: 3
+    prefab: {fileID: 2854203087011216405, guid: 9855b15e8a9be9040b39b0858d5ded4a, type: 3}
+    monsterName: 
+    icon: {fileID: 0}
+    description: 
+    audioClip: {fileID: 8300000, guid: f826810931f55d346bb8636968dea051, type: 3}

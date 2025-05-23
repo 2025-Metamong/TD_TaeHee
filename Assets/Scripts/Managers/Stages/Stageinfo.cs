@@ -26,7 +26,8 @@ public class StageInfo : ScriptableObject
 
     [Header("Camera Bounds")]
     [Tooltip("Allowed camera movement bounds in world units (x: min/max, y: min/max).")]
-    public Rect cameraBounds = new Rect(-100f, -100f, 100f, 100f);
+    public Vector2 panXLimits = new Vector2(-50f, 50f);
+    public Vector2 panZLimits = new Vector2(-50f, 50f);
 
     private void OnValidate()
     {
