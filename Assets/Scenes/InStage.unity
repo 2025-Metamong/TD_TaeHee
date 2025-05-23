@@ -1126,6 +1126,7 @@ MonoBehaviour:
   pitchLimits: {x: 15, y: 60}
   zoomSpeed: 10
   fovLimits: {x: 15, y: 90}
+  zoomYLimits: {x: 10, y: 30}
   orthographicSizeLimits: {x: 5, y: 20}
   perspectivePoint: {fileID: 0}
   topDownPoint: {fileID: 0}

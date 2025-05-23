@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
 
     [Header("Perspective Zoom Y Limits")]
     [Tooltip("Perspective 모드에서 카메라 Y축 이동(min, max)")]
-    public Vector2 zoomYLimits = new Vector2(5f, 30f);
+    public Vector2 zoomYLimits = new Vector2(10f, 30f);
 
     [Header("Top-Down Zoom Limits")]
     [Tooltip("Top-Down 모드에서 허용할 오쏘그래픽 사이즈(min, max)")]
@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
     {
         cam = GetComponent<Camera>();
         var angles = transform.eulerAngles;
-        currentYaw   = angles.y;
+        currentYaw = angles.y;
         currentPitch = Mathf.Clamp(angles.x, pitchLimits.x, pitchLimits.y);
 
         // 초기 3D 위치/회전
@@ -72,8 +72,8 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) lastMousePos = Input.mousePosition;
         if (Input.GetMouseButton(0))
         {
-            var delta   = (Vector3)Input.mousePosition - lastMousePos;
-            var right   = transform.right;
+            var delta = (Vector3)Input.mousePosition - lastMousePos;
+            var right = transform.right;
             var forward = Vector3.Cross(right, Vector3.up).normalized;
             transform.position += (-delta.x * right + -delta.y * forward)
                                   * panSpeed * Time.deltaTime;
@@ -95,15 +95,15 @@ public class CameraController : MonoBehaviour
             var delta = (Vector3)Input.mousePosition - lastMousePos;
             if (delta.sqrMagnitude > 0f)
             {
-                float yawDelta   = delta.x * yawSpeed   * Time.deltaTime;
+                float yawDelta = delta.x * yawSpeed * Time.deltaTime;
                 float pitchDelta = -delta.y * pitchSpeed * Time.deltaTime;
 
-                currentYaw   += yawDelta;
+                currentYaw += yawDelta;
                 currentPitch = Mathf.Clamp(currentPitch + pitchDelta, pitchLimits.x, pitchLimits.y);
 
-                float applyYaw   = currentYaw   - transform.eulerAngles.y;
+                float applyYaw = currentYaw - transform.eulerAngles.y;
                 float applyPitch = currentPitch - transform.eulerAngles.x;
-                transform.Rotate(Vector3.up,   applyYaw,   Space.World);
+                transform.Rotate(Vector3.up, applyYaw, Space.World);
                 transform.Rotate(Vector3.right, applyPitch, Space.Self);
 
                 lastMousePos = Input.mousePosition;
@@ -160,15 +160,15 @@ public class CameraController : MonoBehaviour
         {
             // 3D 상태 저장
             savedRotation = transform.rotation;
-            savedFOV      = cam.fieldOfView;
+            savedFOV = cam.fieldOfView;
             ApplyTopDown();
         }
         else
         {
             // 저장된 3D 상태 복원
             transform.rotation = savedRotation;
-            cam.orthographic   = false;
-            cam.fieldOfView    = savedFOV;
+            cam.orthographic = false;
+            cam.fieldOfView = savedFOV;
         }
     }
 
@@ -178,11 +178,18 @@ public class CameraController : MonoBehaviour
         if (topDownPoint != null)
             transform.position = topDownPoint.position;
 
-        cam.orthographic     = true;
+        cam.orthographic = true;
         cam.orthographicSize = Mathf.Clamp(
             orthographicSize,
             orthographicSizeLimits.x,
             orthographicSizeLimits.y
         );
+    }
+
+    public void SetCameraPanLimits(Vector2 XLimit, Vector2 ZLimit)
+    {
+        Debug.Log($"SetCameraLimits : {XLimit}, {ZLimit}");
+        this.panXLimits = XLimit;
+        this.panZLimits = ZLimit;
     }
 }
