@@ -89,6 +89,11 @@ public class StageManager : MonoBehaviour
 
         // Loading Map Prefab
         Instantiate(stageInfoList[stageIndex].map, this.transform);
+
+        // Camera 이동 범위 세팅
+        var camControl = GameObject.FindWithTag("MainCamera")?.GetComponent<CameraController>();
+        camControl?.SetCameraPanLimits(stageInfoList[stageIndex].panXLimits,
+                                       stageInfoList[stageIndex].panZLimits);
     }
 
     /// <summary>
