@@ -21,14 +21,23 @@ public class RLCard : MonoBehaviour
     // Select 버튼에 이벤트 추가. 다른 오브젝트가 버튼 가져간다면 삭제하는 것이 안전.
     void Start()
     {
-        selectButton.onClick.RemoveAllListeners();
-        selectButton.onClick.AddListener(OnClick_Select);
+        // selectButton.onClick.RemoveAllListeners();
+        // selectButton.onClick.AddListener(OnClick_Select);
     }
 
     // RogueUpgrade 전달 받아서 자신의 TMP 필드 값 업데이트.
     public void SetRLCard(RogueUpgrade data)
     {
+        if (data == null)
+        {
+            Debug.Log("data is null");
+            return;
+        }
         this.RLData = data; // SO 받기.
+        if (RLData == null) {
+            Debug.Log("RLData is null");
+            return;
+        }
         this.upgradeName.text = RLData.upgradeName;
         this.description.text = RLData.description;
         // this.iconImage.sprite = RLData.icon.sprite;  // RogueUpgrade 에 icon 이미지 추가되면 사용할 듯.
@@ -43,8 +52,8 @@ public class RLCard : MonoBehaviour
             return;
         }
         // 스크립트의 클릭 이벤트 호출...
-        var method = RLScript.GetType()?.GetMethod("OnUpgradeSelected", new Type[] { typeof(RogueUpgrade) });
-        method?.Invoke(RLScript, new object[] { this.RLData });
+        // var method = RLScript.GetType()?.GetMethod("OnUpgradeSelected", new Type[] { typeof(RogueUpgrade) });
+        // method?.Invoke(RLScript, new object[] { this.RLData });
     }
 
     // 다른 오브젝트가 RLCard의 셀렉트 버튼을 가져가고 싶을 때.
