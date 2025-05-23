@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 23b1bddd8ba2ec14f83648e6535f9afc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 189804
+  packageName: Rolling Town
+  packageVersion: 1.0
+  assetPath: Assets/Understone/WheelCity/Animations/WheelSpin.anim
+  uploadId: 418936

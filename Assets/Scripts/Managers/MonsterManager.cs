@@ -49,7 +49,6 @@ namespace MyGame.Managers
         private int extraCoin = 0;
         // 0520 - for rouglike
 
-
         private void Awake()
         {
             if (Instance == null)
@@ -200,7 +199,7 @@ namespace MyGame.Managers
             monsterCount = 0;
             waveIndex = val;
             waveStartCheck = true;
-            Debug.Log("Monster Manager : Start wave");
+            //Debug.Log("Monster Manager : Start wave");
         }
 
         /// /////////////////////////////////// after wave idea, need modify
