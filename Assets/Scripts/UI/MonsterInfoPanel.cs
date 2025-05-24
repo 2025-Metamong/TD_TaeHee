@@ -32,7 +32,7 @@ public class MonsterInfoPanel : MonoBehaviour
     private Button XBtn;
     //Transform contentPanel;
 
-    private int checkMulti = 0;
+    //private int checkMulti = 0;
     void Start()
     {
         XBtn = monsterInfoPanelObject.GetComponentInChildren<Button>();

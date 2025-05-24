@@ -25,7 +25,7 @@ public class MonsterCount : MonoBehaviour
     private MonsterWave monsterWave;
     int count = 0;
     string parentImageName;
-    bool flag = false;
+    //bool flag = false;
 
     private void Start()
     {

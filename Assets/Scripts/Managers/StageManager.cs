@@ -55,6 +55,11 @@ public class StageManager : MonoBehaviour
         if (fadeCanvasGroup != null)
             fadeCanvasGroup.alpha = 0f;
 
+        
+        
+    }
+    private void Start()
+    {
         monsterManager = MonsterManager.Instance;
         towerManager = TowerManager.Instance;
     }
@@ -101,6 +106,7 @@ public class StageManager : MonoBehaviour
         currentWave = 0;
 
         // 초기 코인 & 체력 세팅
+        Debug.Log($"StageManager.LoadStage: 코인={stageInfoList[stageIndex].startCoins}, 체력={stageInfoList[stageIndex].playerHP}");
         Coin = stageInfoList[stageIndex].startCoins;
         Health = stageInfoList[stageIndex].playerHP;
 
@@ -190,6 +196,8 @@ public class StageManager : MonoBehaviour
         {
             if (child.gameObject.name.StartsWith("stageMap"))
             {
+                
+                waveFlag = false;
                 Destroy(child.gameObject);
             }
         }

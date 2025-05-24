@@ -10,7 +10,7 @@ namespace MyGame.Objects
         [Header("Monster Stats")]
         [SerializeField] private float health = 100;
         [SerializeField] private int reward = 10;
-        [SerializeField] private int damage = 1;
+        [SerializeField] private int damage = 1; // monster attack damage
         [SerializeField] private float speed = 1f;
         [SerializeField] private int index = -1;
         // Add Monster ID 
@@ -179,7 +179,7 @@ namespace MyGame.Objects
                 //StageManager.Instance.ReachFinish(this);
                 Debug.Log("몬스터가 Finish에 도착했습니다.");
                 AudioManager.Instance.PlayerHitSound();
-                //StageManager.Instance.takeDamage(damage);
+                StageManager.Instance.TakeDamage(damage);
                 MonsterManager.Instance.KillMonster(this.gameObject);
             }
         }
