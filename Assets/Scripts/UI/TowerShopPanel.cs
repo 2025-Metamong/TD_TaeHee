@@ -9,8 +9,11 @@ public class TowerShopPanel : MonoBehaviour
     [SerializeField, Tooltip("닫기 버튼")] public Button closeButton;
     [SerializeField, Tooltip("타워 샵 버튼")] public GameObject towerShopButton;
     [SerializeField, Tooltip("타워 카드 프리팹")] public GameObject towerCard;
+    [SerializeField, Tooltip("타워 카드 프리팹")] public GameObject towerInfoCard;
     [SerializeField, Tooltip("카드들의 부모")] public Transform parentTransform;
 
+    private List<GameObject> towerCardList = new List<GameObject>();    // 타워 카드 인스턴스 관리
+    private List<GameObject> towerInfoList = new List<GameObject>();    // 타워 정보 카드 인스턴스 관리
     void Start()
     {
         parentTransform = this.transform;
@@ -41,8 +44,11 @@ public class TowerShopPanel : MonoBehaviour
             // {
             //     Debug.Log("타워 샵 패널에서 타워 프리팹 로드 성공");
             // }
-            // 타워 카드에 프리팹 전달하고 활성화.
+
+            // 카드에 프리팹 전달
             card.GetComponent<TowerCard>().SetTowerPrefab(towerData);
+            
+            // 카드 활성화화
             card.SetActive(true);
         }
     }

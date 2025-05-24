@@ -186,6 +186,7 @@ namespace MyGame.Objects
                 this.range += this.range * this.upgradeLevel * 0.1f;    // 사거리 10% 증가
                 this.damage += this.damage * this.upgradeLevel * 0.1f;    // 사거리 10% 증가
                 this.upgradeCost += Mathf.RoundToInt(this.upgradeCost * 0.25f);   // 업그레이드 비용 증가.
+                this.sellPrice += Mathf.RoundToInt(this.upgradeCost * 0.1f);   // 판매 비용 증가.
                 ShowRange();        // 사거리 표기.
                 return true;
             }
