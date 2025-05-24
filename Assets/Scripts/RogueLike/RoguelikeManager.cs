@@ -48,7 +48,7 @@ public class RoguelikeManager : MonoBehaviour
         this.accDecreaseFlatSpeed = 0;
         this.accDecreasePercentSpeed = 1;
         this.accExtraCoin = 0;
-        
+
         MonsterManager.Instance.ResetRoguelike();
         TowerManager.Instance.ResetRoguelike();
     }
@@ -104,6 +104,19 @@ public class RoguelikeManager : MonoBehaviour
         // }
     }
 
+    private void DestroyRLCards()
+    {
+        // 로그라이크 카드 파괴
+        RLCard[] cardList = GetComponentsInChildren<RLCard>();
+        foreach (var cardScript in cardList)
+        {
+            Destroy(cardScript.gameObject);
+        }
+
+        // optionButtons 다시 빈 배열로
+        this.optionButtons = new Button[3];
+    }
+
     private void OnUpgradeSelected(RogueUpgrade selected)
     {
         // 실제 업그레이드 적용 로직
@@ -149,12 +162,23 @@ public class RoguelikeManager : MonoBehaviour
                 this.increaseDamageValue(selected);
                 break;
 
+            // GetInstantCoin
+            case 8:
+                this.GetInstantCoin(selected);
+                break;
+
+            // GetInstantHealth
+            case 9:
+                this.GetInstantHealth(selected);
+                break;
+
             default:
                 Debug.Log($"ID가 등록되지 않았거나 잘못된 ID 입니다. ID : {selected.rogueID}");
                 break;
         }
 
-        // 메뉴 숨기기
+        // 로그라이크 카드들 Perge 하고 메뉴 숨기기
+        DestroyRLCards();
         upgradeMenuPanel.SetActive(false);
         // _canvasGroup.interactable = false;
         // _canvasGroup.blocksRaycasts = false;
@@ -189,18 +213,28 @@ public class RoguelikeManager : MonoBehaviour
         MonsterManager.Instance.SetExtraCoin((int)selected.value);
     }
 
-    public void increaseAttackSpeed(RogueUpgrade selected){
+    public void increaseAttackSpeed(RogueUpgrade selected)
+    {
         TowerManager.Instance.SetAttackSpeedIncrease(1f + selected.value);
     }
-    
+
     public void increaseDamagePercent(RogueUpgrade selected)
     {
         TowerManager.Instance.SetDamageIncrease(selected.value, 0);
     }
-    
+
     public void increaseDamageValue(RogueUpgrade selected)
     {
         TowerManager.Instance.SetDamageIncrease(0, selected.value);
     }
+
+    public void GetInstantCoin(RogueUpgrade selected)
+    {
+        StageManager.Instance.AddCoins((int)selected.value);
+    }
+    public void GetInstantHealth(RogueUpgrade selected)
+    {
+        StageManager.Instance.TakeDamage(-(int)selected.value);
+    }    
 
 }
