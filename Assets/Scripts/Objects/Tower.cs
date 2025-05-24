@@ -146,7 +146,8 @@ namespace MyGame.Objects
             // Prefab 인스턴스 화.
             this.towerSelectUI = Instantiate(towerSelectUIPrefab);
             Vector3 uiPosition = this.transform.position;
-            uiPosition.y += 4;
+            // uiPosition.y += 4;
+            uiPosition.y += 5 * this.transform.localScale.y;    // 타워 Prefab 스케일에 따라 생성 높이 차등 적용
             towerSelectUI.transform.position = uiPosition;
             this.modifyLogic = towerSelectUI.GetComponent<UpgradeSellLogic>();
 
