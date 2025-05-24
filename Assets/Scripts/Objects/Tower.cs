@@ -188,9 +188,13 @@ namespace MyGame.Objects
                 this.upgradeCost += Mathf.RoundToInt(this.upgradeCost * 0.25f);   // 업그레이드 비용 증가.
                 this.sellPrice += Mathf.RoundToInt(this.upgradeCost * 0.1f);   // 판매 비용 증가.
                 ShowRange();        // 사거리 표기.
+                // 업그레이드 성공 사운드 재생
+                TowerSoundController.Instance.PlayUpgradeSound();
                 return true;
             }
 
+            // 업그레이드 실패 사운드 재생
+            TowerSoundController.Instance.PlayFailedSound();
             return false;
         }
 
