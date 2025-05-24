@@ -23,7 +23,7 @@ MonoBehaviour:
   - entries:
     - spawnTime: 1
       monsterDataIndex: 2
-    - spawnTime: 5
+    - spawnTime: 2
       monsterDataIndex: 0
   map: {fileID: 2851751867144945868, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
   spawnPoint: {fileID: 6696431832559060788, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}

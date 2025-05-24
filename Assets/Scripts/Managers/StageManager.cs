@@ -144,6 +144,7 @@ public class StageManager : MonoBehaviour
         {
             if (child.gameObject.name.StartsWith("stageMap"))
             {
+                waveFlag = false;
                 Destroy(child.gameObject);
             }
         }
