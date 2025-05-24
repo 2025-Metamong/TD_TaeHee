@@ -63,8 +63,10 @@ namespace MyGame.Objects
 
         private void SetCylinderSize()
         {
-            // 실린더 크기 설정
-            float diameter = 2f * range;
+            // 실린더 크기 설정. 
+            // 실린더는 Prefab의 스케일 말고 월드 스케일에 영향을 받는 것이 좋으므로
+            // 현재 Prefab의 스케일로 나눠주는 것이 좋다.
+            float diameter = 2f * range / this.transform.localScale.x; // Prefab이 x, y, z 모두 같은 스케일로 증가한다고 가정.
             rangeCylinder.transform.localScale = new Vector3(diameter, 0.01f, diameter);
         }
         void Start()
