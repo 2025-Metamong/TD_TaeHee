@@ -15,8 +15,6 @@ namespace MyGame.Managers
         [SerializeField, Tooltip("글로벌 공격력 증가 팩터 M")] private float mDamage = 0f;
         [SerializeField, Tooltip("글로벌 공격속도 증가 팩터 Speed")] private float globalSpeedModifier = 1f;
         private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();  // 현재 소환 된 타워 리스트를 딕셔너리로 수정
-        private List<Vector3> towerSpawnPoints = new List<Vector3>();
-        private List<GameObject> availableTowers = new List<GameObject>();
 
         private int TowerIndex = 0;
         public static TowerManager Instance { get; private set; } // 싱글톤 패턴
@@ -31,7 +29,8 @@ namespace MyGame.Managers
                 Destroy(gameObject);
             }
         }
-        public void InstallTower(GameObject tower, Vector3 position)
+        // 설치한 타워의 ID 리턴하기로 변경. -> 타일의 초기화 위해.
+        public int InstallTower(GameObject tower, Vector3 position)
         {  // 설치할 타워까지 전달 받기로 변경.
             bool isEnough = StageManager.Instance.UseCoin(tower.GetComponent<Tower>().GetCost());
             //bool isEnough = true;
@@ -47,14 +46,14 @@ namespace MyGame.Managers
                     Debug.Log("타워 설치 실패");
                     // 설치 실패 사운드 재생
                     TowerSoundController.Instance.PlayFailedSound();
-                    return;
+                    return -1;
                 }
                 Debug.Log("타워 인스턴스화 성공");
                 if (!newTower.TryGetComponent<MonoBehaviour>(out var newTowerScript))   // 새 타워에서 스크립트 찾기.
                 {
                     Debug.Log("객체에 스크립트 존재하지 않음");
                     TowerSoundController.Instance.PlayFailedSound();    // 실패 사운드 재생.
-                    return;
+                    return -1;
                 }
                 // 타워 ID 세팅
                 newTowerScript.GetType()?.GetMethod("SetID", new Type[] { typeof(int) })?.Invoke(newTowerScript, new object[] { this.TowerIndex });
@@ -70,11 +69,12 @@ namespace MyGame.Managers
 
                 // 타워 설치 성공 사운드 재생
                 TowerSoundController.Instance.PlayInstallSound();
+                return newTower.GetComponent<Tower>().GetID();  // 설치한 타워 ID 리턴.
             }
             else
             {
                 TowerSoundController.Instance.PlayFailedSound();
-                return;
+                return -1;
             }
         }
 
@@ -84,13 +84,22 @@ namespace MyGame.Managers
             Debug.Log("Tower Selling");
             GameObject toDelete = towerDict[toDeleteID];
             Tower script = toDelete.GetComponent<Tower>();
-             StageManager.Instance.AddCoins(script.GetSellPrice());    // 구현되면 처리해야 함.
+            StageManager.Instance.AddCoins(script.GetSellPrice());    // 구현되면 처리해야 함.
             towerDict.Remove(toDeleteID);
             Destroy(toDelete);
             // 타워 판매 사운드 재생
             TowerSoundController.Instance.PlaySellSound();
         }
 
+        // 디버프 종류를 받아서 현재 존재하는 타워들에 추가하기. 추가할 종류가 여러개면 바깥에서 여러번 부르면 된다.
+        public void AddDebuffToAllTower(debuffBase dbuff)
+        {
+            // 현재 인스턴스화 된 타워 순환
+            foreach (var entry in towerDict)
+            {
+                entry.Value.GetComponent<Tower>().AddDebuff(dbuff); // 타워에 디버프 전달.
+            }
+        }
         public IEnumerable<GameObject> GetTowerPrefabs()
         {
             return this.towerPrefabs;
@@ -142,11 +151,17 @@ namespace MyGame.Managers
             }
         }
 
+        // 타워 딕셔너리 반환.
+        public Dictionary<int, GameObject> GetTowerDict()
+        {
+            return this.towerDict;
+        }
+
         public void ResetRoguelike()
         {
             this.nDamage = 1f;
             this.mDamage = 0f;
-            
+
             this.globalSpeedModifier = 1f;
         }
 

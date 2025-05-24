@@ -63,9 +63,12 @@ namespace MyGame.Objects
 
         private void SetCylinderSize()
         {
-            // 실린더 크기 설정
-            float diameter = 2f * range;
-            rangeCylinder.transform.localScale = new Vector3(diameter, 0.01f, diameter);
+            // 실린더 크기 설정. 
+            // 실린더는 Prefab의 스케일 말고 월드 스케일에 영향을 받는 것이 좋으므로
+            // 현재 Prefab의 스케일로 나눠주는 것이 좋다.
+            float diameter = 2f * range / this.transform.localScale.x; // Prefab이 x, y, z 모두 같은 스케일로 증가한다고 가정.
+            // float yOffset = 0.1f / this.transform.localScale.y;    // 오프셋도 수정.
+            rangeCylinder.transform.localScale = new Vector3(diameter, 0, diameter);
         }
         void Start()
         {
@@ -135,10 +138,16 @@ namespace MyGame.Objects
             ShowRange();        // 사거리 표기.
             // 판매, 업그레이드 버튼 표기.
 
+            if (this.towerSelectUI != null) // Upgrade, Sell 버튼이 여러개 나오는 것 방지.
+            {
+                Destroy(this.towerSelectUI);
+            }
+            
             // Prefab 인스턴스 화.
             this.towerSelectUI = Instantiate(towerSelectUIPrefab);
             Vector3 uiPosition = this.transform.position;
-            uiPosition.y += 4;
+            // uiPosition.y += 4;
+            uiPosition.y += 5 * this.transform.localScale.y;    // 타워 Prefab 스케일에 따라 생성 높이 차등 적용
             towerSelectUI.transform.position = uiPosition;
             this.modifyLogic = towerSelectUI.GetComponent<UpgradeSellLogic>();
 
@@ -172,13 +181,21 @@ namespace MyGame.Objects
             return this.range;
         }
 
+        public void AddDebuff(debuffBase dbuff)
+        {
+            // 현재 디버프 종류에 전달 받은 디버프 추가하기.
+            this.debuffAssets.Add(dbuff);
+            // 실제 디버프 전달에 사용하는 리스트에도 추가하기.
+            this.debuffList.Add(Instantiate(dbuff));
+        }
+
         // 타워 업그레이드 로직.
         public bool UpgradeTower()
         {
             // 타워 레벨 업그레이드 용 함수.
             // Case 1 : 돈이 충분해서 업그레이드 성공 == stat 업데이트 하고 true 리턴
             // Case 2 : 업그레이드 실패 == false 리턴
-             bool upgradeAble = StageManager.Instance.UseCoin(this.upgradeCost);
+            bool upgradeAble = StageManager.Instance.UseCoin(this.upgradeCost);
             //bool upgradeAble = true;    // 테스트용. 고쳐야 함.
             // bool upgradeAble = false;    // 테스트용. 고쳐야 함.
 
