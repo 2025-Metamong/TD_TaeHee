@@ -9,10 +9,14 @@ namespace MyGame.Objects
     {
         private Vector3 spawnPosition;
         private Vector3 direction;
+        [SerializeField, Tooltip("총알이 몬스터에 주는 데미지")]
         private float damage = 10f;
-        private float speed = 5f;
+        [SerializeField, Tooltip("총알 발사 속도")]
+        private float speed = 50f;
+        [SerializeField, Tooltip("총알 사거리")]
         private float range = 20f;
-        private float radius = 3f;
+        [SerializeField, Tooltip("폭발 범위")]
+        private float radius = 10f;
 
         [SerializeField, Tooltip("충돌 시 디버프 리스트")]
         private List<debuffBase> debuffList = new List<debuffBase>();
