@@ -54,9 +54,6 @@ public class StageManager : MonoBehaviour
         // 최초에는 페이드 아웃 상태로
         if (fadeCanvasGroup != null)
             fadeCanvasGroup.alpha = 0f;
-
-        
-        
     }
     private void Start()
     {
@@ -113,7 +110,6 @@ public class StageManager : MonoBehaviour
         StartCoroutine(LoadSceneCoroutine(stageIndex));
 
         monsterManager.SetMonsterManagerStageInfo(stageInfoList[stageIndex]);
-        towerManager.SetTowerManagerStageInfo(stageInfoList[stageIndex]);
     }
 
     /// <summary>
