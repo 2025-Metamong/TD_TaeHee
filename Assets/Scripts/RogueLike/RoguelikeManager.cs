@@ -48,7 +48,7 @@ public class RoguelikeManager : MonoBehaviour
         this.accDecreaseFlatSpeed = 0;
         this.accDecreasePercentSpeed = 1;
         this.accExtraCoin = 0;
-        
+
         MonsterManager.Instance.ResetRoguelike();
         TowerManager.Instance.ResetRoguelike();
     }
@@ -162,6 +162,16 @@ public class RoguelikeManager : MonoBehaviour
                 this.increaseDamageValue(selected);
                 break;
 
+            // GetInstantCoin
+            case 8:
+                this.GetInstantCoin(selected);
+                break;
+
+            // GetInstantHealth
+            case 9:
+                this.GetInstantHealth(selected);
+                break;
+
             default:
                 Debug.Log($"ID가 등록되지 않았거나 잘못된 ID 입니다. ID : {selected.rogueID}");
                 break;
@@ -203,18 +213,28 @@ public class RoguelikeManager : MonoBehaviour
         MonsterManager.Instance.SetExtraCoin((int)selected.value);
     }
 
-    public void increaseAttackSpeed(RogueUpgrade selected){
+    public void increaseAttackSpeed(RogueUpgrade selected)
+    {
         TowerManager.Instance.SetAttackSpeedIncrease(1f + selected.value);
     }
-    
+
     public void increaseDamagePercent(RogueUpgrade selected)
     {
         TowerManager.Instance.SetDamageIncrease(selected.value, 0);
     }
-    
+
     public void increaseDamageValue(RogueUpgrade selected)
     {
         TowerManager.Instance.SetDamageIncrease(0, selected.value);
     }
+
+    public void GetInstantCoin(RogueUpgrade selected)
+    {
+        StageManager.Instance.AddCoins((int)selected.value);
+    }
+    public void GetInstantHealth(RogueUpgrade selected)
+    {
+        StageManager.Instance.TakeDamage(-(int)selected.value);
+    }    
 
 }

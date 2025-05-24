@@ -84,11 +84,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6346380469988122076}
+  - component: {fileID: 786956860361013241}
   - component: {fileID: 7059375597249488777}
   - component: {fileID: 6069332998473108946}
   - component: {fileID: 5451604631265438421}
   - component: {fileID: 4510561829314233161}
-  - component: {fileID: 74753311546897547}
   m_Layer: 5
   m_Name: InStageCanvas
   m_TagString: Untagged
@@ -124,6 +124,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &786956860361013241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611178982825644569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01b2c6eab825de4fa911167a03b9d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeMenuPanel: {fileID: 6848299493925052664}
+  optionButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  RLCard: {fileID: 8985209106428996900, guid: eb0969b9e407bb74598bfda1a697fa3b, type: 3}
+  allUpgrades:
+  - {fileID: 11400000, guid: 9832bcf84bd9aae4e886abafbcc454bf, type: 2}
+  - {fileID: 11400000, guid: 664ffa454f15b9f4388a935452759389, type: 2}
+  - {fileID: 11400000, guid: 7272617a491c8e54bb41198bea60e1fc, type: 2}
+  - {fileID: 11400000, guid: 3fe0a4bc4cb64fa42b36ae47f6620c7b, type: 2}
+  - {fileID: 11400000, guid: a6b6fb7bc6c1bcb4eb6799d5a6a9da19, type: 2}
+  - {fileID: 11400000, guid: 45cc501c5aa15104197124f4bbf932e2, type: 2}
+  - {fileID: 11400000, guid: 57d9b910ded21134e8811e8659b864cb, type: 2}
+  - {fileID: 11400000, guid: 0aff09e7d9c5c6b49b3a6729b91267b9, type: 2}
+  - {fileID: 11400000, guid: 759e4ffd79a95c242853d9ff7f01e2ec, type: 2}
+  - {fileID: 11400000, guid: 94aaffa523321424a82856d353e0039b, type: 2}
+  - {fileID: 11400000, guid: cb9cd84413405144eb4b059752b46652, type: 2}
+  - {fileID: 11400000, guid: 7aad32908870c8e4c9403651c5e6179a, type: 2}
+  - {fileID: 11400000, guid: 3dd9c7d609d950d4aaf5a9a416f0301c, type: 2}
+  - {fileID: 11400000, guid: 94a4597bad9686e4383554afdf70f986, type: 2}
+  - {fileID: 11400000, guid: 07f3613be34192b44a08767f0d6e4d99, type: 2}
+  - {fileID: 11400000, guid: 1b2d6181cf7d2304ab4b8170b6d00b6c, type: 2}
+  - {fileID: 11400000, guid: c69038d938f7f7a4f9c81cdd434d9c40, type: 2}
+  - {fileID: 11400000, guid: 1c6788f3bdb5350438b870391f90487c, type: 2}
+  - {fileID: 11400000, guid: 31e58ae1ee5c02749bb3c37a2b74df37, type: 2}
+  - {fileID: 11400000, guid: 2547af63cf709f5498ddb0405f032db4, type: 2}
+  - {fileID: 11400000, guid: be107cabcb95f1a43b119ecb7780d7b7, type: 2}
+  - {fileID: 11400000, guid: 021677e8b875df742b22de70580e3b60, type: 2}
+  - {fileID: 11400000, guid: 56d332603a204f143937f498e0e2595c, type: 2}
+  - {fileID: 11400000, guid: ca881d6dd77e1a24e9b711e36199d2d4, type: 2}
+  - {fileID: 11400000, guid: e812cbede5389b44e9f999f5847dcd6f, type: 2}
+  - {fileID: 11400000, guid: 2875b983288fc3443832313113f3f3c1, type: 2}
 --- !u!223 &7059375597249488777
 Canvas:
   m_ObjectHideFlags: 0
@@ -199,29 +244,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &74753311546897547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 611178982825644569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a01b2c6eab825de4fa911167a03b9d0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeMenuPanel: {fileID: 6848299493925052664}
-  optionButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  RLCard: {fileID: 8985209106428996900, guid: eb0969b9e407bb74598bfda1a697fa3b, type: 3}
-  allUpgrades:
-  - {fileID: 11400000, guid: 9832bcf84bd9aae4e886abafbcc454bf, type: 2}
-  - {fileID: 11400000, guid: 94aaffa523321424a82856d353e0039b, type: 2}
-  - {fileID: 11400000, guid: be107cabcb95f1a43b119ecb7780d7b7, type: 2}
-  - {fileID: 11400000, guid: ca881d6dd77e1a24e9b711e36199d2d4, type: 2}
 --- !u!1 &668039957643912587
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,7 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391915669a4cb00468d053336d4a1d59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterInfoBtn: {fileID: 668039957643912587}
+  monsterInfoPanelObject: {fileID: 0}
   imageTemplate: {fileID: 8536843269357291896, guid: 40df48d7ea00d3f4f8b70a79ea5187a5, type: 3}
   monsterDex: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
 --- !u!1 &1568844617181250464
@@ -1961,9 +1983,9 @@ RectTransform:
   - {fileID: 4694601220785953769}
   m_Father: {fileID: 6346380469988122076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -594, y: -119}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -123.24331}
   m_SizeDelta: {x: 400, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9031039327467472157
@@ -1994,7 +2016,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300020, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  m_Sprite: {fileID: -795542533, guid: 7f5e833b25b5fed4a85ad9db3d65dea9, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
