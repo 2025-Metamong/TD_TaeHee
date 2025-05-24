@@ -224,7 +224,7 @@ namespace MyGame.Objects
             foreach (var pair in MonsterManager.Instance.GetMonsterList())
             {
                 float distance = Vector3.Distance(this.position.position, pair.Value.transform.position);
-                if (distance > this.range)  // 몬스터가 사거리 밖이면면
+                if (distance > this.range)  // 몬스터가 사거리 밖이면
                     continue;
                 if (distance < minDistance)
                 {

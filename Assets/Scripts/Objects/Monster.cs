@@ -170,6 +170,44 @@ namespace MyGame.Objects
                 MonsterManager.Instance.KillMonster(this.gameObject);
                 StageManager.Instance.AddCoins(reward);
             }
+
+            StartCoroutine(FlashAndDestroy());
+        }
+
+        private IEnumerator FlashAndDestroy()
+        {
+            Renderer[] rends = GetComponentsInChildren<Renderer>();
+
+            var originalColors = new List<Color>(rends.Length);
+            foreach (var r in rends)
+            {
+                // SpriteRenderer인지 확인
+                var sr = r as SpriteRenderer;
+                if (sr != null)
+                {
+                    originalColors.Add(sr.color);
+                    sr.color = Color.red;
+                }
+                else
+                {
+                    // MeshRenderer, SkinnedMeshRenderer 등은 material.color 사용
+                    originalColors.Add(r.material.color);
+                    r.material.color = Color.red;
+                }
+            }
+
+            yield return new WaitForSeconds(0.1f);
+
+
+            for (int i = 0; i < rends.Length; i++)
+            {
+                var r = rends[i];
+                var sr = r as SpriteRenderer;
+                if (sr != null)
+                    sr.color = originalColors[i];
+                else
+                    r.material.color = originalColors[i];
+            }
         }
 
         private void OnTriggerEnter(Collider other)
