@@ -91,11 +91,12 @@ namespace MyGame.Objects
             this.attack += this.attackPeriod * Time.deltaTime;   // attack 플래그에 주기 누적시키기.
             if (this.attack >= 1f)
             {  // 공격 주기에 도달하면
-                this.attack = 0f;   // 다음번 공격 주기 계산을 위해 플래그 0으로 초기화.
                 this.target = FindTarget(); // 타겟 찾기
 
                 if (this.target != null)
                 {
+                    this.attack = 0f;   // 다음번 공격 주기 계산을 위해 플래그 0으로 초기화.
+                    
                     // Case 1. 타겟을 찾은 경우
                     // GameObject bullt_object = Instantiate(bullet, transform.position, Quaternion.identity);
                     GameObject bullet_object = Instantiate(bullet, transform.position, Quaternion.identity);

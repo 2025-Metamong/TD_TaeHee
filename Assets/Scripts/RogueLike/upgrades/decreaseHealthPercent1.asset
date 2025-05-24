@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14f68163a283054ea881206304a19ab, type: 3}
   m_Name: decreaseHealthPercent1
   m_EditorClassIdentifier: 
-  upgradeName: decreaseHealthPercent1
-  value: 0.1
-  description: "\uBAAC\uC2A4\uD130 \uCCB4\uB825 10% \uAC10\uC18C"
+  upgradeName: "\uCCB4\uB825 \uAC10\uC18C 1"
+  rogueID: 0
+  description: "\uC804\uCCB4 \uBAAC\uC2A4\uD130\n\uCCB4\uB825 N \uAC10\uC18C"
+  minValue: 0.01
+  maxValue: 0.05
+  isPercent: 1
+  value: 0.01

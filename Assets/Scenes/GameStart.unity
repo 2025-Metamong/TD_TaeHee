@@ -624,6 +624,8 @@ MonoBehaviour:
   stageInfoList:
   - {fileID: 11400000, guid: b4c5763c0159b874184d2b11af2e2864, type: 2}
   - {fileID: 11400000, guid: eed3cf821219a234d9f9ff1c4fc16a7a, type: 2}
+  - {fileID: 11400000, guid: 1ba48aba6d11d6342a07f40456ed35d2, type: 2}
+  - {fileID: 11400000, guid: 70272331e2fb9144a977c5dd96519213, type: 2}
   monsterManager: {fileID: 1058977232}
   towerManager: {fileID: 0}
   currentWave: 0

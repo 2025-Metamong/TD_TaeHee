@@ -34,6 +34,7 @@ public class StageManager : MonoBehaviour
     public int currentWave = 0;
 
     // 마지막 클리어 스테이지 번호
+    int lastClearStage = 0;
     int currentStage = 0;
 
     void Awake()
@@ -54,9 +55,6 @@ public class StageManager : MonoBehaviour
         // 최초에는 페이드 아웃 상태로
         if (fadeCanvasGroup != null)
             fadeCanvasGroup.alpha = 0f;
-
-        
-        
     }
     private void Start()
     {
@@ -102,7 +100,6 @@ public class StageManager : MonoBehaviour
             Debug.LogWarning("StageManager.LoadStage: wrong stage index");
             return;
         }
-        currentStage = stageIndex;
         currentWave = 0;
 
         // 초기 코인 & 체력 세팅
@@ -112,8 +109,9 @@ public class StageManager : MonoBehaviour
 
         StartCoroutine(LoadSceneCoroutine(stageIndex));
 
+        this.currentStage = stageIndex;
+
         monsterManager.SetMonsterManagerStageInfo(stageInfoList[stageIndex]);
-        towerManager.SetTowerManagerStageInfo(stageInfoList[stageIndex]);
     }
 
     /// <summary>
@@ -153,6 +151,7 @@ public class StageManager : MonoBehaviour
         var camControl = GameObject.FindWithTag("MainCamera")?.GetComponent<CameraController>();
         camControl?.SetCameraPanLimits(stageInfoList[stageIndex].panXLimits,
                                        stageInfoList[stageIndex].panZLimits);
+        RoguelikeManager.Instance.ResetRoguelikeUpgrade();
     }
 
     // CanvasGroup alpha를 from→to로 변경
@@ -188,6 +187,8 @@ public class StageManager : MonoBehaviour
         waveFlag = false;
         currentWave += 1;
         Debug.Log("Wave End");
+        if (currentWave < stageInfoList[currentStage].monsterSpawnList.Count)
+            RoguelikeManager.Instance.ShowUpgradeMenu();
     }
 
     public void FinishStage()
@@ -201,6 +202,7 @@ public class StageManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+        lastClearStage = currentStage > lastClearStage ? currentStage : lastClearStage;
     }
 
     public bool UseCoin(int amount)

@@ -11,9 +11,9 @@ namespace MyGame.Managers
         [Header("TowerManager Info")]
         [SerializeField, Tooltip("타워 프리팹 리스트")] private List<GameObject> towerPrefabs;
         [SerializeField, Tooltip("설치 모드인지 아닌지 표기")] private bool mode = false; // 타워 매니저에서 관리하는 게 나을까?
-        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 N")] private float nDamage;
-        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 M")] private float mDamage;
-        [SerializeField, Tooltip("글로벌 공격속도 증가 팩터 Speed")] private float globalSpeedModifier;
+        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 N")] private float nDamage = 1f;
+        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 M")] private float mDamage = 0f;
+        [SerializeField, Tooltip("글로벌 공격속도 증가 팩터 Speed")] private float globalSpeedModifier = 1f;
         private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();  // 현재 소환 된 타워 리스트를 딕셔너리로 수정
         private List<Vector3> towerSpawnPoints = new List<Vector3>();
         private List<GameObject> availableTowers = new List<GameObject>();
@@ -101,8 +101,8 @@ namespace MyGame.Managers
         {
             Debug.Log($"모든 타워 공격력 * (1 + {N}) + {M} 수행");
 
-            this.nDamage = N;
-            this.mDamage = M;
+            this.nDamage *= (1+N);
+            this.mDamage += M;
 
             foreach (var tower in this.towerDict)
             {
@@ -125,7 +125,7 @@ namespace MyGame.Managers
         {
             Debug.Log($"모든 타워 공격 속도 * {N} 수행");
 
-            this.globalSpeedModifier = N;
+            this.globalSpeedModifier *= N;
 
             foreach (var tower in this.towerDict)
             {
@@ -142,6 +142,14 @@ namespace MyGame.Managers
             }
         }
 
+        public void ResetRoguelike()
+        {
+            this.nDamage = 1f;
+            this.mDamage = 0f;
+            
+            this.globalSpeedModifier = 1f;
+        }
+
         public bool GetMode()
         {
             return this.mode;
@@ -150,27 +158,6 @@ namespace MyGame.Managers
         public void SetMode(bool newMode)
         {
             this.mode = newMode;
-        }
-
-        // StageManager에서 호출: 스테이지 전환 시 TowerManager 초기화
-        /// </summary>
-        public void SetTowerManagerStageInfo(StageInfo info)
-        {
-            // 1) 기존 데이터 정리
-            towerDict.Clear();
-            TowerIndex = 0;
-
-            // 2) StageInfo로부터 설치 지점, 허용 타워 목록 가져오기
-            towerSpawnPoints = new List<Vector3>(info.towerSpawnPoints);
-            availableTowers   = new List<GameObject>(info.availableTowers);
-
-            Debug.Log($"[TowerManager] Initialized: {towerSpawnPoints.Count} spawn points, {availableTowers.Count} prefabs");
-
-            // 3) (선택) 초기 기본 설치—예: 모든 지점에 첫 번째 프리팹 설치
-            foreach (var pos in towerSpawnPoints)
-            {
-                InstallTower(availableTowers[0], pos);
-            }
         }
 
     }

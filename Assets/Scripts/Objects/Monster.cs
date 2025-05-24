@@ -168,7 +168,7 @@ namespace MyGame.Objects
                 //AudioSource.PlayClipAtPoint(deathSound, transform.position);
                 this.isDead = true;
                 MonsterManager.Instance.KillMonster(this.gameObject);
-                //StageManager.Instance.addCoins(reward);
+                StageManager.Instance.AddCoins(reward);
             }
         }
 

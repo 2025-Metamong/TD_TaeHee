@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14f68163a283054ea881206304a19ab, type: 3}
+  m_Name: increaseAttackSpeed1
+  m_EditorClassIdentifier: 
+  upgradeName: "\uACF5\uACA9\uC18D\uB3C4 \uC99D\uAC00 1"
+  rogueID: 5
+  description: "\uD0C0\uC6CC \uACF5\uACA9\uC18D\uB3C4\nN \uC99D\uAC00"
+  minValue: 0.05
+  maxValue: 0.1
+  isPercent: 1
+  value: 5

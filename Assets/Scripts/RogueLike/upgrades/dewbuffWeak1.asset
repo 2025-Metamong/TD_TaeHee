@@ -10,8 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e14f68163a283054ea881206304a19ab, type: 3}
-  m_Name: increaseDamagValue
+  m_Name: dewbuffWeak1
   m_EditorClassIdentifier: 
-  upgradeName: increaseDamagValue
-  value: 5
-  description: "\uD0C0\uC6CC \uACF5\uACA9\uB825 5 \uC99D\uAC00"
+  upgradeName: 
+  rogueID: -1
+  description: 
+  minValue: 0.1
+  maxValue: 0.3
+  isPercent: 0
+  Icon: {fileID: 0}
+  value: 0

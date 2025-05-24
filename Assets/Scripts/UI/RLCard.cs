@@ -39,22 +39,22 @@ public class RLCard : MonoBehaviour
             return;
         }
         this.upgradeName.text = RLData.upgradeName;
-        this.description.text = RLData.description;
+        this.description.text = RLData.getDescription();
         // this.iconImage.sprite = RLData.icon.sprite;  // RogueUpgrade 에 icon 이미지 추가되면 사용할 듯.
     }
 
     // Select 버튼 클릭 되었을 때 수행. 다른 오브젝트가 Select 버튼 안 가져갔다는 가정하에 사용해야 할 듯.
-    public void OnClick_Select()
-    {
-        if (RLScript == null)
-        {
-            Debug.Log("RoguelikeUI 스크립트 찾기 실패");
-            return;
-        }
-        // 스크립트의 클릭 이벤트 호출...
-        // var method = RLScript.GetType()?.GetMethod("OnUpgradeSelected", new Type[] { typeof(RogueUpgrade) });
-        // method?.Invoke(RLScript, new object[] { this.RLData });
-    }
+    // public void OnClick_Select()
+    // {
+    //     if (RLScript == null)
+    //     {
+    //         Debug.Log("RoguelikeUI 스크립트 찾기 실패");
+    //         return;
+    //     }
+    //     // 스크립트의 클릭 이벤트 호출...
+    //     // var method = RLScript.GetType()?.GetMethod("OnUpgradeSelected", new Type[] { typeof(RogueUpgrade) });
+    //     // method?.Invoke(RLScript, new object[] { this.RLData });
+    // }
 
     // 다른 오브젝트가 RLCard의 셀렉트 버튼을 가져가고 싶을 때.
     public Button GetSelectButton()
