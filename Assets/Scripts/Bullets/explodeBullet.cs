@@ -20,11 +20,13 @@ namespace MyGame.Objects
         // public event Action<GameObject> OnCollider; // 충돌 시 이벤트 발생 (예: 이펙트용)
         public GameObject hitEffect = null;
 
-        public void setDirection(Transform tower, Transform target)
+        public void SetDirection(Transform tower, Transform target)
         {
             Vector3 dir = (target.position - tower.position).normalized;
             this.direction = dir;
         }
+
+        public void SetRange(float R) => this.range = R;
 
         public void SetDebuff(List<debuffBase> towerDebuffList) => debuffList = towerDebuffList;
 
