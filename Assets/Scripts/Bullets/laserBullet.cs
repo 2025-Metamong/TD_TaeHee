@@ -21,6 +21,7 @@ namespace MyGame.Objects
         {
             this.direction = dir.normalized;
         }
+        public void SetRange(float R) => this.range = R;
 
         public void SetDebuff(List<debuffBase> towerDebuffList) => debuffList = towerDebuffList;
 

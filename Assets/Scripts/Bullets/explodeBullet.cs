@@ -13,7 +13,7 @@ namespace MyGame.Objects
         private float speed = 5f;
         private float range = 20f;
         private float radius = 3f;
-        
+
         [SerializeField, Tooltip("충돌 시 디버프 리스트")]
         private List<debuffBase> debuffList = new List<debuffBase>();
 
@@ -47,8 +47,19 @@ namespace MyGame.Objects
         {
             if (!other.CompareTag("Monster")) return;
 
-            Collider[] hits = Physics.OverlapSphere(transform.position, radius);
-            if (hitEffect != null) Instantiate(hitEffect, transform.position, Quaternion.identity);
+            var target = other.GetComponent<Monster>();
+            var damageMethod = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
+            damageMethod?.Invoke(target, new object[] { this.damage });
+            foreach (var debuff in debuffList)
+                debuff.Apply(target.gameObject);
+
+            if (hitEffect != null)
+            {
+                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                var ps = effect.GetComponent<ParticleSystem>();
+                float life = ps.main.duration + ps.main.startLifetime.constantMax;
+                Destroy(effect, life);
+            }
 
             foreach (var hit in hits)
             {
@@ -59,6 +70,8 @@ namespace MyGame.Objects
                     method?.Invoke(target, new object[] { this.damage });
                 }
             }
+
+            Destroy(gameObject);
         }
     }
 }

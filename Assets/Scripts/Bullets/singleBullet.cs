@@ -28,6 +28,8 @@ namespace MyGame.Objects
             this.direction = dir;
         }
 
+        public void SetRange(float R) => this.range = R;
+
         public void SetDebuff(List<debuffBase> towerDebuffList) => debuffList = towerDebuffList;
 
         public void SetDamage(float towerDamage) => damage = towerDamage;
@@ -49,18 +51,21 @@ namespace MyGame.Objects
         {
             if (!other.CompareTag("Monster")) return;
 
-            // Monster mon = other.GetComponent<MonoBehaviour>();
-            // mon.TakeDamage(this.damage)
-
             var target = other.GetComponent<Monster>();
             var damageMethod = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
             damageMethod?.Invoke(target, new object[] { this.damage });
-            foreach(var debuff in debuffList)
-                debuff.Apply(target.gameObject); 
+            foreach (var debuff in debuffList)
+                debuff.Apply(target.gameObject);
 
-            if (hitEffect != null) Instantiate(hitEffect, transform.position, Quaternion.identity);
+            if (hitEffect != null)
+            {
+                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                var ps = effect.GetComponent<ParticleSystem>();
+                float life = ps.main.duration + ps.main.startLifetime.constantMax;
+                Destroy(effect, life);
+            }
 
-            // OnCollider?.Invoke(other.gameObject);
+            Destroy(gameObject);
         }
     }
 

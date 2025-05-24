@@ -110,6 +110,9 @@ namespace MyGame.Objects
                     // SetDamage로 bullet에 공격력 전달.
                     var damageMethod = bullet_script?.GetType().GetMethod("SetDamage", new Type[] { typeof(float) });
                     damageMethod?.Invoke(bullet_script, new object[] { this.damage });
+                    // SetRange로 bullet에 사거리 전달.
+                    var rangeMethod = bullet_script?.GetType().GetMethod("SetRange", new Type[] { typeof(float) });
+                    rangeMethod?.Invoke(bullet_script, new object[] { this.range });
                     // 몬스터를 보도록 타워를 회전 시킬지 고민중.
                 }
                 else
