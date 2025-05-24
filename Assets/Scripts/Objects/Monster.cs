@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MyGame.Managers; // Assuming you have a MonsterManager script to handle monster logic
 
 namespace MyGame.Objects
@@ -52,6 +53,9 @@ namespace MyGame.Objects
 
         // 5023-sound
         //public AudioClip deathSound;
+
+        // 맞았을 때 색깔 변경
+        private Coroutine flashCoroutine;
 
         public void SetPath(Transform ways)
         {
@@ -170,6 +174,108 @@ namespace MyGame.Objects
                 MonsterManager.Instance.KillMonster(this.gameObject);
                 StageManager.Instance.AddCoins(reward);
             }
+
+            if (flashCoroutine == null)
+                flashCoroutine = StartCoroutine(Flash());
+        }
+
+        private IEnumerator Flash()
+        {
+            // 1) 모든 Renderer
+            var rends = GetComponentsInChildren<Renderer>(true);
+            // 1-1) ParticleSystemRenderer (별도 처리)
+            var prends = GetComponentsInChildren<ParticleSystemRenderer>(true);
+            // 1-2) UI Graphic (Image, TextMeshProUGUI 등)
+            var graphics = GetComponentsInChildren<Graphic>(true);
+
+            // 저장용
+            var originalMatColors = new List<Color[]>();
+            var originalBlocks = new List<MaterialPropertyBlock>();
+
+            // --- Renderer 계열 색 바꾸기 ---
+            foreach (var r in rends)
+            {
+                // 머티리얼 슬롯 배열 복사
+                var mats = r.materials;
+                var cols = new Color[mats.Length];
+
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    // 저장
+                    cols[i] = mats[i].HasProperty("_Color")
+                                ? mats[i].color
+                                : Color.white;
+                    // 적용
+                    if (mats[i].HasProperty("_Color"))
+                        mats[i].color = Color.red;
+                    else
+                    {
+                        // 셰이더에 _Color가 없으면 PropertyBlock
+                        var block = new MaterialPropertyBlock();
+                        r.GetPropertyBlock(block);
+                        block.SetColor("_Color", Color.red);
+                        r.SetPropertyBlock(block);
+                    }
+                }
+
+                // 재할당 & 저장
+                r.materials = mats;
+                originalMatColors.Add(cols);
+            }
+
+            // --- ParticleSystemRenderer 색 바꾸기 ---
+            foreach (var pr in prends)
+            {
+                var mats = pr.materials;
+                var cols = new Color[mats.Length];
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    cols[i] = mats[i].HasProperty("_Color") ? mats[i].color : Color.white;
+                    if (mats[i].HasProperty("_Color"))
+                        mats[i].color = Color.red;
+                }
+                pr.materials = mats;
+                originalMatColors.Add(cols);
+            }
+
+            // --- UI Graphic 색 바꾸기 ---
+            var originalUIColors = new List<Color>();
+            foreach (var g in graphics)
+            {
+                originalUIColors.Add(g.color);
+                g.color = Color.red;
+            }
+
+            // 0.1초 대기
+            yield return new WaitForSeconds(0.1f);
+
+            // --- 복원: Renderer + ParticleSystemRenderer ---
+            int matIndex = 0;
+            foreach (var r in rends)
+            {
+                var mats = r.materials;
+                var cols = originalMatColors[matIndex++];
+                for (int i = 0; i < mats.Length; i++)
+                    if (mats[i].HasProperty("_Color"))
+                        mats[i].color = cols[i];
+                r.materials = mats;
+                r.SetPropertyBlock(null);
+            }
+            foreach (var pr in prends)
+            {
+                var mats = pr.materials;
+                var cols = originalMatColors[matIndex++];
+                for (int i = 0; i < mats.Length; i++)
+                    if (mats[i].HasProperty("_Color"))
+                        mats[i].color = cols[i];
+                pr.materials = mats;
+            }
+
+            // --- 복원: UI Graphic ---
+            for (int i = 0; i < graphics.Length; i++)
+                graphics[i].color = originalUIColors[i];
+
+            flashCoroutine = null;
         }
 
         private void OnTriggerEnter(Collider other)

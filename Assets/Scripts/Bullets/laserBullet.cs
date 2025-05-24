@@ -17,9 +17,11 @@ namespace MyGame.Objects
 
         public GameObject hitEffect;
 
-        public void SetDirection(Vector3 dir)
+        public void SetDirection(Vector3 tower, Vector3 target)
         {
-            this.direction = dir.normalized;
+            Vector3 dir = (target - tower).normalized;
+            this.direction = dir;
+            transform.rotation = Quaternion.LookRotation(dir);
         }
         public void SetRange(float R) => this.range = R;
 

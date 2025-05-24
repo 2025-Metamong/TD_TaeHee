@@ -33,13 +33,22 @@ public class StageInfo : ScriptableObject
     {
         if (map == null) return;
 
-        // map 안에서 "MonsterSpawner" 이름의 자식을 찾아서 spawnPoint로 할당
-        var sp = map.GetComponent<MapController>().spawnPoint;
-        if (sp != null) spawnPoint = sp.gameObject;
+        var MapController = map.GetComponent<MapController>();
 
-        // map 안에서 "Way" 이름의 자식을 찾아서 pathHolder로 할당
-        var ph = map.transform.Find("Way");
-        if (ph != null) pathHolder = ph;
+        // map 안에서 "MonsterSpawner" 이름의 자식을 찾아서 spawnPoint로 할당
+        spawnPoint = MapController.spawnPoint.gameObject;
+
+        // MapController.pathHolder을 찾아서 pathHolder로 할당
+        pathHolder = MapController.pathHolder;
+
+        // map 안에서 양쪽 끝 두 블럭의 범위로 카메라 이동 범위 제한
+        if (MapController.pos1 != null && MapController.pos2 != null)
+        {
+            panXLimits.x = Math.Min(MapController.pos1.x, MapController.pos2.x);
+            panXLimits.y = Math.Max(MapController.pos1.x, MapController.pos2.x);
+            panZLimits.x = Math.Min(MapController.pos1.z, MapController.pos2.z);
+            panZLimits.y = Math.Max(MapController.pos1.z, MapController.pos2.z);
+        }
     }
 }
 

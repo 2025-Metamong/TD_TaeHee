@@ -123,8 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e92ea3666ee000547b2664ad35e26c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  speed: 50
+  range: 20
+  radius: 3
   debuffList: []
-  hitEffect: {fileID: 4550076289710732121, guid: 8e349ff89db19504c8a5d84017e41554, type: 3}
+  hitEffect: {fileID: 4550076289710732121, guid: bd45ff889c97f53408c919af68d08f2c, type: 3}
 --- !u!54 &4790419688045445378
 Rigidbody:
   m_ObjectHideFlags: 0

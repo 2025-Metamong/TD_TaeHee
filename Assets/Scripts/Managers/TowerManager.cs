@@ -60,7 +60,7 @@ namespace MyGame.Managers
 
                 // 글로벌 데미지 계산식 적용
                 var originalDamage = newTowerScript.GetType()?.GetMethod("GetDamage", new Type[] { })?.Invoke(newTowerScript, new object[] { });
-                float newDamage = (float)originalDamage * (1 + this.nDamage) + this.mDamage;
+                float newDamage = (float)originalDamage * this.nDamage + this.mDamage;
                 newTowerScript.GetType()?.GetMethod("SetDamage", new Type[] { typeof(float) })?.Invoke(newTowerScript, new object[] { newDamage });
 
                 // 글로벌 공격속도 계산식 적용
