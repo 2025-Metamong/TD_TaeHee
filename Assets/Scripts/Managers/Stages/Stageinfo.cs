@@ -34,7 +34,7 @@ public class StageInfo : ScriptableObject
         if (map == null) return;
 
         // map 안에서 "MonsterSpawner" 이름의 자식을 찾아서 spawnPoint로 할당
-        var sp = map.transform.Find("MonsterSpawner");
+        var sp = map.GetComponent<MapController>().spawnPoint;
         if (sp != null) spawnPoint = sp.gameObject;
 
         // map 안에서 "Way" 이름의 자식을 찾아서 pathHolder로 할당

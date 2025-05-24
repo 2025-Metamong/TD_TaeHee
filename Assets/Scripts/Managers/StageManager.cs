@@ -34,6 +34,7 @@ public class StageManager : MonoBehaviour
     public int currentWave = 0;
 
     // 마지막 클리어 스테이지 번호
+    int lastClearStage = 0;
     int currentStage = 0;
 
     void Awake()
@@ -99,7 +100,6 @@ public class StageManager : MonoBehaviour
             Debug.LogWarning("StageManager.LoadStage: wrong stage index");
             return;
         }
-        currentStage = stageIndex;
         currentWave = 0;
 
         // 초기 코인 & 체력 세팅
@@ -108,6 +108,8 @@ public class StageManager : MonoBehaviour
         Health = stageInfoList[stageIndex].playerHP;
 
         StartCoroutine(LoadSceneCoroutine(stageIndex));
+
+        this.currentStage = stageIndex;
 
         monsterManager.SetMonsterManagerStageInfo(stageInfoList[stageIndex]);
     }
@@ -185,7 +187,8 @@ public class StageManager : MonoBehaviour
         waveFlag = false;
         currentWave += 1;
         Debug.Log("Wave End");
-        RoguelikeManager.Instance.ShowUpgradeMenu();
+        if (currentWave < stageInfoList[currentStage].monsterSpawnList.Count)
+            RoguelikeManager.Instance.ShowUpgradeMenu();
     }
 
     public void FinishStage()
@@ -199,6 +202,7 @@ public class StageManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+        lastClearStage = currentStage > lastClearStage ? currentStage : lastClearStage;
     }
 
     public bool UseCoin(int amount)

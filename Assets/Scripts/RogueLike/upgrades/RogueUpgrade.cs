@@ -13,9 +13,12 @@ public class RogueUpgrade : ScriptableObject
     public string description;
 
     [Tooltip("값 범위 (랜덤)")]
-    public float minValue = 0.1f;
-    public float maxValue = 0.3f;
-    public bool isPercent = false;
+    [SerializeField] private float minValue = 0.1f;
+    [SerializeField] private float maxValue = 0.3f;
+    [SerializeField] private bool isPercent = false;
+
+    [Header("업그레이드 아이콘")]
+    [SerializeField] public Sprite Icon;
 
     [HideInInspector]
     public float value;

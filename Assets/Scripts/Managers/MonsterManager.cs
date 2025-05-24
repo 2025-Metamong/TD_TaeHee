@@ -153,7 +153,7 @@ namespace MyGame.Managers
 
                 // speed down
                 float newSpeed = monsterScript.GetSpeed() * speedPercentDecrease - speedFlatDecrease;
-                monsterScript.SetSpeed(Mathf.Max(0.1f, newSpeed));
+                monsterScript.SetSpeed(Mathf.Max(1f, newSpeed));
                 //Debug.Log($"{newSpeed} {speedPercentDecrease} {speedFlatDecrease}");
 
                 // reward up

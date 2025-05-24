@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: -4.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8831570039317534948}
@@ -72,7 +72,7 @@ MonoBehaviour:
   damage: 15
   upgradeLevel: 0
   upgradeCost: 5
-  bullet: {fileID: 3084736807602813044, guid: 596108dc9e090fc4a8be2911651baaa8, type: 3}
+  bullet: {fileID: 7220678190614878043, guid: bcd9d4259965e1b41af00a1fc3cff9c4, type: 3}
   displayTime: 1
   rangeMat: {fileID: 2100000, guid: ab84aa58a08c2ca499b690a7948fcaba, type: 2}
   debuffAssets: []
