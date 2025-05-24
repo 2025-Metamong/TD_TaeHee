@@ -181,7 +181,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1299,7 +1300,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2518,8 +2520,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefabs:
-  - {fileID: 5759323174869759602, guid: 359f45e95bf4fce4a933a08b684bf081, type: 3}
-  - {fileID: 5759323174869759602, guid: 3c9e13739f96a3542b3c15025d4c007a, type: 3}
+  - {fileID: 1921356743799483089, guid: 1d58bae3fdb180a41be86318d789347c, type: 3}
+  - {fileID: 1921356743799483089, guid: 91e3692aad60675498648fc43a0482f5, type: 3}
   mode: 0
   nDamage: 0
   mDamage: 0
