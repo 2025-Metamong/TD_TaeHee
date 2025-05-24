@@ -152,7 +152,6 @@ MonoBehaviour:
   countText: {fileID: 3194592492598741350}
   stageInfo: {fileID: 11400000, guid: b4c5763c0159b874184d2b11af2e2864, type: 2}
   monsterDex: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
-  stageManager: {fileID: 0}
 --- !u!1 &8536843269357291896
 GameObject:
   m_ObjectHideFlags: 0

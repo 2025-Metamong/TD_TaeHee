@@ -213,4 +213,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf32a8f8ea269e4f954020a71908dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageName: 
+  StageIndex: -1

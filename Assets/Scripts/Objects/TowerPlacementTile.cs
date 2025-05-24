@@ -17,7 +17,8 @@ public class TowerPlacementTile : MonoBehaviour
     private MaterialPropertyBlock propBlock;
     // URP Lit 머티리얼의 Base Color 프로퍼티 이름
     private static readonly int _BaseColorID = Shader.PropertyToID("_BaseColor");
-    private static readonly Vector3 offset = new Vector3(0, 4.5f, 0);   // 타일의 높이는 4.5
+    // private static readonly Vector3 offset = new Vector3(0, 4.5f, 0);   // 타일의 높이는 4.5
+    private static readonly Vector3 offset = new Vector3(0, 2, 0); 
 
     void Awake()
     {
