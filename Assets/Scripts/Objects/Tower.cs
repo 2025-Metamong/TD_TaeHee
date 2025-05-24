@@ -174,8 +174,8 @@ namespace MyGame.Objects
             // 타워 레벨 업그레이드 용 함수.
             // Case 1 : 돈이 충분해서 업그레이드 성공 == stat 업데이트 하고 true 리턴
             // Case 2 : 업그레이드 실패 == false 리턴
-            // bool upgradeAble = StageManager.Instance.UseCoins(this.upgradeCost);
-            bool upgradeAble = true;    // 테스트용. 고쳐야 함.
+             bool upgradeAble = StageManager.Instance.UseCoin(this.upgradeCost);
+            //bool upgradeAble = true;    // 테스트용. 고쳐야 함.
             // bool upgradeAble = false;    // 테스트용. 고쳐야 함.
 
             if (upgradeAble)

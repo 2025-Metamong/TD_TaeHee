@@ -14,6 +14,7 @@ public class HpPrint : MonoBehaviour
     }
     void Update()
     {
-        hpText.text = stageInfo.playerHP.ToString();
+        //hpText.text = stageInfo.playerHP.ToString();
+        hpText.text = StageManager.Instance.Health.ToString();
     }
 }

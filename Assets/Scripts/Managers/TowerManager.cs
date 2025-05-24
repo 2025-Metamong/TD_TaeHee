@@ -33,8 +33,8 @@ namespace MyGame.Managers
         }
         public void InstallTower(GameObject tower, Vector3 position)
         {  // 설치할 타워까지 전달 받기로 변경.
-           //    bool isEnough = ResourceManager.Instance.useCoins(T.GetCost());
-            bool isEnough = true;
+            bool isEnough = StageManager.Instance.UseCoin(tower.GetComponent<Tower>().GetCost());
+            //bool isEnough = true;
             // 돈이 충분한지 검사해서 타워를 설치하는 함수.
             if (isEnough != false)
             { // 타워 설치를 위한 돈이 충분했던 경우.
@@ -73,6 +73,7 @@ namespace MyGame.Managers
             }
             else
             {
+                TowerSoundController.Instance.PlayFailedSound();
                 return;
             }
         }
@@ -83,7 +84,7 @@ namespace MyGame.Managers
             Debug.Log("Tower Selling");
             GameObject toDelete = towerDict[toDeleteID];
             Tower script = toDelete.GetComponent<Tower>();
-            // StageManager.Instance.UseCoins(-(script.GetSellPrice()));    // 구현되면 처리해야 함.
+             StageManager.Instance.AddCoins(script.GetSellPrice());    // 구현되면 처리해야 함.
             towerDict.Remove(toDeleteID);
             Destroy(toDelete);
             // 타워 판매 사운드 재생

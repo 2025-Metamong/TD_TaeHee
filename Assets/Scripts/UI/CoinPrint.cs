@@ -15,6 +15,7 @@ public class CoinPrint : MonoBehaviour
     }
     void Update()
     {
-        coinText.text = stageInfo.startCoins.ToString();
+        //coinText.text = stageInfo.startCoins.ToString();
+        coinText.text = StageManager.Instance.Coin.ToString();
     }
 }

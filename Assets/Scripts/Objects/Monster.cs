@@ -179,7 +179,7 @@ namespace MyGame.Objects
                 //StageManager.Instance.ReachFinish(this);
                 Debug.Log("몬스터가 Finish에 도착했습니다.");
                 AudioManager.Instance.PlayerHitSound();
-                //StageManager.Instance.takeDamage(damage);
+                StageManager.Instance.TakeDamage(damage);
                 MonsterManager.Instance.KillMonster(this.gameObject);
             }
         }
