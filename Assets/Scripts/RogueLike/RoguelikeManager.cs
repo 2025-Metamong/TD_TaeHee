@@ -104,6 +104,19 @@ public class RoguelikeManager : MonoBehaviour
         // }
     }
 
+    private void DestroyRLCards()
+    {
+        // 로그라이크 카드 파괴
+        RLCard[] cardList = GetComponentsInChildren<RLCard>();
+        foreach (var cardScript in cardList)
+        {
+            Destroy(cardScript.gameObject);
+        }
+
+        // optionButtons 다시 빈 배열로
+        this.optionButtons = new Button[3];
+    }
+
     private void OnUpgradeSelected(RogueUpgrade selected)
     {
         // 실제 업그레이드 적용 로직
@@ -154,7 +167,8 @@ public class RoguelikeManager : MonoBehaviour
                 break;
         }
 
-        // 메뉴 숨기기
+        // 로그라이크 카드들 Perge 하고 메뉴 숨기기
+        DestroyRLCards();
         upgradeMenuPanel.SetActive(false);
         // _canvasGroup.interactable = false;
         // _canvasGroup.blocksRaycasts = false;
