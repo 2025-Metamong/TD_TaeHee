@@ -70,7 +70,7 @@ MonoBehaviour:
   damage: 15
   upgradeLevel: 0
   upgradeCost: 5
-  bullet: {fileID: 3084736807602813044, guid: 596108dc9e090fc4a8be2911651baaa8, type: 3}
+  bullet: {fileID: 3084736807602813044, guid: 155d15a96dcf22447a0cbe424b27b64f, type: 3}
   displayTime: 1
   rangeMat: {fileID: 2100000, guid: ab84aa58a08c2ca499b690a7948fcaba, type: 2}
   debuffAssets: []
