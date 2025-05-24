@@ -29,7 +29,8 @@ namespace MyGame.Managers
                 Destroy(gameObject);
             }
         }
-        public void InstallTower(GameObject tower, Vector3 position)
+        // 설치한 타워의 ID 리턴하기로 변경. -> 타일의 초기화 위해.
+        public int InstallTower(GameObject tower, Vector3 position)
         {  // 설치할 타워까지 전달 받기로 변경.
             bool isEnough = StageManager.Instance.UseCoin(tower.GetComponent<Tower>().GetCost());
             //bool isEnough = true;
@@ -45,14 +46,14 @@ namespace MyGame.Managers
                     Debug.Log("타워 설치 실패");
                     // 설치 실패 사운드 재생
                     TowerSoundController.Instance.PlayFailedSound();
-                    return;
+                    return -1;
                 }
                 Debug.Log("타워 인스턴스화 성공");
                 if (!newTower.TryGetComponent<MonoBehaviour>(out var newTowerScript))   // 새 타워에서 스크립트 찾기.
                 {
                     Debug.Log("객체에 스크립트 존재하지 않음");
                     TowerSoundController.Instance.PlayFailedSound();    // 실패 사운드 재생.
-                    return;
+                    return -1;
                 }
                 // 타워 ID 세팅
                 newTowerScript.GetType()?.GetMethod("SetID", new Type[] { typeof(int) })?.Invoke(newTowerScript, new object[] { this.TowerIndex });
@@ -68,11 +69,12 @@ namespace MyGame.Managers
 
                 // 타워 설치 성공 사운드 재생
                 TowerSoundController.Instance.PlayInstallSound();
+                return newTower.GetComponent<Tower>().GetID();  // 설치한 타워 ID 리턴.
             }
             else
             {
                 TowerSoundController.Instance.PlayFailedSound();
-                return;
+                return -1;
             }
         }
 
@@ -149,11 +151,17 @@ namespace MyGame.Managers
             }
         }
 
+        // 타워 딕셔너리 반환.
+        public Dictionary<int, GameObject> GetTowerDict()
+        {
+            return this.towerDict;
+        }
+
         public void ResetRoguelike()
         {
             this.nDamage = 1f;
             this.mDamage = 0f;
-            
+
             this.globalSpeedModifier = 1f;
         }
 
