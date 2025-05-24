@@ -46,7 +46,7 @@ namespace MyGame.Objects
             rangeCylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             rangeCylinder.name = "range indicate cylinder";
             rangeCylinder.transform.SetParent(this.transform);  // 부모는 타워.
-            rangeCylinder.transform.localPosition = new Vector3(0f, -0.5f, 0f); // 타워 바닥에에 위치.
+            rangeCylinder.transform.localPosition = new Vector3(0f, 0f, 0f); // 타워 바닥에 위치.
 
             // 실린더에 메테리얼 적용.
             Renderer rend = rangeCylinder.GetComponent<Renderer>();
@@ -67,8 +67,8 @@ namespace MyGame.Objects
             // 실린더는 Prefab의 스케일 말고 월드 스케일에 영향을 받는 것이 좋으므로
             // 현재 Prefab의 스케일로 나눠주는 것이 좋다.
             float diameter = 2f * range / this.transform.localScale.x; // Prefab이 x, y, z 모두 같은 스케일로 증가한다고 가정.
-            // float yOffset = 0.1f / this.transform.localScale.y;    // 오프셋도 수정.
-            rangeCylinder.transform.localScale = new Vector3(diameter, 0, diameter);
+            float height = 0.1f / this.transform.localScale.y;    // 높이 수정.
+            rangeCylinder.transform.localScale = new Vector3(diameter, height, diameter);
         }
         void Start()
         {
