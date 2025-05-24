@@ -11,9 +11,9 @@ namespace MyGame.Managers
         [Header("TowerManager Info")]
         [SerializeField, Tooltip("타워 프리팹 리스트")] private List<GameObject> towerPrefabs;
         [SerializeField, Tooltip("설치 모드인지 아닌지 표기")] private bool mode = false; // 타워 매니저에서 관리하는 게 나을까?
-        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 N")] private float nDamage;
-        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 M")] private float mDamage;
-        [SerializeField, Tooltip("글로벌 공격속도 증가 팩터 Speed")] private float globalSpeedModifier;
+        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 N")] private float nDamage = 1f;
+        [SerializeField, Tooltip("글로벌 공격력 증가 팩터 M")] private float mDamage = 0f;
+        [SerializeField, Tooltip("글로벌 공격속도 증가 팩터 Speed")] private float globalSpeedModifier = 1f;
         private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();  // 현재 소환 된 타워 리스트를 딕셔너리로 수정
 
         private int TowerIndex = 0;
@@ -110,8 +110,8 @@ namespace MyGame.Managers
         {
             Debug.Log($"모든 타워 공격력 * (1 + {N}) + {M} 수행");
 
-            this.nDamage = N;
-            this.mDamage = M;
+            this.nDamage *= (1+N);
+            this.mDamage += M;
 
             foreach (var tower in this.towerDict)
             {
@@ -134,7 +134,7 @@ namespace MyGame.Managers
         {
             Debug.Log($"모든 타워 공격 속도 * {N} 수행");
 
-            this.globalSpeedModifier = N;
+            this.globalSpeedModifier *= N;
 
             foreach (var tower in this.towerDict)
             {
@@ -149,6 +149,14 @@ namespace MyGame.Managers
                 var attackSpeedSetMethod = towerScript.GetType()?.GetMethod("SetAttackPeriod", new Type[] { typeof(float) });
                 attackSpeedSetMethod?.Invoke(towerScript, new object[] { newAttackPeriod });
             }
+        }
+
+        public void ResetRoguelike()
+        {
+            this.nDamage = 1f;
+            this.mDamage = 0f;
+            
+            this.globalSpeedModifier = 1f;
         }
 
         public bool GetMode()

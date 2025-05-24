@@ -94,6 +94,7 @@ public class StageManager : MonoBehaviour
         var camControl = GameObject.FindWithTag("MainCamera")?.GetComponent<CameraController>();
         camControl?.SetCameraPanLimits(stageInfoList[stageIndex].panXLimits,
                                        stageInfoList[stageIndex].panZLimits);
+        RoguelikeManager.Instance.ResetRoguelikeUpgrade();
     }
 
     /// <summary>
@@ -136,6 +137,7 @@ public class StageManager : MonoBehaviour
         waveFlag = false;
         currentWave += 1;
         Debug.Log("Wave End");
+        RoguelikeManager.Instance.ShowUpgradeMenu();
     }
 
     public void FinishStage()

@@ -40,10 +40,10 @@ namespace MyGame.Managers
         [SerializeField] private StageManager stageManager;
 
         // 0520 - for rouglike
-        private float healthPercentDecrease = 0f;
+        private float healthPercentDecrease = 1f;
         private float healthFlatDecrease = 0f;
 
-        private float speedPercentDecrease = 0f;
+        private float speedPercentDecrease = 1f;
         private float speedFlatDecrease = 0f;
 
         private int extraCoin = 0;
@@ -134,12 +134,14 @@ namespace MyGame.Managers
 
                 // 0520-rouglike
                 // health down
-                float newHp = monsterScript.GetHealth() * (1 - healthPercentDecrease) - healthFlatDecrease;
+                float newHp = monsterScript.GetHealth() * healthPercentDecrease - healthFlatDecrease;
                 monsterScript.SetHealth(Mathf.Max(1f, newHp));
+                //Debug.Log($"{newHp} {healthPercentDecrease} {healthFlatDecrease}");
 
                 // speed down
-                float newSpeed = monsterScript.GetSpeed() * (1 - speedPercentDecrease) - speedFlatDecrease;
+                float newSpeed = monsterScript.GetSpeed() * speedPercentDecrease - speedFlatDecrease;
                 monsterScript.SetSpeed(Mathf.Max(0.1f, newSpeed));
+                //Debug.Log($"{newSpeed} {speedPercentDecrease} {speedFlatDecrease}");
 
                 // reward up
                 monsterScript.SetReward(extraCoin);
@@ -170,6 +172,15 @@ namespace MyGame.Managers
         public void SetExtraCoin(int bonus)
         {
             extraCoin = bonus;
+        }
+
+        public void ResetRoguelike()
+        {
+            healthPercentDecrease = 1f;
+            healthFlatDecrease = 0f;
+            speedPercentDecrease = 1f;
+            speedFlatDecrease = 0f;
+            extraCoin = 0;
         }
         // 0520 - for rouglike
 

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14f68163a283054ea881206304a19ab, type: 3}
+  m_Name: decreaseSpeedPercent2
+  m_EditorClassIdentifier: 
+  upgradeName: "\uC774\uB3D9\uC18D\uB3C4 \uAC10\uC18C 2"
+  rogueID: 2
+  description: "\uC804\uCCB4 \uBAAC\uC2A4\uD130\n\uC774\uB3D9\uC18D\uB3C4\nN \uAC10\uC18C"
+  minValue: 0.05
+  maxValue: 0.1
+  isPercent: 1
+  value: 0.1

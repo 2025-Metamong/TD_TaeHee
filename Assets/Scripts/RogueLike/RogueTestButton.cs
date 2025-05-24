@@ -6,7 +6,6 @@ public class RogueTestButton : MonoBehaviour
 {
 
     [Header("업그레이드 시스템")]
-    public RoguelikeUpgrade roguelikeUpgrade;
     private Button _button;
 
     void Awake()
@@ -22,11 +21,11 @@ public class RogueTestButton : MonoBehaviour
 
     private void OnClicked()
     {
-        if (roguelikeUpgrade == null)
+        if (RoguelikeManager.Instance == null)
         {
-            Debug.LogWarning("UIManager: RoguelikeUpgrade 레퍼런스가 없습니다!");
+            Debug.LogWarning("RogueTestButton: RoguelikeManager 인스턴스가 없습니다!");
             return;
         }
-        roguelikeUpgrade.ShowUpgradeMenu();
+        RoguelikeManager.Instance.ShowUpgradeMenu();
     }
 }
