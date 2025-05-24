@@ -795,7 +795,6 @@ GameObject:
   - component: {fileID: 915942568}
   - component: {fileID: 915942567}
   - component: {fileID: 915942566}
-  - component: {fileID: 915942569}
   - component: {fileID: 915942570}
   - component: {fileID: 915942572}
   - component: {fileID: 915942571}
@@ -864,21 +863,6 @@ RectTransform:
   m_AnchoredPosition: {x: -594, y: -119}
   m_SizeDelta: {x: 400, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &915942569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 915942565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391915669a4cb00468d053336d4a1d59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterInfoBtn: {fileID: 1361480301}
-  imageTemplate: {fileID: 8536843269357291896, guid: 40df48d7ea00d3f4f8b70a79ea5187a5, type: 3}
-  monsterDex: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
 --- !u!114 &915942570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,6 +1137,14 @@ PrefabInstance:
       propertyPath: monsterDex
       value: 
       objectReference: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
+    - target: {fileID: 4883251044306145083, guid: c6ea3f27feafbb94f8e31e379306b122, type: 3}
+      propertyPath: XBtn
+      value: 
+      objectReference: {fileID: 1066721094}
+    - target: {fileID: 4883251044306145083, guid: c6ea3f27feafbb94f8e31e379306b122, type: 3}
+      propertyPath: monsterInfoPanelObject
+      value: 
+      objectReference: {fileID: 1066721093}
     - target: {fileID: 6346380469988122076, guid: c6ea3f27feafbb94f8e31e379306b122, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1238,6 +1230,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6ea3f27feafbb94f8e31e379306b122, type: 3}
+--- !u!1 &1066721093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7674317188693773295, guid: c6ea3f27feafbb94f8e31e379306b122, type: 3}
+  m_PrefabInstance: {fileID: 1066721092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1066721094 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4889934154627965799, guid: c6ea3f27feafbb94f8e31e379306b122, type: 3}
+  m_PrefabInstance: {fileID: 1066721092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1083322805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,6 +1691,7 @@ GameObject:
   - component: {fileID: 1361480304}
   - component: {fileID: 1361480303}
   - component: {fileID: 1361480306}
+  - component: {fileID: 1361480307}
   m_Layer: 5
   m_Name: monster_info
   m_TagString: Untagged
@@ -1805,6 +1814,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 915942565}
+--- !u!114 &1361480307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361480301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391915669a4cb00468d053336d4a1d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterInfoPanelObject: {fileID: 0}
+  monsterInfoBtn: {fileID: 1423697980}
+  imageTemplate: {fileID: 8536843269357291896, guid: 40df48d7ea00d3f4f8b70a79ea5187a5, type: 3}
+  monsterDex: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
+  XBtn: {fileID: 0}
 --- !u!1 &1409036618
 GameObject:
   m_ObjectHideFlags: 0
