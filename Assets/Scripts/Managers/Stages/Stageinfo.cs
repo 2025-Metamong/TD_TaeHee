@@ -29,6 +29,13 @@ public class StageInfo : ScriptableObject
     public Vector2 panXLimits = new Vector2(-50f, 50f);
     public Vector2 panZLimits = new Vector2(-50f, 50f);
 
+    [Header("Tower Placement Settings")]
+    [Tooltip("Positions where towers can be placed in this stage.")]
+    public List<Vector3> towerSpawnPoints = new List<Vector3>();
+
+    [Tooltip("List of tower prefabs allowed in this stage.")]
+    public List<GameObject> availableTowers = new List<GameObject>();
+
     private void OnValidate()
     {
         if (map == null) return;

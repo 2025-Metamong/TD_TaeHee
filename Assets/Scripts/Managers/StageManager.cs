@@ -8,6 +8,18 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager Instance { get; private set; }
 
+    [Header("Player Status")]
+    [Tooltip("Player's max Health")]
+    public int maxHealth = 10;
+
+    [Tooltip("Player's Health")]
+    public int Health { get; private set; }
+
+    [Header("Money")]
+    [Tooltip("Player's Coin")]
+    public int Coin { get; private set; }
+
+
     [Header("로딩 페이드 설정")]
     [SerializeField] private CanvasGroup fadeCanvasGroup;  // 화면 전체를 덮는 CanvasGroup
     [SerializeField] private float fadeDuration = 0.5f;    // 페이드 인/아웃 시간
@@ -15,7 +27,10 @@ public class StageManager : MonoBehaviour
     // by seungwon
     [Header("stage info")]
     [SerializeField] private List<StageInfo> stageInfoList = new List<StageInfo>();
+
     [SerializeField] private MonsterManager monsterManager;
+    [SerializeField] private TowerManager towerManager;
+
     public int currentWave = 0;
 
     // 마지막 클리어 스테이지 번호
@@ -33,28 +48,66 @@ public class StageManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        Health = maxHealth;
+
 
         // 최초에는 페이드 아웃 상태로
         if (fadeCanvasGroup != null)
             fadeCanvasGroup.alpha = 0f;
+
+        monsterManager = MonsterManager.Instance;
+        towerManager = TowerManager.Instance;
     }
 
-    /// <summary>
-    /// 외부에서 호출할 씬(스테이지) 로드 함수
+    // 외부(몬스터 등)에서 호출하는 데미지 처리 메서드
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        Debug.Log($"플레이어가 {damage}만큼 피해. 남은 체력: {Health}");
 
-    /// </summary>
+        if (Health <= 0)
+        {
+            Health = 0;
+            OnGameOver();
+        }
+    }
+
+    private void OnGameOver()
+    {
+        Debug.Log("Game Over!");
+        SceneManager.LoadScene("SelectStage");
+    }
+
+    // 외부에서 호출할 씬(스테이지) 로드 함수
+
     public void LoadStage(int stageIndex = -1)
     {
+        Debug.Log($"[LoadStage] idx={stageIndex}, infos={stageInfoList?.Count}, monsterMngr={(monsterManager==null?"NULL":"OK")}, towerMngr={(towerManager==null?"NULL":"OK")}");
+        if (stageIndex < 0 || stageIndex >= stageInfoList.Count)
+        {
+            Debug.LogWarning("StageManager.LoadStage: 잘못된 인덱스");
+            return;
+        }
+
+        if (!Application.isPlaying) return;
+
         if (stageIndex < 0)
         {
 
-            Debug.LogWarning($"StageManager.LoadStage: sceneName이 비어있습니다.");
-
+            Debug.LogWarning("StageManager.LoadStage: wrong stage index");
             return;
         }
-        this.currentWave = 0;
+        currentStage = stageIndex;
+        currentWave = 0;
+
+        // 초기 코인 & 체력 세팅
+        Coin = stageInfoList[stageIndex].startCoins;
+        Health = stageInfoList[stageIndex].playerHP;
+
         StartCoroutine(LoadSceneCoroutine(stageIndex));
+
         monsterManager.SetMonsterManagerStageInfo(stageInfoList[stageIndex]);
+        towerManager.SetTowerManagerStageInfo(stageInfoList[stageIndex]);
     }
 
     /// <summary>
@@ -96,9 +149,7 @@ public class StageManager : MonoBehaviour
                                        stageInfoList[stageIndex].panZLimits);
     }
 
-    /// <summary>
-    /// CanvasGroup alpha를 from→to로 변경
-    /// </summary>
+    // CanvasGroup alpha를 from→to로 변경
     private IEnumerator Fade(float from, float to)
     {
         float elapsed = 0f;
@@ -115,11 +166,6 @@ public class StageManager : MonoBehaviour
     // for testing
 
     private bool waveFlag = false; // wave flag (false = ready, true = wave start)
-
-    void Start()
-    {
-        monsterManager = MonsterManager.Instance;
-    }
 
     public void SetFlag(bool value)
     {
@@ -147,6 +193,30 @@ public class StageManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+    }
+
+    public bool UseCoin(int amount)
+    {
+        if (amount <= 0) return true;    // 0 이하 사용은 항상 OK
+        if (Coin >= amount)
+        {
+            Coin -= amount;
+            Debug.Log($"코인 사용: {amount} ({Coin} 남음)");
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning($"코인 부족: {amount} 필요, 현재 {Coin}");
+            return false;
+        }
+    }
+    
+    // 코인 추가
+    public void AddCoins(int amount)
+    {
+        if (amount <= 0) return;
+        Coin += amount;
+        Debug.Log($"코인 획득: {amount} (총 {Coin})");
     }
 
 }
