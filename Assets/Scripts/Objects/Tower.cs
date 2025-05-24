@@ -28,6 +28,7 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("업그레이드 비용")] private int upgradeCost = 5;
         //[SerializeField] private singleBullet bullet;  
         [SerializeField, Tooltip("탄환 Prefab")] private GameObject bullet;
+        [SerializeField, Tooltip("탄환 발사 위치 보정")] private Vector3 corrPos = new Vector3(0f, 3f, 0f);
         [SerializeField, Tooltip("사거리 표기 시간")] private float displayTime = 1f;
         [SerializeField, Tooltip("사거리 표기용 Material")] private Material rangeMat;
         [SerializeField, Tooltip("타워 디버프 종류")] private List<debuffBase> debuffAssets = new List<debuffBase>();
@@ -73,7 +74,6 @@ namespace MyGame.Objects
             this.position = gameObject.transform;
             // 디버프 종류 ScriptableObject들 인스턴스화
             this.debuffList = new List<debuffBase>(debuffAssets);
-
         }
 
         // Update is called once per frame
@@ -96,15 +96,15 @@ namespace MyGame.Objects
                 if (this.target != null)
                 {
                     this.attack = 0f;   // 다음번 공격 주기 계산을 위해 플래그 0으로 초기화.
-                    
+
                     // Case 1. 타겟을 찾은 경우
                     // GameObject bullt_object = Instantiate(bullet, transform.position, Quaternion.identity);
-                    GameObject bullet_object = Instantiate(bullet, transform.position, Quaternion.identity);
+                    GameObject bullet_object = Instantiate(bullet, transform.position + corrPos, Quaternion.identity);
 
                     var bullet_script = bullet_object?.GetComponent<MonoBehaviour>();   // prefab의 스크립트 찾기
                     // SetDirection 으로 bullet 날아갈 방향 적용
-                    var directionMethod = bullet_script?.GetType().GetMethod("SetDirection", new Type[] { typeof(Transform), typeof(Transform) });
-                    directionMethod?.Invoke(bullet_script, new object[] { this.transform, this.target });
+                    var directionMethod = bullet_script?.GetType().GetMethod("SetDirection", new Type[] { typeof(Vector3), typeof(Vector3) });
+                    directionMethod?.Invoke(bullet_script, new object[] { this.transform.position + corrPos, this.target.position });
                     // SetDebuff 로 bullet에 디버프 리스트 전달.
                     var debuffMethod = bullet_script?.GetType().GetMethod("SetDebuff", new Type[] { typeof(List<debuffBase>) });
                     debuffMethod?.Invoke(bullet_script, new object[] { this.debuffList });

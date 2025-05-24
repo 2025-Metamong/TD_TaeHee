@@ -71,6 +71,7 @@ MonoBehaviour:
   upgradeLevel: 0
   upgradeCost: 5
   bullet: {fileID: 3084736807602813044, guid: 155d15a96dcf22447a0cbe424b27b64f, type: 3}
+  corrPos: {x: 0, y: 3, z: 0}
   displayTime: 1
   rangeMat: {fileID: 2100000, guid: ab84aa58a08c2ca499b690a7948fcaba, type: 2}
   debuffAssets: []

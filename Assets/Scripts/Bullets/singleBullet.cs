@@ -22,9 +22,9 @@ namespace MyGame.Objects
         // public event Action<GameObject> OnCollider; // 충돌 시 이벤트 발생 (예: 이펙트용)
         public GameObject hitEffect = null;
 
-        public void SetDirection(Transform tower, Transform target)
+        public void SetDirection(Vector3 tower, Vector3 target)
         {
-            Vector3 dir = (target.position - tower.position).normalized;
+            Vector3 dir = (target - tower).normalized;
             this.direction = dir;
             transform.rotation = Quaternion.LookRotation(dir);
         }
