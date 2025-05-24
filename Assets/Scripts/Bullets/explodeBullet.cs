@@ -47,12 +47,6 @@ namespace MyGame.Objects
         {
             if (!other.CompareTag("Monster")) return;
 
-            var target = other.GetComponent<Monster>();
-            var damageMethod = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
-            damageMethod?.Invoke(target, new object[] { this.damage });
-            foreach (var debuff in debuffList)
-                debuff.Apply(target.gameObject);
-
             if (hitEffect != null)
             {
                 GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
@@ -60,14 +54,18 @@ namespace MyGame.Objects
                 float life = ps.main.duration + ps.main.startLifetime.constantMax;
                 Destroy(effect, life);
             }
-
+            
+            Collider[] hits = Physics.OverlapSphere(transform.position, radius);
+            
             foreach (var hit in hits)
             {
                 if (hit.CompareTag("Monster"))
                 {
-                    object target = hit.GetComponent<MonoBehaviour>();
-                    var method = target?.GetType().GetMethod("takeDamage", new Type[] { typeof(float) });
+                    var target = hit.GetComponent<Monster>();
+                    var method = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
                     method?.Invoke(target, new object[] { this.damage });
+                    foreach (var debuff in debuffList)
+                        debuff.Apply(target.gameObject);
                 }
             }
 
