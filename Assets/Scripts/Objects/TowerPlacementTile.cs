@@ -10,7 +10,7 @@ public class TowerPlacementTile : MonoBehaviour
     [SerializeField, Tooltip("마우스 On 시 색상")] private Color hoverColor = Color.red;
     [SerializeField, Tooltip("타일 위치")] private Vector3 tilePosition;
     [SerializeField, Tooltip("타일에 설치할 타워 종류")] public static GameObject towerPrefab;
-    
+    [SerializeField, Tooltip("타일에 설치할 타워 종류")] private int towerID;
 
     private Renderer rend;  // 타일의 랜더러 컴포넌트 저장용.
     private Color originalColor;
@@ -34,6 +34,15 @@ public class TowerPlacementTile : MonoBehaviour
     // 마우스가 타일에 올라오면 색상 변경.
     void OnMouseEnter()
     {
+        if (towerID != -1)  // 내 타일 위에 성공적으로 설치된 타워가 있었다면
+        {
+            TowerManager.Instance.GetTowerDict().TryGetValue(towerID, out GameObject tower);
+            if (tower == null)  // 내 ID에 해당하는 타워가 살아있지 않으면 원상복구.
+            {
+                towerID = -1;
+                canBuild = true;
+            }
+        }
         if (!TowerManager.Instance.GetMode())
         {
             //Debug.Log("설치 모드가 아닙니다.");
@@ -74,7 +83,7 @@ public class TowerPlacementTile : MonoBehaviour
         }
         // 현재 타일 위치 타워 매니저에 전달해서 타워 설치 요청.
         Vector3 installPosition = this.tilePosition + offset;
-        TowerManager.Instance.InstallTower(towerPrefab, installPosition);
+        towerID = TowerManager.Instance.InstallTower(towerPrefab, installPosition); // 아이디 저장.
 
         // 타워 설치 완료 시 이 타일에는 다른 타워를 놓을 수 없다.
         this.canBuild = false;
