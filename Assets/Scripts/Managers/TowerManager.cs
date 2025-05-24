@@ -15,8 +15,6 @@ namespace MyGame.Managers
         [SerializeField, Tooltip("글로벌 공격력 증가 팩터 M")] private float mDamage = 0f;
         [SerializeField, Tooltip("글로벌 공격속도 증가 팩터 Speed")] private float globalSpeedModifier = 1f;
         private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();  // 현재 소환 된 타워 리스트를 딕셔너리로 수정
-        private List<Vector3> towerSpawnPoints = new List<Vector3>();
-        private List<GameObject> availableTowers = new List<GameObject>();
 
         private int TowerIndex = 0;
         public static TowerManager Instance { get; private set; } // 싱글톤 패턴
@@ -84,13 +82,22 @@ namespace MyGame.Managers
             Debug.Log("Tower Selling");
             GameObject toDelete = towerDict[toDeleteID];
             Tower script = toDelete.GetComponent<Tower>();
-             StageManager.Instance.AddCoins(script.GetSellPrice());    // 구현되면 처리해야 함.
+            StageManager.Instance.AddCoins(script.GetSellPrice());    // 구현되면 처리해야 함.
             towerDict.Remove(toDeleteID);
             Destroy(toDelete);
             // 타워 판매 사운드 재생
             TowerSoundController.Instance.PlaySellSound();
         }
 
+        // 디버프 종류를 받아서 현재 존재하는 타워들에 추가하기. 추가할 종류가 여러개면 바깥에서 여러번 부르면 된다.
+        public void AddDebuffToAllTower(debuffBase dbuff)
+        {
+            // 현재 인스턴스화 된 타워 순환
+            foreach (var entry in towerDict)
+            {
+                entry.Value.GetComponent<Tower>().AddDebuff(dbuff); // 타워에 디버프 전달.
+            }
+        }
         public IEnumerable<GameObject> GetTowerPrefabs()
         {
             return this.towerPrefabs;

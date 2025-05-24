@@ -172,13 +172,21 @@ namespace MyGame.Objects
             return this.range;
         }
 
+        public void AddDebuff(debuffBase dbuff)
+        {
+            // 현재 디버프 종류에 전달 받은 디버프 추가하기.
+            this.debuffAssets.Add(dbuff);
+            // 실제 디버프 전달에 사용하는 리스트에도 추가하기.
+            this.debuffList.Add(Instantiate(dbuff));
+        }
+
         // 타워 업그레이드 로직.
         public bool UpgradeTower()
         {
             // 타워 레벨 업그레이드 용 함수.
             // Case 1 : 돈이 충분해서 업그레이드 성공 == stat 업데이트 하고 true 리턴
             // Case 2 : 업그레이드 실패 == false 리턴
-             bool upgradeAble = StageManager.Instance.UseCoin(this.upgradeCost);
+            bool upgradeAble = StageManager.Instance.UseCoin(this.upgradeCost);
             //bool upgradeAble = true;    // 테스트용. 고쳐야 함.
             // bool upgradeAble = false;    // 테스트용. 고쳐야 함.
 
