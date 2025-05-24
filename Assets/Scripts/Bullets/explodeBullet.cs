@@ -28,6 +28,7 @@ namespace MyGame.Objects
         {
             Vector3 dir = (target.position - tower.position).normalized;
             this.direction = dir;
+            transform.rotation = Quaternion.LookRotation(dir);
         }
 
         public void SetRange(float R) => this.range = R;
