@@ -55,12 +55,15 @@ namespace MyGame.Managers
                 if (newTower == null)
                 {
                     Debug.Log("타워 설치 실패");
+                    // 설치 실패 사운드 재생
+                    TowerSoundController.Instance.PlayFailedSound();
                     return;
                 }
                 Debug.Log("타워 인스턴스화 성공");
                 if (!newTower.TryGetComponent<MonoBehaviour>(out var newTowerScript))   // 새 타워에서 스크립트 찾기.
                 {
                     Debug.Log("객체에 스크립트 존재하지 않음");
+                    TowerSoundController.Instance.PlayFailedSound();    // 실패 사운드 재생.
                     return;
                 }
                 // 타워 ID 세팅
@@ -74,6 +77,9 @@ namespace MyGame.Managers
                 // 글로벌 공격속도 계산식 적용
 
                 this.towerDict.Add(this.TowerIndex++, newTower);   // 타워 List 딕셔너리리에 타워 Add
+
+                // 타워 설치 성공 사운드 재생
+                TowerSoundController.Instance.PlayInstallSound();
             }
             else
             {
@@ -90,6 +96,8 @@ namespace MyGame.Managers
             // StageManager.Instance.UseCoins(-(script.GetSellPrice()));    // 구현되면 처리해야 함.
             towerDict.Remove(toDeleteID);
             Destroy(toDelete);
+            // 타워 판매 사운드 재생
+            TowerSoundController.Instance.PlaySellSound();
         }
 
         public IEnumerable<GameObject> GetTowerPrefabs()
