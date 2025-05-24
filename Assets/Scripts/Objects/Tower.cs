@@ -67,7 +67,8 @@ namespace MyGame.Objects
             // 실린더는 Prefab의 스케일 말고 월드 스케일에 영향을 받는 것이 좋으므로
             // 현재 Prefab의 스케일로 나눠주는 것이 좋다.
             float diameter = 2f * range / this.transform.localScale.x; // Prefab이 x, y, z 모두 같은 스케일로 증가한다고 가정.
-            rangeCylinder.transform.localScale = new Vector3(diameter, 0.01f, diameter);
+            // float yOffset = 0.1f / this.transform.localScale.y;    // 오프셋도 수정.
+            rangeCylinder.transform.localScale = new Vector3(diameter, 0, diameter);
         }
         void Start()
         {
@@ -137,6 +138,11 @@ namespace MyGame.Objects
             ShowRange();        // 사거리 표기.
             // 판매, 업그레이드 버튼 표기.
 
+            if (this.towerSelectUI != null) // Upgrade, Sell 버튼이 여러개 나오는 것 방지.
+            {
+                Destroy(this.towerSelectUI);
+            }
+            
             // Prefab 인스턴스 화.
             this.towerSelectUI = Instantiate(towerSelectUIPrefab);
             Vector3 uiPosition = this.transform.position;
