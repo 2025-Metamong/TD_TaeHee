@@ -54,6 +54,9 @@ namespace MyGame.Objects
         // 5023-sound
         //public AudioClip deathSound;
 
+        // 맞았을 때 색깔 변경
+        private Coroutine flashCoroutine;
+
         public void SetPath(Transform ways)
         {
             pathHolder = ways;
@@ -172,7 +175,8 @@ namespace MyGame.Objects
                 StageManager.Instance.AddCoins(reward);
             }
 
-            StartCoroutine(Flash());
+            if (flashCoroutine == null)
+                flashCoroutine = StartCoroutine(Flash());
         }
 
         private IEnumerator Flash()
@@ -186,7 +190,7 @@ namespace MyGame.Objects
 
             // 저장용
             var originalMatColors = new List<Color[]>();
-            var originalBlocks   = new List<MaterialPropertyBlock>();
+            var originalBlocks = new List<MaterialPropertyBlock>();
 
             // --- Renderer 계열 색 바꾸기 ---
             foreach (var r in rends)
@@ -270,6 +274,8 @@ namespace MyGame.Objects
             // --- 복원: UI Graphic ---
             for (int i = 0; i < graphics.Length; i++)
                 graphics[i].color = originalUIColors[i];
+
+            flashCoroutine = null;
         }
 
         private void OnTriggerEnter(Collider other)

@@ -67,9 +67,9 @@ MonoBehaviour:
   sellPrice: 10
   position: {fileID: 0}
   portrait: {fileID: 21300000, guid: fe8920d2febe1964cbdbf96b37fec177, type: 3}
-  range: 15
+  range: 10
   attackPeriod: 1
-  damage: 15
+  damage: 2
   upgradeLevel: 0
   upgradeCost: 5
   bullet: {fileID: 7220678190614878043, guid: bcd9d4259965e1b41af00a1fc3cff9c4, type: 3}
