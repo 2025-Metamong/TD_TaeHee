@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MonsterInfoPanel : MonoBehaviour
 {
     public static MonsterInfoPanel Instance { get; private set; }
+    
 
     private void Awake()
     {
@@ -21,20 +22,25 @@ public class MonsterInfoPanel : MonoBehaviour
         }
     }
 
-
-    public GameObject monsterInfoBtn;
+    [SerializeField] private GameObject monsterInfoPanelObject;
+    //public GameObject monsterInfoBtn;
     public GameObject imageTemplate;
     [SerializeField] private MonsterDex monsterDex;
     public Dictionary<int, int> monsterCountDict = new Dictionary<int, int>();
+    private Button myButton;
 
     private Button XBtn;
     //Transform contentPanel;
 
-    private int checkMulti = 0;
+    //private int checkMulti = 0;
     void Start()
     {
-        XBtn = GetComponentInChildren<Button>();
+        XBtn = monsterInfoPanelObject.GetComponentInChildren<Button>();
+        //XBtn = GetComponentInChildren<Button>();
         XBtn.onClick.AddListener(XBtnClicked);
+
+        myButton = GetComponent<Button>();
+        myButton.onClick.AddListener(OnClickMyself);
 
         //Transform contentPanel = this.transform;
         MonsterImageSet();
@@ -47,18 +53,6 @@ public class MonsterInfoPanel : MonoBehaviour
         for (int i = 0; i < monsterList.Count; i++)
         {
             monsterCountDict.Add(monsterList[i].id, 0);
-        }
-        // existed image delete
-        Image[] images = GetComponentsInChildren<Image>();
-
-        foreach (Image image in images)
-        {
-            if (image.gameObject.name.StartsWith("Monster"))
-            {
-                //Debug.Log(image.gameObject.name);
-                Debug.Log("MonsterInfoPanel : DeleteImage");
-                Destroy(image.gameObject); //Monster image firnd and delete
-            }
         }
 
         //Debug.Log("MonsterInfoPanel : " + string.Join(" , ", MonsterManager.Instance.waveMonster));
@@ -78,7 +72,7 @@ public class MonsterInfoPanel : MonoBehaviour
         {
             if (pair.Value > 0)
             {
-                Debug.Log("MonsterInfoPanel : ");
+                //Debug.Log("MonsterInfoPanel : ");
                 instiateImage(pair.Key);
             }
         }
@@ -91,7 +85,7 @@ public class MonsterInfoPanel : MonoBehaviour
         if (sprite != null)
         {
             //Debug.Log("MonsterInfoPanel : ");
-            GameObject newImage = Instantiate(imageTemplate, this.transform);
+            GameObject newImage = Instantiate(imageTemplate, monsterInfoPanelObject.transform);
             newImage.GetComponent<Image>().sprite = sprite;
             newImage.SetActive(true);
         }
@@ -103,7 +97,36 @@ public class MonsterInfoPanel : MonoBehaviour
 
     void XBtnClicked()
     {
-        this.gameObject.SetActive(false);
-        monsterInfoBtn.SetActive(true);
+
+        //Debug.Log("MonsterInfoPanel : XBtnClicked");
+        monsterInfoPanelObject.SetActive(false);
+        //monsterInfoBtn.SetActive(true);
+    }
+
+    void OnClickMyself()
+    {
+
+        // existed image delete
+        //Image[] images = GetComponentsInChildren<Image>();
+        Image[] childImages = monsterInfoPanelObject.GetComponentsInChildren<Image>(true);
+        monsterInfoPanelObject.GetComponentInChildren<Button>();
+        foreach (Image image in childImages)
+        {
+            if (image.gameObject.name.StartsWith("Monster"))
+            {
+                //Debug.Log(image.gameObject.name);
+                //Debug.Log("MonsterInfoPanel : DeleteImage");
+                Destroy(image.gameObject); //Monster image firnd and delete
+            }
+        }
+
+        foreach (var pair in monsterCountDict)
+        {
+            if (pair.Value > 0)
+            {
+                //Debug.Log("MonsterInfoPanel : ");
+                instiateImage(pair.Key);
+            }
+        }
     }
 }

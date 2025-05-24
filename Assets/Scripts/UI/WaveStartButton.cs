@@ -11,6 +11,7 @@ public class WaveStartButton : MonoBehaviour
     }
     public void OnButtonClick()
     {
+        Debug.Log("Wave Start Button Clicked");
         StageManager.Instance.SetFlag(true);
     }
 }

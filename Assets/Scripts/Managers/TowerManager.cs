@@ -15,6 +15,8 @@ namespace MyGame.Managers
         [SerializeField, Tooltip("글로벌 공격력 증가 팩터 M")] private float mDamage = 0f;
         [SerializeField, Tooltip("글로벌 공격속도 증가 팩터 Speed")] private float globalSpeedModifier = 1f;
         private Dictionary<int, GameObject> towerDict = new Dictionary<int, GameObject>();  // 현재 소환 된 타워 리스트를 딕셔너리로 수정
+        private List<Vector3> towerSpawnPoints = new List<Vector3>();
+        private List<GameObject> availableTowers = new List<GameObject>();
 
         private int TowerIndex = 0;
         public static TowerManager Instance { get; private set; } // 싱글톤 패턴
@@ -29,22 +31,10 @@ namespace MyGame.Managers
                 Destroy(gameObject);
             }
         }
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-            // 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
         public void InstallTower(GameObject tower, Vector3 position)
         {  // 설치할 타워까지 전달 받기로 변경.
-           //    bool isEnough = ResourceManager.Instance.useCoins(T.GetCost());
-            bool isEnough = true;
+            bool isEnough = StageManager.Instance.UseCoin(tower.GetComponent<Tower>().GetCost());
+            //bool isEnough = true;
             // 돈이 충분한지 검사해서 타워를 설치하는 함수.
             if (isEnough != false)
             { // 타워 설치를 위한 돈이 충분했던 경우.
@@ -83,6 +73,7 @@ namespace MyGame.Managers
             }
             else
             {
+                TowerSoundController.Instance.PlayFailedSound();
                 return;
             }
         }
@@ -93,7 +84,7 @@ namespace MyGame.Managers
             Debug.Log("Tower Selling");
             GameObject toDelete = towerDict[toDeleteID];
             Tower script = toDelete.GetComponent<Tower>();
-            // StageManager.Instance.UseCoins(-(script.GetSellPrice()));    // 구현되면 처리해야 함.
+             StageManager.Instance.AddCoins(script.GetSellPrice());    // 구현되면 처리해야 함.
             towerDict.Remove(toDeleteID);
             Destroy(toDelete);
             // 타워 판매 사운드 재생
@@ -168,7 +159,27 @@ namespace MyGame.Managers
         {
             this.mode = newMode;
         }
-    
-    }
 
+        // StageManager에서 호출: 스테이지 전환 시 TowerManager 초기화
+        /// </summary>
+        public void SetTowerManagerStageInfo(StageInfo info)
+        {
+            // 1) 기존 데이터 정리
+            towerDict.Clear();
+            TowerIndex = 0;
+
+            // 2) StageInfo로부터 설치 지점, 허용 타워 목록 가져오기
+            towerSpawnPoints = new List<Vector3>(info.towerSpawnPoints);
+            availableTowers   = new List<GameObject>(info.availableTowers);
+
+            Debug.Log($"[TowerManager] Initialized: {towerSpawnPoints.Count} spawn points, {availableTowers.Count} prefabs");
+
+            // 3) (선택) 초기 기본 설치—예: 모든 지점에 첫 번째 프리팹 설치
+            foreach (var pos in towerSpawnPoints)
+            {
+                InstallTower(availableTowers[0], pos);
+            }
+        }
+
+    }
 }

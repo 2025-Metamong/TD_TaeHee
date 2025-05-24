@@ -101,10 +101,23 @@ namespace MyGame.Managers
                 waveEndCheck = false;
                 stageManager.FinishWave();
                 waveMonster.Clear();
+                monsterDict.Clear();
                 SetWave(monsterList);
                 MonsterInfoPanel.Instance.MonsterImageSet();
             }
 
+        }
+        public void AllClear()
+        {
+            List<MonsterEntry> monsterList = monsterDex.GetAllEntries();
+
+            waveStartCheck = false;
+            waveEndCheck = false;
+            waveMonster.Clear();
+            respwanMonsterQueue.Clear();
+            monsterDict.Clear();
+            //SetWave(monsterList);
+            //MonsterInfoPanel.Instance.MonsterImageSet();
         }
 
         private void RespawnMonster()
@@ -274,9 +287,10 @@ namespace MyGame.Managers
         public void SetMonsterManagerStageInfo(StageInfo si)
         {
             this.stageInfo = si;
+            AllClear();
 
             List<MonsterEntry> monsterList = monsterDex.GetAllEntries();
-
+            //respwanMonsterQueue.Clear();
             SetWave(monsterList);
             
             pathHolder = stageInfo.pathHolder; // waypoints set

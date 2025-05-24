@@ -376,6 +376,7 @@ GameObject:
   - component: {fileID: 8167692464437260789}
   - component: {fileID: 1524455575269675445}
   - component: {fileID: 8501608742228359688}
+  - component: {fileID: 4883251044306145083}
   m_Layer: 5
   m_Name: monster_info
   m_TagString: Untagged
@@ -498,6 +499,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 7674317188693773295}
+--- !u!114 &4883251044306145083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756912583791718975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391915669a4cb00468d053336d4a1d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterInfoBtn: {fileID: 668039957643912587}
+  imageTemplate: {fileID: 8536843269357291896, guid: 40df48d7ea00d3f4f8b70a79ea5187a5, type: 3}
+  monsterDex: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
 --- !u!1 &1568844617181250464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,7 +1936,6 @@ GameObject:
   - component: {fileID: 98123295593672910}
   - component: {fileID: 9031039327467472157}
   - component: {fileID: 2244455767045648586}
-  - component: {fileID: 4344286789961292712}
   - component: {fileID: 3945156720218486352}
   - component: {fileID: 1690807487394607342}
   - component: {fileID: 2546267067165763300}
@@ -1989,21 +2004,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4344286789961292712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7674317188693773295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391915669a4cb00468d053336d4a1d59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterInfoBtn: {fileID: 756912583791718975}
-  imageTemplate: {fileID: 8536843269357291896, guid: 40df48d7ea00d3f4f8b70a79ea5187a5, type: 3}
-  monsterDex: {fileID: 11400000, guid: d430a3054f1f301409d703de8a0b7c74, type: 2}
 --- !u!114 &3945156720218486352
 MonoBehaviour:
   m_ObjectHideFlags: 0
