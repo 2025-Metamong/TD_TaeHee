@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3463627074367210514
+--- !u!1 &2900148878580453232
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4276896639872212648}
-  - component: {fileID: -7455773827949613000}
-  - component: {fileID: 933737438355525901}
-  - component: {fileID: 3103466166802900423}
-  - component: {fileID: 6185802929084696266}
+  - component: {fileID: 2554867715076085194}
+  - component: {fileID: -6117149650340610206}
+  - component: {fileID: 1502914969878289007}
+  - component: {fileID: 3692840068799966885}
+  - component: {fileID: 2299194448230806841}
   m_Layer: 0
-  m_Name: fir tree winter tilted 1
+  m_Name: laser
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4276896639872212648
+--- !u!4 &2554867715076085194
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3463627074367210514}
+  m_GameObject: {fileID: 2900148878580453232}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
@@ -35,50 +35,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7455773827949613000
+--- !u!114 &-6117149650340610206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3463627074367210514}
+  m_GameObject: {fileID: 2900148878580453232}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 662bdbf52e5689644981c10a956cbc8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: -1
-  cost: 10
-  sellPrice: 10
+  cost: 40
+  sellPrice: 20
   position: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 96d8e7ea6956aca4b9da9a13fd81566f, type: 3}
+  portrait: {fileID: 21300000, guid: 1377e48d17ce7864f866c34d1a970dcb, type: 3}
   range: 10
-  attackPeriod: 1
-  damage: 2
+  attackPeriod: 0.7
+  damage: 20
   upgradeLevel: 0
   upgradeCost: 5
-  bullet: {fileID: 3084736807602813044, guid: 73faab7d42ea5bc498d1409134cfb0a0, type: 3}
-  corrPos: {x: 0, y: 0, z: 0}
+  bullet: {fileID: 5864272698353637254, guid: 1b6f6613ae4189d42997fb3e8b0e477d, type: 3}
+  corrPos: {x: 0, y: 3, z: 0}
   displayTime: 1
   rangeMat: {fileID: 2100000, guid: ab84aa58a08c2ca499b690a7948fcaba, type: 2}
-  debuffAssets: []
+  debuffAssets:
+  - {fileID: 11400000, guid: bcc381fb9387ce64ca7399816d09ad8b, type: 2}
   debuffIcons: []
   towerSelectUIPrefab: {fileID: 6472596907574778030, guid: 2773363861f7760448034c07b7e16404, type: 3}
---- !u!33 &933737438355525901
+--- !u!33 &1502914969878289007
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3463627074367210514}
-  m_Mesh: {fileID: 2489247868129730843, guid: 582d91f3d5af3144783632a10b6b4346, type: 3}
---- !u!23 &3103466166802900423
+  m_GameObject: {fileID: 2900148878580453232}
+  m_Mesh: {fileID: 8426759971854487681, guid: a94c5038ae32d9a4497fcd9c01cc0901, type: 3}
+--- !u!23 &3692840068799966885
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3463627074367210514}
+  m_GameObject: {fileID: 2900148878580453232}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -117,13 +118,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6185802929084696266
+--- !u!65 &2299194448230806841
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3463627074367210514}
+  m_GameObject: {fileID: 2900148878580453232}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -136,5 +137,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.6409483, y: 7.5449314, z: 5.086162}
-  m_Center: {x: 0, y: 3.7724657, z: 0}
+  m_Size: {x: 4.4659257, y: 8.301302, z: 4.309767}
+  m_Center: {x: -0.031661987, y: 4.150651, z: 0.10183895}

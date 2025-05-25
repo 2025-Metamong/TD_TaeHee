@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5329585173013276408}
   - component: {fileID: 4790419688045445378}
   m_Layer: 0
-  m_Name: debuffBullet
+  m_Name: winterBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

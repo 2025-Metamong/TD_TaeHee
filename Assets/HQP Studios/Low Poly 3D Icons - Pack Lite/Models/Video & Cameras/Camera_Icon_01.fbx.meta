@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: e266368b87ed6f64e8ac586b7603fc24
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295587
+  packageName: Low Poly 3D Icons - Pack Lite
+  packageVersion: 1.2.0
+  assetPath: Assets/HQP Studios/Low Poly 3D Icons - Pack Lite/Models/Video & Cameras/Camera_Icon_01.fbx
+  uploadId: 757675
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -16,8 +23,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -107,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 295587
-  packageName: Low Poly 3D Icons - Pack Lite
-  packageVersion: 1.2.0
-  assetPath: Assets/HQP Studios/Low Poly 3D Icons - Pack Lite/Models/Video & Cameras/Camera_Icon_01.fbx
-  uploadId: 757675
