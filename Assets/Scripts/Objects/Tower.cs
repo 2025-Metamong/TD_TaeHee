@@ -26,7 +26,6 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("피해량")] private float damage = 15f; // 피해량 추가.
         [SerializeField, Tooltip("레벨")] private int upgradeLevel = 0;
         [SerializeField, Tooltip("업그레이드 비용")] private int upgradeCost = 5;
-        //[SerializeField] private singleBullet bullet;  
         [SerializeField, Tooltip("탄환 Prefab")] private GameObject bullet;
         [SerializeField, Tooltip("탄환 발사 위치 보정")] private Vector3 corrPos = new Vector3(0f, 3f, 0f);
         [SerializeField, Tooltip("사거리 표기 시간")] private float displayTime = 1f;
@@ -137,6 +136,11 @@ namespace MyGame.Objects
 
         void OnMouseDown()
         {
+            if (RoguelikeManager.Instance.upgradeMenuPanel.activeSelf == true)
+            {
+                Debug.Log("로그라이크 업그레이드 켜짐. 클릭 무시");
+                return;
+            }
             Debug.Log("마우스 클릭!");
             ShowRange();        // 사거리 표기.
             // 판매, 업그레이드 버튼 표기.

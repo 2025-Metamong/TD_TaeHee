@@ -19,7 +19,7 @@ public class ExitButton : MonoBehaviour
 
     private void OnClicked()
     {
-        StageManager.Instance.FinishStage();
+        StageManager.Instance.ExitStage();
         GameManager.Instance.ExitScene();
     }
 }

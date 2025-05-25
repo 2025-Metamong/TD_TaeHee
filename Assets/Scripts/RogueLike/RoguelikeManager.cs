@@ -11,15 +11,18 @@ public class RoguelikeManager : MonoBehaviour
     public static RoguelikeManager Instance; // 다른 오브젝트들이 부르기 쉽게 싱글톤으로 설정.
     [Header("UI 참조")]
     public GameObject upgradeMenuPanel;      // 업그레이드 창 루트 (비활성화 상태로 에디터에 둠)
+    // public GameObject rayCastBlocker;
     public Button[] optionButtons = new Button[3];  // 3개의 선택 버튼
     public GameObject RLCard;   // 로그라이크 카드 Prefab
     public GameObject waveStartButton;  // 웨이브 시작 버튼
     public GameObject monsterInfoButton;    // 스테이지 정보 버튼
+    public GameObject towerShopButton;  // 타워 상점 버튼.
+    public GameObject mosterInfoPanel;  // 몬스터 정보 패널
 
     [Header("업그레이드 데이터")]
     public List<RogueUpgrade> allUpgrades;    // ScriptableObject 등으로 정의한 업그레이드 목록
 
-    private CanvasGroup _canvasGroup;
+    // private CanvasGroup _canvasGroup;
 
     // Monster 관리용 누적 데이터
     private float accDecreaseFlatHealth = 0;
@@ -61,6 +64,9 @@ public class RoguelikeManager : MonoBehaviour
         // 메뉴 보이기 + 필요 없는 버튼 숨기기
         waveStartButton.SetActive(false);
         monsterInfoButton.SetActive(false);
+        towerShopButton.SetActive(false);
+        mosterInfoPanel.SetActive(false);
+        // rayCastBlocker.SetActive(true);
         upgradeMenuPanel.SetActive(true);
         // _canvasGroup.interactable = true;
         // _canvasGroup.blocksRaycasts = true;
@@ -185,6 +191,9 @@ public class RoguelikeManager : MonoBehaviour
         DestroyRLCards();
         waveStartButton.SetActive(true);
         monsterInfoButton.SetActive(true);
+        towerShopButton.SetActive(true);
+        // mosterInfoPanel.SetActive(true);
+        // rayCastBlocker.SetActive(false);
         upgradeMenuPanel.SetActive(false);
         // _canvasGroup.interactable = false;
         // _canvasGroup.blocksRaycasts = false;
