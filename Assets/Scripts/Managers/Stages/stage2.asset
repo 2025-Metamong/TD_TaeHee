@@ -47,8 +47,8 @@ MonoBehaviour:
       monsterDataIndex: 3
     - spawnTime: 1
       monsterDataIndex: 3
-  map: {fileID: 2851751867144945868, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
-  spawnPoint: {fileID: 6696431832559060788, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
-  pathHolder: {fileID: 5784456370869308289, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
-  panXLimits: {x: -10, y: 84}
-  panZLimits: {x: -32, y: 12}
+  map: {fileID: 5421165829592128948, guid: fb9148d427f0cfa44893f06c365f74e5, type: 3}
+  spawnPoint: {fileID: 7389788033819137737, guid: ba0ced8efbb90ef47b610183b1f262b2, type: 3}
+  pathHolder: {fileID: 1767273439796768460, guid: ba0ced8efbb90ef47b610183b1f262b2, type: 3}
+  panXLimits: {x: -47, y: 47}
+  panZLimits: {x: -48, y: 48}
