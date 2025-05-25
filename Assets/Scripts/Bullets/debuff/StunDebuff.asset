@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debuffName: Stun
   duration: 0.5
+  Icon: {fileID: 1812906440, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
