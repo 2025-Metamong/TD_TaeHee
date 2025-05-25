@@ -61,6 +61,7 @@ namespace MyGame.Objects
             // 처음에는 보이지 않음.
             rangeCylinder.SetActive(false);
 
+
         }
 
         private void SetCylinderSize()
@@ -76,6 +77,7 @@ namespace MyGame.Objects
         {
             // position 변수 초기화
             this.position = gameObject.transform;
+
             // 디버프 종류 ScriptableObject들 인스턴스화
             this.debuffList = new List<debuffBase>(debuffAssets);
         }
@@ -310,9 +312,9 @@ namespace MyGame.Objects
             return this.sellPrice;
         }
 
-        public List<debuffBase> GetDebuffList()
+        public List<debuffBase> GetDebuffAssets()
         {
-            return this.debuffList;
+            return this.debuffAssets;
         }
 
         // 타워 파괴 될 때 가지고 있는 오브젝트들 같이 파괴.
