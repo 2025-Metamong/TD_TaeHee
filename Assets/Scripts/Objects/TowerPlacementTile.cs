@@ -71,6 +71,12 @@ public class TowerPlacementTile : MonoBehaviour
     // 해당 타일을 클릭했을 때 타워 생성 호출.
     void OnMouseDown()
     {
+        if (RoguelikeManager.Instance.upgradeMenuPanel.activeSelf == true)
+        {
+            Debug.Log("로그라이크 업그레이드 켜짐. 클릭 무시");
+            return;
+        }
+
         if (TowerManager.Instance.GetMode() != true)
         {
             //Debug.Log("설치 모드가 아닙니다.");
