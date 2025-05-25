@@ -182,6 +182,10 @@ public class RoguelikeManager : MonoBehaviour
                 this.GetInstantHealth(selected);
                 break;
 
+            case 10:
+                this.applyDebuff(selected);
+                break;
+
             default:
                 Debug.Log($"ID가 등록되지 않았거나 잘못된 ID 입니다. ID : {selected.rogueID}");
                 break;
@@ -228,28 +232,32 @@ public class RoguelikeManager : MonoBehaviour
         MonsterManager.Instance.SetExtraCoin((int)selected.value);
     }
 
-    public void increaseAttackSpeed(RogueUpgrade selected)
+    private void increaseAttackSpeed(RogueUpgrade selected)
     {
         TowerManager.Instance.SetAttackSpeedIncrease(1f + selected.value);
     }
 
-    public void increaseDamagePercent(RogueUpgrade selected)
+    private void increaseDamagePercent(RogueUpgrade selected)
     {
         TowerManager.Instance.SetDamageIncrease(selected.value, 0);
     }
 
-    public void increaseDamageValue(RogueUpgrade selected)
+    private void increaseDamageValue(RogueUpgrade selected)
     {
         TowerManager.Instance.SetDamageIncrease(0, selected.value);
     }
 
-    public void GetInstantCoin(RogueUpgrade selected)
+    private void GetInstantCoin(RogueUpgrade selected)
     {
         StageManager.Instance.AddCoins((int)selected.value);
     }
-    public void GetInstantHealth(RogueUpgrade selected)
+    private void GetInstantHealth(RogueUpgrade selected)
     {
         StageManager.Instance.TakeDamage(-(int)selected.value);
-    }    
+    }
+    private void applyDebuff(RogueUpgrade selected)
+    {
+        TowerManager.Instance.AddDebuffToAllTower(selected.debuff);
+    }
 
 }

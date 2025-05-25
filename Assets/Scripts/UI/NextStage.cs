@@ -27,7 +27,7 @@ public class NextStage : MonoBehaviour
     {
         if (currentStage >= stageInfoList.Count - 1)
         {
-            Debug.LogWarning("╢ыю╫ ╫╨евюлаЖ╟║ ╬Ь╫ю╢о╢ы. ╦╤аЖ╦╥ ╫╨евюлаЖют╢о╢ы.");
+            Debug.LogWarning("О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫о╢О©╫. О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫т╢о╢О©╫.");
             return;
         }
         StageManager.Instance.ExitStage();

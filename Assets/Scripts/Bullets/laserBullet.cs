@@ -46,9 +46,11 @@ namespace MyGame.Objects
             {
                 if (hit.collider.CompareTag("Monster"))
                 {
-                    object target = hit.collider.GetComponent<MonoBehaviour>();
+                    var target = hit.collider.GetComponent<MonoBehaviour>();
                     var method = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
                     method?.Invoke(target, new object[] { this.damage });
+                    foreach (var debuff in debuffList)
+                        debuff.Apply(target.gameObject);
 
                     if (hitEffect != null) Instantiate(hitEffect, hit.point, Quaternion.identity);
                 }

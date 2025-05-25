@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7735a0c9cbcb89843a346ebd337cddd1, type: 3}
-  m_Name: StunDebuff
+  m_Script: {fileID: 11500000, guid: ac4c2437c51949744982e50d1d09be90, type: 3}
+  m_Name: Slow1
   m_EditorClassIdentifier: 
-  debuffName: Stun
-  duration: 0.5
-  Icon: {fileID: 1812906440, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  debuffName: Slow1
+  duration: 3
+  Icon: {fileID: 1019859777, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  slowAmount: 0.15

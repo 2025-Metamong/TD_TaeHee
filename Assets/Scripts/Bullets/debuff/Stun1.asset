@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9d8c26797e496b4e9000bda13a3c950, type: 3}
-  m_Name: WeakDebuff
+  m_Script: {fileID: 11500000, guid: 7735a0c9cbcb89843a346ebd337cddd1, type: 3}
+  m_Name: Stun1
   m_EditorClassIdentifier: 
-  debuffName: Weakness
-  duration: 3
-  Icon: {fileID: -606357570, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
-  damageAmount: 0.2
+  debuffName: Stun1
+  duration: 0.5
+  Icon: {fileID: 1812906440, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}

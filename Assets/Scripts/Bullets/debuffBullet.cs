@@ -50,6 +50,8 @@ namespace MyGame.Objects
                     var target = hit.GetComponent<MonoBehaviour>();
                     var method = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
                     method?.Invoke(target, new object[] { this.damage });
+                    foreach (var debuff in debuffList)
+                        debuff.Apply(target.gameObject);
                 }
             }
         }
