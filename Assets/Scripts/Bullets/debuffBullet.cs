@@ -26,8 +26,16 @@ namespace MyGame.Objects
         void Start()
         {
             this.spawnPosition = transform.position;
+
+            if (hitEffect != null)
+            {
+                GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+                var ps = effect.GetComponent<ParticleSystem>();
+                float life = ps.main.duration + ps.main.startLifetime.constantMax;
+                Destroy(effect, life);
+            }
+
             ApplyDamageToNearbyMonsters();
-            if (hitEffect != null) Instantiate(hitEffect, spawnPosition, Quaternion.identity);
             Destroy(gameObject);
         }
 
@@ -40,7 +48,7 @@ namespace MyGame.Objects
                 if (hit.CompareTag("Monster"))
                 {
                     var target = hit.GetComponent<MonoBehaviour>();
-                    var method = target?.GetType().GetMethod("takeDamage", new Type[] { typeof(float) });
+                    var method = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
                     method?.Invoke(target, new object[] { this.damage });
                 }
             }
