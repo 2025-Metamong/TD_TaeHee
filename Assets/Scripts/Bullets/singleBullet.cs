@@ -12,7 +12,7 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("총알이 몬스터에 주는 데미지")]
         private float damage = 10f;
         [SerializeField, Tooltip("총알 발사 속도")]
-        private float speed = 50f;
+        private float speed = 75f;
         [SerializeField, Tooltip("총알 사거리")]
         private float range = 20f;
 

@@ -16,13 +16,60 @@ MonoBehaviour:
   playerHP: 10
   monsterSpawnList:
   - entries:
-    - spawnTime: 1
-      monsterDataIndex: 3
-  - entries:
+    - spawnTime: 0
+      monsterDataIndex: 0
     - spawnTime: 1
       monsterDataIndex: 0
-  map: {fileID: 2851751867144945868, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
-  spawnPoint: {fileID: 6696431832559060788, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
-  pathHolder: {fileID: 5784456370869308289, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
-  panXLimits: {x: -10, y: 84}
-  panZLimits: {x: -32, y: 12}
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+  - entries:
+    - spawnTime: 0
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 1
+  - entries:
+    - spawnTime: 0
+      monsterDataIndex: 0
+    - spawnTime: 0.7
+      monsterDataIndex: 0
+    - spawnTime: 0.7
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 1
+    - spawnTime: 1
+      monsterDataIndex: 1
+  - entries:
+    - spawnTime: 0
+      monsterDataIndex: 1
+    - spawnTime: 1
+      monsterDataIndex: 1
+    - spawnTime: 1
+      monsterDataIndex: 2
+    - spawnTime: 1
+      monsterDataIndex: 2
+  - entries:
+    - spawnTime: 0
+      monsterDataIndex: 1
+    - spawnTime: 1
+      monsterDataIndex: 2
+    - spawnTime: 1
+      monsterDataIndex: 3
+  map: {fileID: 6066364927038168424, guid: 667ac1bd0ed1d2041985b7008fd1c513, type: 3}
+  spawnPoint: {fileID: 5400560289155888898, guid: 667ac1bd0ed1d2041985b7008fd1c513, type: 3}
+  pathHolder: {fileID: 5734286630144246632, guid: 667ac1bd0ed1d2041985b7008fd1c513, type: 3}
+  panXLimits: {x: 30.15722, y: 124.15723}
+  panZLimits: {x: -62.22544, y: -18.225441}

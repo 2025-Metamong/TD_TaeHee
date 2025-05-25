@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3209536009553826535}
+  - component: {fileID: 8498694961985764097}
   - component: {fileID: 3419340539084906764}
   - component: {fileID: 7336165497456488668}
-  - component: {fileID: 8498694961985764097}
   - component: {fileID: 2713458254134660922}
   m_Layer: 0
   m_Name: Excavator
@@ -36,6 +36,27 @@ Transform:
   - {fileID: 4195713140406025581}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8498694961985764097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280684495788430602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88deb4ba5f274794d851d53dae1a81f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 300
+  reward: 40
+  damage: 4
+  speed: 5
+  index: 2
+  ID: -1
+  isDead: 0
+  damageAmplify: 1
+  isStunned: 0
 --- !u!54 &3419340539084906764
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -86,27 +107,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &8498694961985764097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8280684495788430602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88deb4ba5f274794d851d53dae1a81f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
-  reward: 10
-  damage: 1
-  speed: 5
-  index: 2
-  ID: -1
-  isDead: 0
-  damageAmplify: 1
-  isStunned: 0
 --- !u!136 &2713458254134660922
 CapsuleCollider:
   m_ObjectHideFlags: 0

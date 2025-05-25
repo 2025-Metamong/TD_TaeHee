@@ -126,7 +126,7 @@ MonoBehaviour:
   damage: 10
   speed: 50
   range: 20
-  radius: 3
+  radius: 5
   debuffList: []
   hitEffect: {fileID: 4550076289710732121, guid: bd45ff889c97f53408c919af68d08f2c, type: 3}
 --- !u!54 &4790419688045445378

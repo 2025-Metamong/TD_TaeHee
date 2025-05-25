@@ -61,16 +61,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: -1
-  cost: 20
-  sellPrice: 10
+  cost: 40
+  sellPrice: 20
   position: {fileID: 0}
   portrait: {fileID: 21300000, guid: 69f3cd0fa515b5049ae8185ff192fd78, type: 3}
   range: 10
-  attackPeriod: 1
-  damage: 2
+  attackPeriod: 0.5
+  damage: 30
   upgradeLevel: 0
   upgradeCost: 5
-  bullet: {fileID: 3084736807602813044, guid: 155d15a96dcf22447a0cbe424b27b64f, type: 3}
+  bullet: {fileID: 4352019860280512645, guid: aedcb6f5e40004347a3bb66c87dd792d, type: 3}
   corrPos: {x: 0, y: 3, z: 0}
   displayTime: 1
   rangeMat: {fileID: 2100000, guid: ab84aa58a08c2ca499b690a7948fcaba, type: 2}

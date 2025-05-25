@@ -15,8 +15,10 @@ MonoBehaviour:
   upgradeName: "\uCF54\uC778 \uD68D\uB4DD 1"
   rogueID: 8
   description: "\uC120\uD0DD \uC989\uC2DC\nN \uCF54\uC778  \uD68D\uB4DD"
-  minValue: 10
-  maxValue: 15
+  minValue: 30
+  maxValue: 30
   isPercent: 0
+  isDebuff: 0
+  debuff: {fileID: 0}
   Icon: {fileID: 21300000, guid: c3501d83fb4598342ad0b808e02ff124, type: 3}
   value: 14

@@ -191,5 +191,6 @@ public class CameraController : MonoBehaviour
         Debug.Log($"SetCameraLimits : {XLimit}, {ZLimit}");
         this.panXLimits = XLimit;
         this.panZLimits = ZLimit;
+        this.transform.position = new Vector3(this.panXLimits.x, 10f, this.panZLimits.x);
     }
 }

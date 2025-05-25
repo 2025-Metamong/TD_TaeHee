@@ -14,7 +14,8 @@ public class TowerCard : MonoBehaviour
     [SerializeField, Tooltip("타워 이미지")] private Image towerImage;
     [SerializeField, Tooltip("타워 설치 버튼")] private Button installButton;
     [SerializeField, Tooltip("타워 정보 버튼")] private Button infoButton;
-    [SerializeField, Tooltip("이미지 마스크")] private RectTransform maskTransform;
+    // [SerializeField, Tooltip("이미지 마스크")] private RectTransform maskTransform;
+    [SerializeField, Tooltip("이미지 프레임")] private RectTransform frame;
     [SerializeField, Tooltip("프리팹의 타워 스크립트")] private Tower towerScript;
     // private List<MonoBehaviour> childButtons = new List<MonoBehaviour>();
     void Start()
@@ -33,7 +34,8 @@ public class TowerCard : MonoBehaviour
         infoButton.onClick.AddListener(ToggleInfo);
 
         // 이미지 인스턴스 화.
-        Instantiate(towerImage, this.maskTransform, false);
+        // Instantiate(towerImage, this.maskTransform, false);
+        Instantiate(towerImage, this.frame, false);
 
     }
 

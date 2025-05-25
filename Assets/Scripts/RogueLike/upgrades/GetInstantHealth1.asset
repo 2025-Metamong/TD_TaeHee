@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14f68163a283054ea881206304a19ab, type: 3}
   m_Name: GetInstantHealth1
   m_EditorClassIdentifier: 
-  upgradeName: "\uCCB4\uB825 \uD68D\uB4DD 1"
+  upgradeName: "\uCCB4\uB825 \uD68D\uB4DD"
   rogueID: 9
   description: "\uC120\uD0DD \uC989\uC2DC\nN \uCCB4\uB825 \uD68D\uB4DD"
-  minValue: 10
-  maxValue: 15
+  minValue: 1
+  maxValue: 5
   isPercent: 0
+  isDebuff: 0
+  debuff: {fileID: 0}
   Icon: {fileID: -651057808, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
   value: 13

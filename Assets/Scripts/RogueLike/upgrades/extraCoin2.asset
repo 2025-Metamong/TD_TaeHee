@@ -19,5 +19,7 @@ MonoBehaviour:
   minValue: 5
   maxValue: 10
   isPercent: 0
+  isDebuff: 0
+  debuff: {fileID: 0}
   Icon: {fileID: -1691995797, guid: 82b87637bd1384f41bcb48ddabd37ac2, type: 3}
   value: 8

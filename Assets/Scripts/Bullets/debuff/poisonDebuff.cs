@@ -38,7 +38,7 @@ public class PoisonDebuff : debuffBase
         {
             yield return new WaitForSeconds(0.5f);
             tick += 0.5f;
-            monster.TakeDamage(totalPoisonDamage / duration);
+            monster.TakeDamage(totalPoisonDamage / (duration*2));
         }
 
         Debug.Log($"[PoisonDebuff] 독 적용: {duration}초 동안 {totalPoisonDamage}데미지");

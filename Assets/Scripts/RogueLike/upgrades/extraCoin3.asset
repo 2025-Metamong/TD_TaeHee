@@ -17,7 +17,9 @@ MonoBehaviour:
   description: "\uBAAC\uC2A4\uD130 \uCC98\uCE58 \uC2DC\n\uD68D\uB4DD \uCF54\uC778\nN
     \uC99D\uAC00"
   minValue: 10
-  maxValue: 20
+  maxValue: 15
   isPercent: 0
+  isDebuff: 0
+  debuff: {fileID: 0}
   Icon: {fileID: -1691995797, guid: 82b87637bd1384f41bcb48ddabd37ac2, type: 3}
   value: 16

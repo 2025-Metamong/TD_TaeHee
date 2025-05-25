@@ -216,7 +216,7 @@ MonoBehaviour:
   towerImage: {fileID: 1947146969199555156}
   installButton: {fileID: 3080484224537681380}
   infoButton: {fileID: 6461450004378995711}
-  maskTransform: {fileID: 7690750800739298289}
+  frame: {fileID: 4648759015174799734}
   towerScript: {fileID: 0}
 --- !u!1 &8874154937029464950
 GameObject:
@@ -344,11 +344,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7690750800739298289}
+    m_TransformParent: {fileID: 4648759015174799734}
     m_Modifications:
     - target: {fileID: 1048169091103596158, guid: 055954aab00e03946a1ab9f1c1dd9943, type: 3}
       propertyPath: m_Name
       value: Portrait
+      objectReference: {fileID: 0}
+    - target: {fileID: 4174152714323744458, guid: 055954aab00e03946a1ab9f1c1dd9943, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8136439696113395588, guid: 055954aab00e03946a1ab9f1c1dd9943, type: 3}
       propertyPath: m_Pivot.x
@@ -376,11 +380,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8136439696113395588, guid: 055954aab00e03946a1ab9f1c1dd9943, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 8136439696113395588, guid: 055954aab00e03946a1ab9f1c1dd9943, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 2
+      value: -34
       objectReference: {fileID: 0}
     - target: {fileID: 8136439696113395588, guid: 055954aab00e03946a1ab9f1c1dd9943, type: 3}
       propertyPath: m_LocalPosition.x
@@ -416,7 +420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8136439696113395588, guid: 055954aab00e03946a1ab9f1c1dd9943, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 8136439696113395588, guid: 055954aab00e03946a1ab9f1c1dd9943, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -563,6 +567,10 @@ PrefabInstance:
       propertyPath: m_Type
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5124368821836547556, guid: ee1d75aac53baee449bbdc1b879299c7, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6573438686126620772, guid: ee1d75aac53baee449bbdc1b879299c7, type: 3}
       propertyPath: m_Name
       value: portrait
@@ -572,9 +580,10 @@ PrefabInstance:
       value: PortraitFrame
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1537220825295214661, guid: ee1d75aac53baee449bbdc1b879299c7, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2551122820120471885, guid: ee1d75aac53baee449bbdc1b879299c7, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 675491679684395978, guid: ee1d75aac53baee449bbdc1b879299c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5909363547893662490}
     m_AddedComponents: []
@@ -582,10 +591,5 @@ PrefabInstance:
 --- !u!224 &4648759015174799734 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 675491679684395978, guid: ee1d75aac53baee449bbdc1b879299c7, type: 3}
-  m_PrefabInstance: {fileID: 5322236247277667004}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &7690750800739298289 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2551122820120471885, guid: ee1d75aac53baee449bbdc1b879299c7, type: 3}
   m_PrefabInstance: {fileID: 5322236247277667004}
   m_PrefabAsset: {fileID: 0}

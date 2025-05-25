@@ -80,6 +80,7 @@ public class StageManager : MonoBehaviour
     private void OnGameOver()
     {
         Debug.Log("Game Over!");
+        this.ExitStage();
         SceneManager.LoadScene("SelectStage");
     }
 
@@ -211,7 +212,7 @@ public class StageManager : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            if (child.gameObject.name.StartsWith("stageMap"))
+            if (child.gameObject.name.ToLower().StartsWith("stagemap"))
             {
                 waveFlag = false;
                 Destroy(child.gameObject);

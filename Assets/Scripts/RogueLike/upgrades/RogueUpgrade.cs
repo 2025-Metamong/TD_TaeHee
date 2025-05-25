@@ -45,11 +45,12 @@ public class RogueUpgrade : ScriptableObject
             value = minValue;
             return;
         }
-        
-        value = Random.Range(minValue, maxValue);
+
+        if (minValue == maxValue) value = minValue;
+        else value = Random.Range(minValue, maxValue);
 
         if (isPercent) value = Mathf.Round(value * 100) / 100;
-        else value = Mathf.Round(value);
+        else value = Mathf.Round(value * 100) / 100;
     }
 
     public string getDescription()

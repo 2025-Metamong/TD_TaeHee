@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3745230530400569365}
+  - component: {fileID: 4194299783671698978}
   - component: {fileID: 7166839670850856542}
   - component: {fileID: 2239473293751942655}
-  - component: {fileID: 4194299783671698978}
   - component: {fileID: 4005800701139393611}
   - component: {fileID: 7881081099860381124}
   m_Layer: 0
@@ -37,6 +37,27 @@ Transform:
   - {fileID: 4455064720604383314}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4194299783671698978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854203087011216405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88deb4ba5f274794d851d53dae1a81f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1000
+  reward: 100
+  damage: 8
+  speed: 3
+  index: 3
+  ID: -1
+  isDead: 0
+  damageAmplify: 1
+  isStunned: 0
 --- !u!135 &7166839670850856542
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -85,27 +106,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4194299783671698978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2854203087011216405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88deb4ba5f274794d851d53dae1a81f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 20
-  reward: 10
-  damage: 1
-  speed: 1
-  index: 3
-  ID: -1
-  isDead: 0
-  damageAmplify: 1
-  isStunned: 0
 --- !u!114 &4005800701139393611
 MonoBehaviour:
   m_ObjectHideFlags: 0
