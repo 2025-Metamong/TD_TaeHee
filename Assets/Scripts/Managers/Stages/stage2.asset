@@ -21,12 +21,34 @@ MonoBehaviour:
     - spawnTime: 1
       monsterDataIndex: 2
   - entries:
+    - spawnTime: 0
+      monsterDataIndex: 3
     - spawnTime: 1
-      monsterDataIndex: 2
-    - spawnTime: 2
-      monsterDataIndex: 0
+      monsterDataIndex: 3
+    - spawnTime: 1
+      monsterDataIndex: 3
+    - spawnTime: 1
+      monsterDataIndex: 3
+  - entries:
+    - spawnTime: 0
+      monsterDataIndex: 3
+    - spawnTime: 1
+      monsterDataIndex: 3
+    - spawnTime: 1
+      monsterDataIndex: 3
+    - spawnTime: 1
+      monsterDataIndex: 3
+  - entries:
+    - spawnTime: 0
+      monsterDataIndex: 3
+    - spawnTime: 1
+      monsterDataIndex: 3
+    - spawnTime: 1
+      monsterDataIndex: 3
+    - spawnTime: 1
+      monsterDataIndex: 3
   map: {fileID: 2851751867144945868, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
   spawnPoint: {fileID: 6696431832559060788, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
   pathHolder: {fileID: 5784456370869308289, guid: 5deddfd37ee282d41afb106a2229f671, type: 3}
-  panXLimits: {x: -50, y: 50}
-  panZLimits: {x: -50, y: 50}
+  panXLimits: {x: -10, y: 84}
+  panZLimits: {x: -32, y: 12}

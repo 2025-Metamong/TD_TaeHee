@@ -20,6 +20,6 @@ public class ExitButton : MonoBehaviour
     private void OnClicked()
     {
         StageManager.Instance.ExitStage();
-        GameManager.Instance.ExitScene();
+        GameManager.Instance.LoadScene("SelectStage");
     }
 }

@@ -25,7 +25,7 @@ namespace MyGame.UI
         private void OnClicked()
         {
             StageManager.Instance.ExitStage();
-            GameManager.Instance.ExitScene();
+            GameManager.Instance.LoadScene("SelectStage");
             GameManager.Instance.LoadScene("InStage");
             StageManager.Instance.LoadStage(currentStage);
         }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14f68163a283054ea881206304a19ab, type: 3}
+  m_Name: applyDebuffWeak1
+  m_EditorClassIdentifier: 
+  upgradeName: "\uB098\uC57D\uD568"
+  rogueID: 10
+  description: "\uC124\uCE58\uB41C \uBAA8\uB4E0 \uD0C0\uC6CC\uC5D0\n\uD53C\uACA9
+    \uB2F9\uD55C \uBAAC\uC2A4\uD130\uAC00\nN\uCD08 \uB3D9\uC548 \uB098\uC57D\uD568"
+  minValue: 3
+  maxValue: 3
+  isPercent: 0
+  isDebuff: 1
+  debuff: {fileID: 11400000, guid: 0c7b5708966dd944384e16c0c7cf29e8, type: 2}
+  Icon: {fileID: -606357570, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  value: 12

@@ -107,9 +107,6 @@ namespace MyGame.Objects
                     GameObject bullet_object = Instantiate(bullet, transform.position + corrPos, Quaternion.identity);
 
                     var bullet_script = bullet_object?.GetComponent<MonoBehaviour>();   // prefab의 스크립트 찾기
-                    // SetDirection 으로 bullet 날아갈 방향 적용
-                    var directionMethod = bullet_script?.GetType().GetMethod("SetDirection", new Type[] { typeof(Vector3), typeof(Vector3) });
-                    directionMethod?.Invoke(bullet_script, new object[] { this.transform.position + corrPos, this.target.position });
                     // SetDebuff 로 bullet에 디버프 리스트 전달.
                     var debuffMethod = bullet_script?.GetType().GetMethod("SetDebuff", new Type[] { typeof(List<debuffBase>) });
                     debuffMethod?.Invoke(bullet_script, new object[] { this.debuffList });
@@ -119,6 +116,9 @@ namespace MyGame.Objects
                     // SetRange로 bullet에 사거리 전달.
                     var rangeMethod = bullet_script?.GetType().GetMethod("SetRange", new Type[] { typeof(float) });
                     rangeMethod?.Invoke(bullet_script, new object[] { this.range });
+                    // SetDirection 으로 bullet 날아갈 방향 적용
+                    var directionMethod = bullet_script?.GetType().GetMethod("SetDirection", new Type[] { typeof(Vector3), typeof(Vector3) });
+                    directionMethod?.Invoke(bullet_script, new object[] { this.transform.position + corrPos, this.target.position });
                     // 몬스터를 보도록 타워를 회전 시킬지 고민중.
                 }
                 else

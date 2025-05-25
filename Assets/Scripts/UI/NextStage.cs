@@ -27,11 +27,11 @@ public class NextStage : MonoBehaviour
     {
         if (currentStage >= stageInfoList.Count - 1)
         {
-            Debug.LogWarning("´ÙÀ½ ½ºÅ×ÀÌÁö°¡ ¾ø½À´Ï´Ù. ¸¶Áö¸· ½ºÅ×ÀÌÁöÀÔ´Ï´Ù.");
+            Debug.LogWarning("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
             return;
         }
         StageManager.Instance.ExitStage();
-        GameManager.Instance.ExitScene();
+        GameManager.Instance.LoadScene("SelectStage");
         GameManager.Instance.LoadScene("InStage");
         StageManager.Instance.LoadStage(currentStage+1);
     }
