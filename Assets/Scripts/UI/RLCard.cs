@@ -16,6 +16,7 @@ public class RLCard : MonoBehaviour
     [SerializeField, Tooltip("로그라이크 업그레이드 이름.")] public TextMeshProUGUI upgradeName;
     [SerializeField, Tooltip("로그라이크 업그레이드 설명.")] public TextMeshProUGUI description;
     [SerializeField, Tooltip("로그라이크 업그레이드 아이콘.")] public Image iconImage;
+    [SerializeField, Tooltip("디폴트 아이콘.")] public Sprite defaultIcon;
     [SerializeField, Tooltip("업그레이드 선택 버튼.")] public Button selectButton;
 
     // Select 버튼에 이벤트 추가. 다른 오브젝트가 버튼 가져간다면 삭제하는 것이 안전.
@@ -34,13 +35,16 @@ public class RLCard : MonoBehaviour
             return;
         }
         this.RLData = data; // SO 받기.
-        if (RLData == null) {
+        if (RLData == null)
+        {
             Debug.Log("RLData is null");
             return;
         }
         this.upgradeName.text = RLData.upgradeName;
         this.description.text = RLData.getDescription();
-        // this.iconImage.sprite = RLData.icon.sprite;  // RogueUpgrade 에 icon 이미지 추가되면 사용할 듯.
+        // 로그라이크 데이터에 아이콘 없으면 기본 아이콘 출력
+        Sprite icon = RLData.Icon;
+        this.iconImage.sprite = icon != null ? icon : defaultIcon;
     }
 
     // Select 버튼 클릭 되었을 때 수행. 다른 오브젝트가 Select 버튼 안 가져갔다는 가정하에 사용해야 할 듯.
