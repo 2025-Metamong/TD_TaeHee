@@ -17,6 +17,12 @@ MonoBehaviour:
   monsterSpawnList:
   - entries:
     - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 1
+    - spawnTime: 1
+      monsterDataIndex: 2
+    - spawnTime: 1
       monsterDataIndex: 3
   - entries:
     - spawnTime: 1
