@@ -78,6 +78,19 @@ namespace MyGame.Managers
             }
         }
 
+        // 지정된 타워 Destroy 해주는 함수.
+        public bool DestroyTower(GameObject t)
+        {
+            // 전달 받은 타워 아이디로 처리.
+            bool isDestroid = towerDict.Remove(t.GetComponent<Tower>().GetID());
+            if (isDestroid)
+            {
+                Destroy(t);
+                return true;
+            }
+            return false;
+        }
+
         // 판매할 타워 아이디 전달 받아서 판매가 StageManager에 주고 Destroy하고 TowerDict에서 제거.
         public void SellTower(int toDeleteID)
         {
