@@ -80,8 +80,9 @@ public class StageManager : MonoBehaviour
     private void OnGameOver()
     {
         Debug.Log("Game Over!");
-        this.ExitStage();
-        SceneManager.LoadScene("SelectStage");
+        GameOver.Instance.ShowStageFailUI();
+        //this.ExitStage();
+        //SceneManager.LoadScene("SelectStage");
     }
 
     // 외부에서 호출할 씬(스테이지) 로드 함수
@@ -190,7 +191,7 @@ public class StageManager : MonoBehaviour
         waveFlag = false;
         currentWave += 1;
         Debug.Log("Wave End");
-        if (currentWave < stageInfoList[currentStage].monsterSpawnList.Count)
+        if (currentWave < stageInfoList[currentStage].monsterSpawnList.Count && this.Health >= 1)
             RoguelikeManager.Instance.ShowUpgradeMenu();
     }
 
