@@ -58,6 +58,7 @@ public class TowerInfoCard : MonoBehaviour
             Destroy(liveImg);
         }
         liveDebuffImages.Clear();
+        debuffIcons.Clear();
 
         this.tower = towerObj;
         this.towerScript = towerObj.GetComponent<Tower>();

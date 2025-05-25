@@ -19,36 +19,54 @@ MonoBehaviour:
     - spawnTime: 1
       monsterDataIndex: 0
     - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+    - spawnTime: 1
+      monsterDataIndex: 0
+  - entries:
+    - spawnTime: 0
+      monsterDataIndex: 1
+    - spawnTime: 0.5
+      monsterDataIndex: 0
+    - spawnTime: 0.5
+      monsterDataIndex: 0
+    - spawnTime: 0.5
+      monsterDataIndex: 0
+    - spawnTime: 0.5
+      monsterDataIndex: 0
+    - spawnTime: 0.5
+      monsterDataIndex: 1
+  - entries:
+    - spawnTime: 0
+      monsterDataIndex: 1
+    - spawnTime: 1
+      monsterDataIndex: 1
+    - spawnTime: 1
+      monsterDataIndex: 2
+    - spawnTime: 2
       monsterDataIndex: 2
   - entries:
     - spawnTime: 0
+      monsterDataIndex: 2
+    - spawnTime: 0.5
+      monsterDataIndex: 0
+    - spawnTime: 0.5
+      monsterDataIndex: 0
+    - spawnTime: 0.5
+      monsterDataIndex: 0
+    - spawnTime: 0.5
+      monsterDataIndex: 1
+    - spawnTime: 2
       monsterDataIndex: 3
-    - spawnTime: 1
-      monsterDataIndex: 3
-    - spawnTime: 1
-      monsterDataIndex: 3
-    - spawnTime: 1
-      monsterDataIndex: 3
-  - entries:
-    - spawnTime: 0
-      monsterDataIndex: 3
-    - spawnTime: 1
-      monsterDataIndex: 3
-    - spawnTime: 1
-      monsterDataIndex: 3
-    - spawnTime: 1
-      monsterDataIndex: 3
-  - entries:
-    - spawnTime: 0
-      monsterDataIndex: 3
-    - spawnTime: 1
-      monsterDataIndex: 3
-    - spawnTime: 1
-      monsterDataIndex: 3
-    - spawnTime: 1
+    - spawnTime: 2
       monsterDataIndex: 3
   map: {fileID: 5421165829592128948, guid: fb9148d427f0cfa44893f06c365f74e5, type: 3}
-  spawnPoint: {fileID: 7389788033819137737, guid: ba0ced8efbb90ef47b610183b1f262b2, type: 3}
-  pathHolder: {fileID: 1767273439796768460, guid: ba0ced8efbb90ef47b610183b1f262b2, type: 3}
-  panXLimits: {x: -47, y: 47}
-  panZLimits: {x: -48, y: 48}
+  spawnPoint: {fileID: 1792124384681450047, guid: fb9148d427f0cfa44893f06c365f74e5, type: 3}
+  pathHolder: {fileID: 4923056726563439336, guid: fb9148d427f0cfa44893f06c365f74e5, type: 3}
+  panXLimits: {x: -89.99997, y: -47.99997}
+  panZLimits: {x: 30.000008, y: 74.00001}

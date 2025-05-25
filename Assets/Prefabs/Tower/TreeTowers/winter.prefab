@@ -62,7 +62,7 @@ MonoBehaviour:
   displayTime: 1
   rangeMat: {fileID: 2100000, guid: ab84aa58a08c2ca499b690a7948fcaba, type: 2}
   debuffAssets:
-  - {fileID: 11400000, guid: 006c597599e250b47b388dcf1a471392, type: 2}
+  - {fileID: 11400000, guid: 652bf01d23c284248b73b50cc7f67703, type: 2}
   debuffIcons: []
   towerSelectUIPrefab: {fileID: 6472596907574778030, guid: 2773363861f7760448034c07b7e16404, type: 3}
 --- !u!33 &933737438355525901
