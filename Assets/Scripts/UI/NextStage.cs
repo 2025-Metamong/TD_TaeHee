@@ -31,7 +31,7 @@ public class NextStage : MonoBehaviour
             return;
         }
         StageManager.Instance.ExitStage();
-        GameManager.Instance.ExitScene();
+        GameManager.Instance.LoadScene("SelectStage");
         GameManager.Instance.LoadScene("InStage");
         StageManager.Instance.LoadStage(currentStage+1);
     }
