@@ -17,6 +17,7 @@ public class RoguelikeManager : MonoBehaviour
     public GameObject waveStartButton;  // 웨이브 시작 버튼
     public GameObject monsterInfoButton;    // 스테이지 정보 버튼
     public GameObject towerShopButton;  // 타워 상점 버튼.
+    public GameObject mosterInfoPanel;  // 몬스터 정보 패널
 
     [Header("업그레이드 데이터")]
     public List<RogueUpgrade> allUpgrades;    // ScriptableObject 등으로 정의한 업그레이드 목록
@@ -64,6 +65,7 @@ public class RoguelikeManager : MonoBehaviour
         waveStartButton.SetActive(false);
         monsterInfoButton.SetActive(false);
         towerShopButton.SetActive(false);
+        mosterInfoPanel.SetActive(false);
         // rayCastBlocker.SetActive(true);
         upgradeMenuPanel.SetActive(true);
         // _canvasGroup.interactable = true;
@@ -190,6 +192,7 @@ public class RoguelikeManager : MonoBehaviour
         waveStartButton.SetActive(true);
         monsterInfoButton.SetActive(true);
         towerShopButton.SetActive(true);
+        // mosterInfoPanel.SetActive(true);
         // rayCastBlocker.SetActive(false);
         upgradeMenuPanel.SetActive(false);
         // _canvasGroup.interactable = false;

@@ -41,6 +41,11 @@ public class UpgradeSellLogic : MonoBehaviour
     // 닫기 버튼 눌리면 호출.
     public void OnClickClosed()
     {
+        if (RoguelikeManager.Instance.upgradeMenuPanel.activeSelf == true)
+        {
+            Debug.Log("로그라이크 업그레이드 켜짐. 클릭 무시");
+            return;
+        }
         // UI 끄기
         this.towerScript.TurnOffSelectUI();
     }
@@ -48,12 +53,23 @@ public class UpgradeSellLogic : MonoBehaviour
     // 팔기 버튼 눌리면 호출.
     public void OnClickSell()
     {
+        if (RoguelikeManager.Instance.upgradeMenuPanel.activeSelf == true)
+        {
+            Debug.Log("로그라이크 업그레이드 켜짐. 클릭 무시");
+            return;
+        }
         TowerManager.Instance.SellTower(towerScript.GetID());
     }
 
     // 업그레이드 버튼 눌리면 호출.
     public void OnClickUpgrade()
     {
+        if (RoguelikeManager.Instance.upgradeMenuPanel.activeSelf == true)
+        {
+            Debug.Log("로그라이크 업그레이드 켜짐. 클릭 무시");
+            return;
+        }
+
         // 업그레이드 시도
         bool isComplete = towerScript.UpgradeTower();
         // 실패 시 정해진 시간 동안 오류 메시지 출력

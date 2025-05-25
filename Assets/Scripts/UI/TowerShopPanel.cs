@@ -27,6 +27,11 @@ public class TowerShopPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 로그라이크 매니저에서 업그레이드 패널이 액티브면
+        if (RoguelikeManager.Instance.upgradeMenuPanel.activeSelf == true)
+        {
+            gameObject.SetActive(false); // 자기자신 숨기기
+        }
         // 설치 버튼이 눌리면 타워 상점 숨기기
         bool isInstallMode = TowerManager.Instance.GetMode();
         if (isInstallMode)

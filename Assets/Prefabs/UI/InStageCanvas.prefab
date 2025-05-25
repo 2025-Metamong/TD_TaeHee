@@ -235,6 +235,7 @@ MonoBehaviour:
   waveStartButton: {fileID: 7456827085845331820}
   monsterInfoButton: {fileID: 756912583791718975}
   towerShopButton: {fileID: 1851215730441921516}
+  mosterInfoPanel: {fileID: 7674317188693773295}
   allUpgrades:
   - {fileID: 11400000, guid: 9832bcf84bd9aae4e886abafbcc454bf, type: 2}
   - {fileID: 11400000, guid: 664ffa454f15b9f4388a935452759389, type: 2}

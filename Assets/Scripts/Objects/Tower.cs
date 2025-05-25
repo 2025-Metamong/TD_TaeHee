@@ -136,6 +136,11 @@ namespace MyGame.Objects
 
         void OnMouseDown()
         {
+            if (RoguelikeManager.Instance.upgradeMenuPanel.activeSelf == true)
+            {
+                Debug.Log("로그라이크 업그레이드 켜짐. 클릭 무시");
+                return;
+            }
             Debug.Log("마우스 클릭!");
             ShowRange();        // 사거리 표기.
             // 판매, 업그레이드 버튼 표기.

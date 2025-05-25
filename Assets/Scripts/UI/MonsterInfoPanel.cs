@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class MonsterInfoPanel : MonoBehaviour
 {
     public static MonsterInfoPanel Instance { get; private set; }
-    
 
     private void Awake()
     {
@@ -91,7 +90,7 @@ public class MonsterInfoPanel : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"[ImageListManager] '{imageName}' ÀÌ¹ÌÁö°¡ Resources/Image Æú´õ¿¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning($"[ImageListManager] '{imageName}' ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ Resources/Image ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
     }
 
