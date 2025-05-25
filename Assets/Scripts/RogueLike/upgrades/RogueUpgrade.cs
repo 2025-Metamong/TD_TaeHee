@@ -17,17 +17,38 @@ public class RogueUpgrade : ScriptableObject
     [SerializeField] private float maxValue = 0.3f;
     [SerializeField] private bool isPercent = false;
 
+    [Tooltip("적용할 디버프 에셋")]
+    [SerializeField] private bool isDebuff = false;
+    [SerializeField] public debuffBase debuff = null;
+
     [Header("업그레이드 아이콘")]
     [SerializeField] public Sprite Icon;
 
     [HideInInspector]
     public float value;
-
+    
+    private void OnValidate()
+    {
+        if (debuff != null)
+        {
+            isDebuff = true;
+            isPercent = false;
+            minValue = debuff.duration;
+            maxValue = debuff.duration;
+        }
+    }
 
     public void RandomizeValue()
     {
+        if (isDebuff)
+        {
+            value = minValue;
+            return;
+        }
+        
         value = Random.Range(minValue, maxValue);
-        if (isPercent) value = Mathf.Round(value*100)/100;
+
+        if (isPercent) value = Mathf.Round(value * 100) / 100;
         else value = Mathf.Round(value);
     }
 
