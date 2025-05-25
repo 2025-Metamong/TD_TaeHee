@@ -32,11 +32,12 @@ namespace MyGame.Objects
         [SerializeField, Tooltip("사거리 표기 시간")] private float displayTime = 1f;
         [SerializeField, Tooltip("사거리 표기용 Material")] private Material rangeMat;
         [SerializeField, Tooltip("타워 디버프 종류")] private List<debuffBase> debuffAssets = new List<debuffBase>();
+        [SerializeField, Tooltip("타워 디버프 아이콘들")] private List<Sprite> debuffIcons = new List<Sprite>();
         public GameObject towerSelectUIPrefab;    // 타워 조작 UI Prefab
         private GameObject towerSelectUI;
         private UpgradeSellLogic modifyLogic;
 
-        private List<debuffBase> debuffList;   // 실제 디버프 전달용 리스트
+        private List<debuffBase> debuffList = new List<debuffBase>();   // 실제 디버프 전달용 리스트
         private float attack = 0f;  // 공격 결정용 flag. 주기가 되면 1, 아니면 0
         private Transform target;   // 타워가 공격해야 할 몬스터의 transform 컴포넌트. 
         private GameObject rangeCylinder;  // 타워 사거리 표출용 컴포넌트.
@@ -307,6 +308,11 @@ namespace MyGame.Objects
         public int GetSellPrice()
         {
             return this.sellPrice;
+        }
+
+        public List<debuffBase> GetDebuffList()
+        {
+            return this.debuffList;
         }
 
         // 타워 파괴 될 때 가지고 있는 오브젝트들 같이 파괴.

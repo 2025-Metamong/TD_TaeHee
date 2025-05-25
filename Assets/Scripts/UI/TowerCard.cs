@@ -65,6 +65,7 @@ public class TowerCard : MonoBehaviour
             Debug.Log("타워 정보 카드 토글");
             // 이미 생성된 경우에는 단순 토글
             bool isInfoActive = towerInfoCard.activeSelf;
+
             towerInfoCard.SetActive(!isInfoActive);
             gameObject.SetActive(isInfoActive);
             return;

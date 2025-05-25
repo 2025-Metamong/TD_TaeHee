@@ -892,6 +892,7 @@ MonoBehaviour:
   upgradeName: {fileID: 1470005420653721448}
   description: {fileID: 6258174850571727566}
   iconImage: {fileID: 5379238024045549140}
+  defaultIcon: {fileID: 0}
   selectButton: {fileID: 2311233774960620523}
 --- !u!222 &2016562547770486181
 CanvasRenderer:
