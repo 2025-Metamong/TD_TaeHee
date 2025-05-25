@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using MyGame.Managers;
+using MyGame.UI;
+using UnityEngine.UIElements;
 
 public class StageManager : MonoBehaviour
 {
@@ -191,19 +193,50 @@ public class StageManager : MonoBehaviour
             RoguelikeManager.Instance.ShowUpgradeMenu();
     }
 
-    public void FinishStage()
+    //public void FinishStage()
+    //{
+    //    foreach (Transform child in transform)
+    //    {
+    //        if (child.gameObject.name.StartsWith("stageMap"))
+    //        {
+                
+    //            waveFlag = false;
+    //            Destroy(child.gameObject);
+    //        }
+    //    }
+    //    lastClearStage = currentStage > lastClearStage ? currentStage : lastClearStage;
+    //}
+
+    public void ExitStage()
     {
         foreach (Transform child in transform)
         {
             if (child.gameObject.name.StartsWith("stageMap"))
             {
-                
                 waveFlag = false;
                 Destroy(child.gameObject);
             }
         }
+    }
+    public void FinishStage()
+    {
+        waveFlag = false;
+        StageClearPanle.Instance.ShowStageEndUI();
+        //foreach (Transform child in transform)
+        //{
+        //    if (child.gameObject.name.StartsWith("stageMap"))
+        //    {
+
+        //        //Destroy(child.gameObject);
+        //    }
+        //}
+
+        Debug.Log($"스테이지 클리어: {currentStage}");
+        //RestartButton.Instance.GetCurrentStageIndex(this.currentStage);
+
         lastClearStage = currentStage > lastClearStage ? currentStage : lastClearStage;
     }
+
 
     public bool UseCoin(int amount)
     {
@@ -229,4 +262,6 @@ public class StageManager : MonoBehaviour
         Debug.Log($"코인 획득: {amount} (총 {Coin})");
     }
 
+    public int getCurrentStage => currentStage;
+    public List<StageInfo> getStageList => stageInfoList;
 }

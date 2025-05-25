@@ -236,7 +236,7 @@ namespace MyGame.Managers
             if (stageInfo.monsterSpawnList.Count <= stageManager.currentWave)
             {
                 stageManager.FinishStage();
-                GameManager.Instance.ExitScene();
+                //GameManager.Instance.ExitScene();
                 return;
             }
 
