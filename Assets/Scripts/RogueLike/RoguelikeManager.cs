@@ -13,6 +13,8 @@ public class RoguelikeManager : MonoBehaviour
     public GameObject upgradeMenuPanel;      // 업그레이드 창 루트 (비활성화 상태로 에디터에 둠)
     public Button[] optionButtons = new Button[3];  // 3개의 선택 버튼
     public GameObject RLCard;   // 로그라이크 카드 Prefab
+    public GameObject waveStartButton;  // 웨이브 시작 버튼
+    public GameObject monsterInfoButton;    // 스테이지 정보 버튼
 
     [Header("업그레이드 데이터")]
     public List<RogueUpgrade> allUpgrades;    // ScriptableObject 등으로 정의한 업그레이드 목록
@@ -56,7 +58,9 @@ public class RoguelikeManager : MonoBehaviour
     // 업그레이드 메뉴를 화면에 띄우고, 3가지 랜덤 옵션을 버튼에 세팅한다.
     public void ShowUpgradeMenu()
     {
-        // 메뉴 보이기
+        // 메뉴 보이기 + 필요 없는 버튼 숨기기
+        waveStartButton.SetActive(false);
+        monsterInfoButton.SetActive(false);
         upgradeMenuPanel.SetActive(true);
         // _canvasGroup.interactable = true;
         // _canvasGroup.blocksRaycasts = true;
@@ -177,8 +181,10 @@ public class RoguelikeManager : MonoBehaviour
                 break;
         }
 
-        // 로그라이크 카드들 Perge 하고 메뉴 숨기기
+        // 로그라이크 카드들 Perge 하고 메뉴 숨기기. 숨긴 버튼들 다시 활성화
         DestroyRLCards();
+        waveStartButton.SetActive(true);
+        monsterInfoButton.SetActive(true);
         upgradeMenuPanel.SetActive(false);
         // _canvasGroup.interactable = false;
         // _canvasGroup.blocksRaycasts = false;

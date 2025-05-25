@@ -19,4 +19,5 @@ MonoBehaviour:
   minValue: 1
   maxValue: 5
   isPercent: 0
-  value: 5
+  Icon: {fileID: -1691995797, guid: 82b87637bd1384f41bcb48ddabd37ac2, type: 3}
+  value: 1
