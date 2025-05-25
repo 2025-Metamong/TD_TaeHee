@@ -27,7 +27,13 @@ public class TowerShopPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // 설치 버튼이 눌리면 타워 상점 숨기기
+        bool isInstallMode = TowerManager.Instance.GetMode();
+        if (isInstallMode)
+        {
+            Debug.Log("설치 모드. 타워 샵 닫기.");
+            ClosePanel();
+        }
     }
     private void ShowTowerCards()
     {
