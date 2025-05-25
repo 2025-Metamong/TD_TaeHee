@@ -22,6 +22,8 @@ namespace MyGame.Objects
             Vector3 dir = (target - tower).normalized;
             this.direction = dir;
             transform.rotation = Quaternion.LookRotation(dir);
+            transform.position = tower;
+            FireLaser();
         }
         public void SetRange(float R) => this.range = R;
 
@@ -31,7 +33,6 @@ namespace MyGame.Objects
 
         void Start()
         {
-            FireLaser();
             Invoke(nameof(DestroySelf), lifeTime); // 일정 시간 후 제거
         }
 
@@ -46,7 +47,7 @@ namespace MyGame.Objects
                 if (hit.collider.CompareTag("Monster"))
                 {
                     object target = hit.collider.GetComponent<MonoBehaviour>();
-                    var method = target?.GetType().GetMethod("takeDamage", new Type[] { typeof(float) });
+                    var method = target?.GetType().GetMethod("TakeDamage", new Type[] { typeof(float) });
                     method?.Invoke(target, new object[] { this.damage });
 
                     if (hitEffect != null) Instantiate(hitEffect, hit.point, Quaternion.identity);
@@ -62,6 +63,7 @@ namespace MyGame.Objects
             // 레이저가 forward 방향으로 range만큼 뻗도록 스케일 조정
             if (TryGetComponent<LineRenderer>(out var lr))
             {
+                lr.positionCount = 2;
                 lr.SetPosition(0, transform.position);
                 lr.SetPosition(1, transform.position + direction * range);
             }
