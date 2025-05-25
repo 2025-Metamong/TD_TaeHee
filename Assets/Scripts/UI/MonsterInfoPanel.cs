@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class MonsterInfoPanel : MonoBehaviour
 {
     public static MonsterInfoPanel Instance { get; private set; }
-    
 
     private void Awake()
     {
