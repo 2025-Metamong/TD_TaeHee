@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class GameManager : MonoBehaviour
 {
@@ -110,9 +113,10 @@ public class GameManager : MonoBehaviour
 
     public void ExitScene()
     {
-        this.LoadScene("SelectStage");
-        // const string target = "SelectStage";
-        // Debug.Log($"[GameManager] ExitScene: {target}");
-        // StageManager.Instance.LoadStage(target);
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }
